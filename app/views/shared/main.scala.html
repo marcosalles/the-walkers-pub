@@ -6,7 +6,7 @@
 <html>	
 	<head>
 		<meta charset="utf-8">
-		<title>TODO</title>
+		<title>The Walker's Pub</title>
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reset.css")">
 		<link rel="stylesheet" media="screen" href="@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))">
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
@@ -16,13 +16,15 @@
 		<script src="@routes.WebJarAssets.at(WebJarAssets.locate("js/bootstrap.min.js"))"></script>		
 	</head>
 	<body>
-		<header class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<header class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="ROUTES"><img alt="TODO" src="@routes.Assets.at("images/template-logo.png")"></a>
+					<a href="ROUTES"><img title="The Walker's Pub" src="@routes.Assets.at("images/all.png")"></a>
 				</div>
 				@if(session.get("login") != null) {
 					@menu()
+				} else {
+					@login()
 				}
 			</div>
 		</header>
