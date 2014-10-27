@@ -1,0 +1,7 @@
+<div class="row">
+	@for(key <- flash.keySet) {
+		<p class="alert alert-@key text-@key">
+			@flash.get(key)
+		</p>
+	}
+</div>
