@@ -1,0 +1,17 @@
+@(userForm: Form[PlaneswalkerUser])
+
+@import shared.main
+@import bootstrap._
+
+@main(){
+	@form(routes.PlaneswalkerUserController.signUp){
+		<fieldset>
+		@text(userForm("login"), placeholder="login")
+		@password(userForm("password"), placeholder="password")
+		@password(userForm("re-password"), placeholder="confirmation")
+		</fieldset>
+		<fieldset>
+		<input class="btn btn-info col-sm-1 col-sm-offset-2" type="submit" value="Submit">
+		</fieldset>		
+	}
+}

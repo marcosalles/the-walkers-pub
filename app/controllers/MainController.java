@@ -13,7 +13,7 @@ public class MainController extends Controller {
 
 	@Authenticated
     public static Result authenticated() {
-        return ok(home.render("Hello, world!"));
+        return TODO;
     }
 
 }

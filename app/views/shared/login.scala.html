@@ -1,11 +1,14 @@
 <nav class="nav pull-right">
-	<form action="ROUTES">
+	<form action="@routes.PlaneswalkerUserController.login()" method="post">
 		<ul class="navbar-nav">
 			<li class="menu">
-				<input class="form-control"  type="text" placeholder="login">
+				<a href="@routes.PlaneswalkerUserController.signUpLink()">Sign Up</a>
 			</li>
 			<li class="menu">
-				<input class="form-control" type="password" placeholder="password">
+				<input class="form-control"  name="login" type="text" placeholder="login">
+			</li>
+			<li class="menu">
+				<input class="form-control" name="password" type="password" placeholder="password">
 			</li>
 			<li class="menu">
 				<input class="btn btn-warning" type="submit" value="LOGIN">
