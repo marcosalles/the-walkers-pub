@@ -1,70 +1,70 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
-
+import infra.UserValidator;
+import infra.Validator;
 import models.PlaneswalkerUser;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.libs.Crypto;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import views.html.signUp;
+import daos.UserDao;
 
-public class PlaneswalkerUserController extends Controller{
+public class PlaneswalkerUserController extends Controller {
 
-	public static Result signUpLink(){
+	public static Result signUpLink() {
 		Form<PlaneswalkerUser> form = Form.form(PlaneswalkerUser.class);
 		return ok(signUp.render(form));
 	}
-	
-	public static Result signUp(){
+
+	public static Result users() {
+		return ok(Json.toJson(UserDao.list()));
+	}
+	public static Result signUp() {
 		Form<PlaneswalkerUser> form = Form.form(PlaneswalkerUser.class).bindFromRequest();
-		
-		if(!form.hasErrors()){
-			PlaneswalkerUser user = form.get();
-			
-			if(Ebean.createQuery(PlaneswalkerUser.class).where().eq("login", user.getLogin()).findUnique() == null){
-				String repassword = form.field("re-password").value();
-				
-				if(user.getPassword().equals(repassword)){
-					user.setPassword(Crypto.encryptAES(repassword));
-					user.save();
-					flash().put("success", "Account created");
-					return redirect(routes.MainController.home());
-				} else {
-					flash().put("danger", "Passwords don't match!");
-					PlaneswalkerUser planeswalkerUser = new PlaneswalkerUser();
-					planeswalkerUser.setLogin(user.getLogin());
-					form = form.fill(planeswalkerUser);
-				}				
-			} else {
-				flash().put("danger", "Login already taken!");
-				form = form.fill(new PlaneswalkerUser());
+		PlaneswalkerUser user = form.get();
+		Validator validator = new UserValidator(form).validated();
+		if (validator.isValid()) {
+			if (user.getPassword().equals(form.field("re-password").value())) {
+				user.setPassword(Crypto.encryptAES(user.getPassword()));
+				user.save();
+				flash().put("success", "Account created");
+				return redirect(routes.MainController.home());
 			}
 		}
-		return ok(signUp.render(form));
+		PlaneswalkerUser loginUser = new PlaneswalkerUser();
+		loginUser.setLogin(user.getLogin());
+		Form<PlaneswalkerUser> invalidForm = form.fill(loginUser);
+		if (!user.getPassword().equals(form.field("re-password").value())) {
+			invalidForm.reject("re-password", "Passwords don't match!");
+		}
+		for (ValidationError error : validator.getErrors()) {
+			if (!error.key().equals("global")) {
+				invalidForm.reject(error);
+			}
+			else {
+				flash().put("danger", error.message());
+			}
+		}
+		return ok(signUp.render(invalidForm));
 	}
 	
 	public static Result login() {
-		Form<PlaneswalkerUser> bindFromRequest = Form.form(PlaneswalkerUser.class).bindFromRequest();
-		if(bindFromRequest.hasErrors()){
-			return badRequest(bindFromRequest.errorsAsJson());
+		Form<PlaneswalkerUser> form = Form.form(PlaneswalkerUser.class).bindFromRequest();
+		PlaneswalkerUser user = form.get();
+		user.setPassword(Crypto.encryptAES(user.getPassword()));
+		Validator validator = new UserValidator(user).validated();
+		if(validator.isValid()){
+			session().put("login", Crypto.encryptAES(user.getLogin()));
+			flash().put("success", "Logged in successfully!!");
+			return redirect(routes.MainController.home());
 		}
 		
-		PlaneswalkerUser planeswalkerUser = bindFromRequest.get();
-		planeswalkerUser.setPassword(Crypto.encryptAES(planeswalkerUser.getPassword()));
-		
-		PlaneswalkerUser user = Ebean.createQuery(PlaneswalkerUser.class)
-				.where()
-				.eq("login", planeswalkerUser.getLogin())
-				.eq("password", planeswalkerUser.getPassword())
-				.findUnique();
-		
-		if(user == null){
-			return ok("usuario n existe");
+		for (ValidationError error : validator.getErrors()) {
+			flash().put("danger", error.message());
 		}
-		
-		session().put("login", Crypto.encryptAES(user.getLogin()));
-		flash().put("success", "Logged in successfully!!");
 		return redirect(routes.MainController.home());
 	}
 	

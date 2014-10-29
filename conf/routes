@@ -8,6 +8,7 @@ GET		/auth									controllers.MainController.authenticated()
 GET		/signup									controllers.PlaneswalkerUserController.signUpLink()
 POST	/signup									controllers.PlaneswalkerUserController.signUp()
 POST	/login									controllers.PlaneswalkerUserController.login()
+GET		/users									controllers.PlaneswalkerUserController.users()
 
 # Map static resources from the /public folder to the /assets URL path
 GET		/assets/*file							controllers.Assets.at(path="/public", file)

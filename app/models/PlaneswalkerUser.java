@@ -1,28 +1,21 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
-public class PlaneswalkerUser extends Model{
+public class PlaneswalkerUser extends Model implements User {
 
 	private static final long serialVersionUID = 2042304756951323726L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 	
-	@Required
 	@Column(unique=true)
 	private String login;
 	
-	@Required
 	private String password;
 
 	public Long getId() {
@@ -38,6 +31,7 @@ public class PlaneswalkerUser extends Model{
 	}
 
 	public void setLogin(String login) {
+		if (login == null) login = "";
 		this.login = login;
 	}
 
@@ -46,7 +40,29 @@ public class PlaneswalkerUser extends Model{
 	}
 
 	public void setPassword(String password) {
+		if (password == null) password = "";
 		this.password = password;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof PlaneswalkerUser))
+			return false;
+		PlaneswalkerUser other = (PlaneswalkerUser) obj;
+		if (getLogin() == null) {
+			if (other.getLogin() != null)
+				return false;
+		} else if (!getLogin().equals(other.getLogin()))
+			return false;
+		if (getPassword() == null) {
+			if (other.getPassword() != null)
+				return false;
+		} else if (!getPassword().equals(other.getPassword()))
+			return false;
+		return true;
+	}
+
+	
 }
