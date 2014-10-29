@@ -6,22 +6,14 @@ import models.User;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
-import play.libs.Json;
 import play.mvc.Result;
-import views.html.home;
 import views.html.signUp;
-import daos.UserDao;
 
-//@With(value)
 public class UserController extends BaseController {
 
 	public static Result signUpLink() {
 		Form<User> form = Form.form(User.class);
 		return ok(signUp.render(form));
-	}
-
-	public static Result users() {
-		return ok(home.render(Json.toJson(UserDao.list()).toString()));
 	}
 
 	public static Result signUp() {

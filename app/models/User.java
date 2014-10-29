@@ -1,23 +1,32 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import play.db.ebean.Model;
 
 @Entity
 @Table(name="users")
+@SuppressWarnings("serial")
 public class User extends Model {
-
-	private static final long serialVersionUID = 2042304756951323726L;
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	
 	@Column(unique=true)
 	private String login;
-	
 	private String password;
+	private String email;
+	@OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST)
+	private List<Deck> decks;
+	private List<Deck> favorites;
+
+	public User() {
+		decks = new ArrayList<Deck>();
+		favorites = new ArrayList<Deck>();
+	}
 
 	public Long getId() {
 		return id;
@@ -43,6 +52,34 @@ public class User extends Model {
 	public void setPassword(String password) {
 		if (password == null) password = "";
 		this.password = password;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Deck> getDecks() {
+		return decks;
+	}
+
+	public void setDecks(List<Deck> decks) {
+		this.decks = decks;
+	}
+
+	public List<Deck> getFavorites() {
+		return favorites;
+	}
+	public void addDeck(Deck deck) {
+		decks.add(deck);
+//		deck.setOwner(this);
+	}
+
+	public void setFavorites(List<Deck> favorites) {
+		this.favorites = favorites;
 	}
 
 	@Override

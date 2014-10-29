@@ -7,12 +7,12 @@ import views.html.home;
 public class MainController extends BaseController {
 
     public static Result home() {
-        return ok(home.render("Hello, world!"));
+        return ok(home.render("hello, world!"));
     }
 
-	@Authenticated
+    @Authenticated
     public static Result authenticated() {
-        return TODO;
+		return TODO;
     }
 
 }

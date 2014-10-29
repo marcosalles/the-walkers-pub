@@ -9,7 +9,6 @@ GET		/signup									controllers.UserController.signUpLink()
 POST	/signup									controllers.UserController.signUp()
 POST	/login									controllers.UserController.login()
 GET		/logout									controllers.UserController.logout()
-GET		/users									controllers.UserController.users()
 
 # Map static resources from the /public folder to the /assets URL path
 GET		/assets/*file							controllers.Assets.at(path="/public", file)
