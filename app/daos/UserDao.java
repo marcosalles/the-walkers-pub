@@ -2,15 +2,14 @@ package daos;
 
 import java.util.List;
 
-import models.PlaneswalkerUser;
 import models.User;
 import play.db.ebean.Model.Finder;
 
 public class UserDao {
 
-	private static Finder<Long, PlaneswalkerUser> find = new Finder<Long, PlaneswalkerUser>(Long.class, PlaneswalkerUser.class);
+	private static Finder<Long, User> find = new Finder<Long, User>(Long.class, User.class);
 
-	public static List<PlaneswalkerUser> list() {
+	public static List<User> list() {
 		return find.all();
 	}
 

@@ -2,7 +2,6 @@ package infra;
 
 import java.util.ArrayList;
 
-import models.PlaneswalkerUser;
 import models.User;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -10,10 +9,10 @@ import daos.UserDao;
 
 public class UserValidator extends Validator {
 
-	private Form<PlaneswalkerUser> form;
+	private Form<User> form;
 	private User user;
 
-	public UserValidator(Form<PlaneswalkerUser> form) {
+	public UserValidator(Form<User> form) {
 		super();
 		this.form = form;
 	}

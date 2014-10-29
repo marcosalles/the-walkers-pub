@@ -1,10 +1,10 @@
-@(userForm: Form[PlaneswalkerUser])
+@(userForm: Form[User])
 
 @import shared.main
 @import bootstrap._
 
 @main(){
-	@form(routes.PlaneswalkerUserController.signUp){
+	@form(routes.UserController.signUp()){
 		<fieldset>
 		@text(userForm("login"), placeholder="login")
 		@password(userForm("password"), placeholder="password")

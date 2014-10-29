@@ -2,7 +2,7 @@ package controllers;
 
 import infra.UserValidator;
 import infra.Validator;
-import models.PlaneswalkerUser;
+import models.User;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
@@ -12,10 +12,10 @@ import play.mvc.Result;
 import views.html.signUp;
 import daos.UserDao;
 
-public class PlaneswalkerUserController extends Controller {
+public class UserController extends Controller {
 
 	public static Result signUpLink() {
-		Form<PlaneswalkerUser> form = Form.form(PlaneswalkerUser.class);
+		Form<User> form = Form.form(User.class);
 		return ok(signUp.render(form));
 	}
 
@@ -23,8 +23,8 @@ public class PlaneswalkerUserController extends Controller {
 		return ok(Json.toJson(UserDao.list()));
 	}
 	public static Result signUp() {
-		Form<PlaneswalkerUser> form = Form.form(PlaneswalkerUser.class).bindFromRequest();
-		PlaneswalkerUser user = form.get();
+		Form<User> form = Form.form(User.class).bindFromRequest();
+		User user = form.get();
 		Validator validator = new UserValidator(form).validated();
 		if (validator.isValid()) {
 			if (user.getPassword().equals(form.field("re-password").value())) {
@@ -34,9 +34,9 @@ public class PlaneswalkerUserController extends Controller {
 				return redirect(routes.MainController.home());
 			}
 		}
-		PlaneswalkerUser loginUser = new PlaneswalkerUser();
+		User loginUser = new User();
 		loginUser.setLogin(user.getLogin());
-		Form<PlaneswalkerUser> invalidForm = form.fill(loginUser);
+		Form<User> invalidForm = form.fill(loginUser);
 		if (!user.getPassword().equals(form.field("re-password").value())) {
 			invalidForm.reject("re-password", "Passwords don't match!");
 		}
@@ -52,8 +52,8 @@ public class PlaneswalkerUserController extends Controller {
 	}
 	
 	public static Result login() {
-		Form<PlaneswalkerUser> form = Form.form(PlaneswalkerUser.class).bindFromRequest();
-		PlaneswalkerUser user = form.get();
+		Form<User> form = Form.form(User.class).bindFromRequest();
+		User user = form.get();
 		user.setPassword(Crypto.encryptAES(user.getPassword()));
 		Validator validator = new UserValidator(user).validated();
 		if(validator.isValid()){
