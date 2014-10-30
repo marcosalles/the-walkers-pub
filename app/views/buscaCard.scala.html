@@ -1,0 +1,9 @@
+@import shared.main
+@import bootstrap._
+
+@main() {
+	@form(routes.CardController.busca()) {
+		<input type="text" name="suggestText" placeholder="name"><br>
+		<input type="submit" value="buscar">
+	}
+}
