@@ -2,7 +2,6 @@ package controllers;
 
 import models.User;
 import play.api.templates.Html;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.shared.template;

@@ -1,4 +1,5 @@
-@import shared._
+@import shared.menu
+@import user.login
 
 <header class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -14,6 +15,5 @@
 </header>
 
 @authenticated() = @{
-	//temp
 	session.get("login") != null
 }
