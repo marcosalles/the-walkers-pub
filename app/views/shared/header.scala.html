@@ -1,0 +1,19 @@
+@import shared._
+
+<header class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="@routes.MainController.home()"><img title="The Walker's Pub" src="@routes.Assets.at("images/all.png")"></a>
+		</div>
+		@if(authenticated()) {
+			@menu()
+		} else {
+			@login()
+		}
+	</div>
+</header>
+
+@authenticated() = @{
+	//temp
+	session.get("login") != null
+}

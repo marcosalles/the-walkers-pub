@@ -1,11 +1,45 @@
 package controllers;
 
+import models.User;
+import play.api.templates.Html;
 import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.shared.template;
+import daos.UserDao;
 
 public class BaseController extends Controller {
 
-	protected static String previousUrl() {
+	protected static Result toPreviousUrl() {
 		String url = session().get("previousUrl");
-		return url;
+		return redirect(url);
+	}
+
+	protected static Result wrappedOk(Html content) {
+		return ok(wrappedContent(content));
+	}
+
+	protected static Result wrappedBadRequest(Html content) {
+		return badRequest(wrappedContent(content));
+	}
+
+	protected static Result wrappedUnauthorized(Html content) {
+		return unauthorized(wrappedContent(content));
+	}
+
+	protected static Result wrappedNotFound(Html content) {
+		return notFound(wrappedContent(content));
+	}
+
+	private static Html wrappedContent(Html content) {
+		if (content == null) {
+			content = new Html(null);
+		}
+		return template.render(loggedUser(), content);
+	}
+
+	private static User loggedUser() {
+		String login = session().get("login");
+		User user = UserDao.userByLogin(login);
+		return user;
 	}
 }

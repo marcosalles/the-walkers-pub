@@ -2,14 +2,15 @@ package controllers;
 
 import play.mvc.Result;
 import play.mvc.Security.Authenticated;
-import views.html.home;
+import views.html.main.*;
 
 public class MainController extends BaseController {
 
 	public static Result home() {
-		return ok(home.render("hello, world!"));
+		return wrappedOk(home.render("hello, world!"));
 	}
 
+	//EXAMPLE
 	@Authenticated
 	public static Result authenticated() {
 		return TODO;

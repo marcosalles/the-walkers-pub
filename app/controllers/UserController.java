@@ -7,13 +7,13 @@ import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
 import play.mvc.Result;
-import views.html.signUp;
+import views.html.user.signUp;
 
 public class UserController extends BaseController {
 
-	public static Result signUpLink() {
+	public static Result signUpForm() {
 		Form<User> form = Form.form(User.class);
-		return ok(signUp.render(form));
+		return wrappedOk(signUp.render(form));
 	}
 
 	public static Result signUp() {
@@ -25,7 +25,7 @@ public class UserController extends BaseController {
 			user.setPassword(Crypto.encryptAES(password));
 			user.save();
 			flash().put("success", "Account created");
-			return redirect(previousUrl());
+			return toPreviousUrl();
 		}
 		User invalidUser = new User();
 		invalidUser.setLogin(user.getLogin());
@@ -37,7 +37,11 @@ public class UserController extends BaseController {
 				flash().put("danger", error.message());
 			}
 		}
-		return ok(signUp.render(invalidForm));
+		return wrappedBadRequest(signUp.render(invalidForm));
+	}
+
+	public static Result loginForm() {
+		return TODO;
 	}
 
 	public static Result login() {
@@ -48,18 +52,22 @@ public class UserController extends BaseController {
 		if (validator.isValid()) {
 			session().put("login", Crypto.encryptAES(user.getLogin()));
 			flash().put("success", "Logged in successfully!!");
-			return redirect(previousUrl());
+			return toPreviousUrl();
 		}
 
 		for (ValidationError error : validator.getErrors()) {
 			flash().put("danger", error.message());
 		}
-		return redirect(previousUrl());
+		return toPreviousUrl();
 	}
 
 	public static Result logout() {
 		session().clear();
 		flash().put("info", "Logged out successfully!!");
 		return redirect(routes.MainController.home());
+	}
+
+	public static Result settingsForm(Long id) {
+		return TODO;
 	}
 }

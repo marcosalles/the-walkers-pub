@@ -2,6 +2,7 @@ package daos;
 
 import java.util.List;
 
+import models.Ghost;
 import models.User;
 import play.db.ebean.Model.Finder;
 
@@ -15,6 +16,9 @@ public class UserDao {
 
 	public static User userById(Long id) {
 		User user = find.byId(id);
+		if (user == null) {
+			user = Ghost.instance();
+		}
 		return user;
 	}
 
@@ -22,11 +26,9 @@ public class UserDao {
 		User user = find.where()
 				.eq("login", login)
 				.findUnique();
+		if (user == null) {
+			user = Ghost.instance();
+		}
 		return user;
-	}
-
-	public static boolean userExists(User user) {
-		User userByLogin = userByLogin(user.getLogin());
-		return userByLogin != null;
 	}
 }

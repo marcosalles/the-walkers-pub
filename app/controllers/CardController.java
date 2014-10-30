@@ -7,14 +7,14 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
-import views.html.*;
+import views.html.card.*;
 
 import com.avaje.ebean.Ebean;
 
 public class CardController extends BaseController {
 
 	public static Result buscaForm() {
-		return ok(buscaCard.render());
+		return ok(searchForm.render());
 	}
 
 	public static Result busca() {

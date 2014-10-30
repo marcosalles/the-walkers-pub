@@ -2,6 +2,7 @@ package infra;
 
 import java.util.ArrayList;
 
+import models.Ghost;
 import models.User;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -51,7 +52,7 @@ public class UserValidator extends Validator {
 			errors.add(new ValidationError("login", "Please use only characters, numbers and underscores"));
 		}
 		// Unique check
-		if (UserDao.userExists(user)) {
+		if (!Ghost.instance().equals(UserDao.userByLogin(user.getLogin()))) {
 			errors.add(new ValidationError("login", "Login already taken!"));
 		}
 
@@ -62,7 +63,7 @@ public class UserValidator extends Validator {
 
 	private void loginValidation() {
 		User userByLogin = UserDao.userByLogin(user.getLogin());
-		if (userByLogin == null || !user.equals(userByLogin)) {
+		if (!user.equals(userByLogin)) {
 			errors.add(new ValidationError("global", "Login or password invalid. Try again!"));
 		}
 	}
