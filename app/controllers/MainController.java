@@ -7,7 +7,7 @@ import views.html.main.*;
 public class MainController extends BaseController {
 
 	public static Result home() {
-		return wrappedOk(home.render("hello, world!"));
+		return wrapOk(home.render("hello, world!"));
 	}
 
 	//EXAMPLE

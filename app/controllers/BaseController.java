@@ -14,19 +14,19 @@ public class BaseController extends Controller {
 		return redirect(url);
 	}
 
-	protected static Result wrappedOk(Html content) {
+	protected static Result wrapOk(Html content) {
 		return ok(wrappedContent(content));
 	}
 
-	protected static Result wrappedBadRequest(Html content) {
+	protected static Result wrapBadRequest(Html content) {
 		return badRequest(wrappedContent(content));
 	}
 
-	protected static Result wrappedUnauthorized(Html content) {
+	protected static Result wrapUnauthorized(Html content) {
 		return unauthorized(wrappedContent(content));
 	}
 
-	protected static Result wrappedNotFound(Html content) {
+	protected static Result wrapNotFound(Html content) {
 		return notFound(wrappedContent(content));
 	}
 

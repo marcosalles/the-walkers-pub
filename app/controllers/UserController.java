@@ -13,7 +13,7 @@ public class UserController extends BaseController {
 
 	public static Result signUpForm() {
 		Form<User> form = Form.form(User.class);
-		return wrappedOk(signUp.render(form));
+		return wrapOk(signUp.render(form));
 	}
 
 	public static Result signUp() {
@@ -37,7 +37,7 @@ public class UserController extends BaseController {
 				flash().put("danger", error.message());
 			}
 		}
-		return wrappedBadRequest(signUp.render(invalidForm));
+		return wrapBadRequest(signUp.render(invalidForm));
 	}
 
 	public static Result loginForm() {
