@@ -3,28 +3,14 @@
 	margin-top:8em;
 }
 
-header a img {
+.main-logo {
 	margin: 1em;
 }
 
-nav .menu {
-	margin-top: 1.8em;
+.nav .menu {
+	margin-top: 0.7em;
 	display: inline-block;
-}
-nav a {
 	font-size: 1.2em;
-}
-
-.title {
-	font-weight: bold;
-}
-.title legend {
-	font-size: 2em;
-}
-
-th {
-	text-transform: uppercase;
-	font-weight: bold;
 }
 
 .arrow-down {

@@ -1,18 +1,22 @@
-<nav class="nav pull-right">
-	<form action="@routes.UserController.login()" method="post">
-		<ul class="navbar-nav">
-			<li class="menu">
-				<a href="@routes.UserController.signUpForm()">Sign Up</a>
-			</li>
-			<li class="menu">
-				<input class="form-control" name="login" type="text" placeholder="login">
-			</li>
-			<li class="menu">
-				<input class="form-control" name="password" type="password" placeholder="password">
-			</li>
-			<li class="menu">
-				<input class="btn btn-warning" type="submit" value="LOGIN">
-			</li>
-		</ul>
-	</form>
+<nav class="nav navbar-nav pull-right">
+	<ul>
+		<li class="menu">
+			<a href="@routes.UserController.signUpForm()">Sign Up</a>
+		</li>
+		<li class="menu">
+		@helper.form(routes.UserController.login()) {
+			<ul>
+				<li class="menu">
+					<input class="form-control" name="login" type="text" placeholder="login">
+				</li>
+				<li class="menu">
+					<input class="form-control" name="password" type="password" placeholder="password">
+				</li>
+				<li class="menu">
+					<input class="btn btn-primary" type="submit" value="LOGIN">
+				</li>
+			</ul>
+		}
+		</li>
+	</ul>
 </nav>
