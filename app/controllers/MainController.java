@@ -6,13 +6,13 @@ import views.html.home;
 
 public class MainController extends BaseController {
 
-    public static Result home() {
-        return ok(home.render("hello, world!"));
-    }
+	public static Result home() {
+		return ok(home.render("hello, world!"));
+	}
 
-    @Authenticated
-    public static Result authenticated() {
+	@Authenticated
+	public static Result authenticated() {
 		return TODO;
-    }
+	}
 
 }

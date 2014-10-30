@@ -15,6 +15,7 @@ import daos.UserDao;
 public abstract class Validator {
 
 	protected List<ValidationError> errors;
+
 	protected Validator() {
 		this.errors = new ArrayList<ValidationError>();
 	}
@@ -33,12 +34,13 @@ public abstract class Validator {
 	public List<ValidationError> getErrors() {
 		return errors;
 	}
+
 	protected boolean stringNotLongEnough(String string, int size) {
 		return string.length() < size;
 	}
 
 	public JsonNode errorsAsJson() {
-		Map<String,String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		for (ValidationError error : errors) {
 			map.put(error.key(), error.message());
 		}

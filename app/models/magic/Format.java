@@ -1,7 +1,5 @@
 package models.magic;
 
 public enum Format {
-	VINTAGE,
-	COMMANDER,
-	EDH
+	VINTAGE, COMMANDER, EDH
 }

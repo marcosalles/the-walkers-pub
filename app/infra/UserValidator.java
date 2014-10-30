@@ -16,6 +16,7 @@ public class UserValidator extends Validator {
 		super();
 		this.form = form;
 	}
+
 	public UserValidator(User user) {
 		super();
 		this.user = user;
@@ -26,17 +27,17 @@ public class UserValidator extends Validator {
 		if (form != null) {
 			user = form.get();
 			signUpValidation();
-		}
-		else {
+		} else {
 			loginValidation();
 		}
 	}
+
 	private void signUpValidation() {
 		// Form check
 		if (!form.field("re-password").valueOr("").equals(user.getPassword())) {
 			errors.add(new ValidationError("password", ""));
 			errors.add(new ValidationError("re-password", "Passwords don't match"));
-		}			
+		}
 		// Length check
 		if (stringNotLongEnough(user.getLogin(), 3)) {
 			errors.add(new ValidationError("login", "Login has to be at least 3 characters long"));
@@ -58,10 +59,10 @@ public class UserValidator extends Validator {
 			errors.add(new ValidationError("global", "Something went wrong.."));
 		}
 	}
+
 	private void loginValidation() {
 		User userByLogin = UserDao.userByLogin(user.getLogin());
-		if (userByLogin == null ||
-			!user.equals(userByLogin)) {
+		if (userByLogin == null || !user.equals(userByLogin)) {
 			errors.add(new ValidationError("global", "Login or password invalid. Try again!"));
 		}
 	}

@@ -1,6 +1,11 @@
 package models.magic;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import play.db.ebean.Model;
 
@@ -11,9 +16,9 @@ public class Card extends Model {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(columnDefinition="text")
+	@Column(columnDefinition = "text")
 	private String text;
-	@Column(columnDefinition="text")
+	@Column(columnDefinition = "text")
 	private String flavorText;
 	private String suggestText;
 	private String expansionText;
@@ -166,5 +171,5 @@ public class Card extends Model {
 	public void setRulings(String rulings) {
 		this.rulings = rulings;
 	}
-	
+
 }

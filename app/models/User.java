@@ -3,23 +3,29 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import play.db.ebean.Model;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @SuppressWarnings("serial")
 public class User extends Model {
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String login;
 	private String password;
 	private String email;
-	@OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
 	private List<Deck> decks;
 	private List<Deck> favorites;
 
@@ -41,7 +47,8 @@ public class User extends Model {
 	}
 
 	public void setLogin(String login) {
-		if (login == null) login = "";
+		if (login == null)
+			login = "";
 		this.login = login;
 	}
 
@@ -50,10 +57,11 @@ public class User extends Model {
 	}
 
 	public void setPassword(String password) {
-		if (password == null) password = "";
+		if (password == null)
+			password = "";
 		this.password = password;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -73,9 +81,10 @@ public class User extends Model {
 	public List<Deck> getFavorites() {
 		return favorites;
 	}
+
 	public void addDeck(Deck deck) {
 		decks.add(deck);
-//		deck.setOwner(this);
+		// deck.setOwner(this);
 	}
 
 	public void setFavorites(List<Deck> favorites) {
@@ -102,5 +111,4 @@ public class User extends Model {
 		return true;
 	}
 
-	
 }

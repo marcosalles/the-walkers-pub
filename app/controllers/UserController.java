@@ -33,25 +33,24 @@ public class UserController extends BaseController {
 		for (ValidationError error : validator.getErrors()) {
 			if (!error.key().equals("global")) {
 				invalidForm.reject(error);
-			}
-			else {
+			} else {
 				flash().put("danger", error.message());
 			}
 		}
 		return ok(signUp.render(invalidForm));
 	}
-	
+
 	public static Result login() {
 		Form<User> form = Form.form(User.class).bindFromRequest();
 		User user = form.get();
 		user.setPassword(Crypto.encryptAES(user.getPassword()));
 		Validator validator = new UserValidator(user).validated();
-		if(validator.isValid()){
+		if (validator.isValid()) {
 			session().put("login", Crypto.encryptAES(user.getLogin()));
 			flash().put("success", "Logged in successfully!!");
 			return redirect(previousUrl());
 		}
-		
+
 		for (ValidationError error : validator.getErrors()) {
 			flash().put("danger", error.message());
 		}
