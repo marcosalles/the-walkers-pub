@@ -1,6 +1,7 @@
+@(formCard:Form[magic.Card])
 @import bootstrap._
 
-@form(routes.CardController.busca()) {
-	<input type="text" name="suggestText" placeholder="name"><br>
-	<input type="submit" value="buscar">
+@form(routes.CardController.search()) {
+	@text(formCard("suggestText"), placeholder="name")
+	<input class="btn btn-info col-sm-1 col-sm-offset-2" type="submit" value="search">
 }

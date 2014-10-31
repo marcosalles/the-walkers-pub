@@ -1,22 +1,29 @@
-<nav class="nav navbar-nav pull-right">
+<nav class="nav navbar-nav col-sm-11">
 	<ul>
-		<li class="menu">
-			<a href="@routes.UserController.signUpForm()">Sign Up</a>
-		</li>
-		<li class="menu">
-		@helper.form(routes.UserController.login()) {
+		<li class="col-sm-6">
 			<ul>
 				<li class="menu">
+					<a class="btn btn-default" href="@routes.CardController.searchForm()">search card</a>
+				</li>
+			</ul>
+		</li>
+		<li class="col-sm-5">
+		@helper.form(routes.UserController.login()) {
+			<ul>
+				<li class="menu col-sm-5">
 					<input class="form-control" name="login" type="text" placeholder="login">
 				</li>
-				<li class="menu">
+				<li class="menu col-sm-5">
 					<input class="form-control" name="password" type="password" placeholder="password">
 				</li>
-				<li class="menu">
-					<input class="btn btn-primary" type="submit" value="LOGIN">
+				<li class="menu col-sm-2">
+					<input class="btn btn-primary" type="submit" value="login">
 				</li>
 			</ul>
 		}
+		</li>
+		<li class="menu col-sm-1 pull-right">
+			<a class="btn btn-warning" href="@routes.UserController.signUpForm()">sign up</a>
 		</li>
 	</ul>
 </nav>

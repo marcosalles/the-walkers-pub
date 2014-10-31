@@ -1,10 +1,14 @@
-<nav class="nav pull-right">
-	<ul class="navbar-nav">
-		<li class="menu">
-			<a href="@routes.MainController.home()">Some text</a>
+<nav class="nav navbar-nav col-sm-11">
+	<ul>
+		<li class="col-sm-10">
+			<ul>
+				<li class="menu">
+					<a class="btn btn-default" href="@routes.CardController.searchForm()">search card</a>
+				</li>
+			</ul>
 		</li>
-		<li class="menu dropdown">
-			<a class="dropdown-toggle" data-toggle='dropdown'>Account<span class="arrow-down"></span></a>
+		<li class="menu dropdown col-sm-2 pull-right">
+			<a class="btn btn-default dropdown-toggle pull-right" data-toggle='dropdown'>Account<span class="arrow-down"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="@routes.UserController.settingsForm(1l)">settings</a></li>
 				<li><a href="@routes.UserController.logout()">logout</a></li>
