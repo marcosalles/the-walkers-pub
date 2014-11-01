@@ -4,16 +4,22 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>id</th>
+			<!--<th>id</th><--!>
 			<th>name</th>
+			<th>Card Text</th>
+			<th>Mana Cost</th>
 		</tr>
 	</thead>
 	<tbody>
 	@for((card, index) <- cards.zipWithIndex) {
 		<tr>
 			<td>@index</td>
-			<td>@card.getId</td>
-			<td>@card.getSuggestText</td>	
+			<!--<td>@card.getId</td>--!>
+			<td>@card.getSuggestText</td>
+			<td>@Html(card.getText)</td>	
+			<td>@card.getManaCost</td>
+			
+			
 		</tr>
 	}
 	</tbody>
