@@ -1,6 +1,0 @@
-document.body.innerHTML = document.body.innerHTML.replace(/{U}/g, '<img  src="/assets/images/all_mana_symbols_24p/u.png">');
-document.body.innerHTML = document.body.innerHTML.replace(/{B}/g, '<img  src="/assets/images/all_mana_symbols_24p/b.png">');
-document.body.innerHTML = document.body.innerHTML.replace(/{R}/g, '<img  src="/assets/images/all_mana_symbols_24p/r.png">');
-document.body.innerHTML = document.body.innerHTML.replace(/{W}/g, '<img  src="/assets/images/all_mana_symbols_24p/W.png">');
-document.body.innerHTML = document.body.innerHTML.replace(/{G}/g, '<img  src="/assets/images/all_mana_symbols_24p/G.png">');
-document.body.innerHTML = document.body.innerHTML.replace(/{1}/g, '<img  src="/assets/images/all_mana_symbols_24p/1.png">'); --- Isso tá com erro
