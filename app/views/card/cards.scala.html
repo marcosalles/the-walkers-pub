@@ -1,10 +1,17 @@
 @(cards: List[magic.Card])
 
-<table class="table table-striped">
+<style type="text/css">
+.card-image {
+	height:100px;
+}
+.card:hover {
+	background: rgba(0,0,0,0.1);
+}
+</style>
+<table class="table">
 	<thead>
 		<tr>
 			<th>#</th>
-			<!--<th>id</th><--!>
 			<th>name</th>
 			<th>Card Text</th>
 			<th>Mana Cost</th>
@@ -12,15 +19,24 @@
 	</thead>
 	<tbody>
 	@for((card, index) <- cards.zipWithIndex) {
-		<tr>
+		<tr class="card" id="card-@card.getMultiverseId">
 			<td>@index</td>
-			<!--<td>@card.getId</td>--!>
 			<td>@card.getSuggestText</td>
 			<td>@Html(card.getText)</td>	
 			<td>@card.getManaCost</td>
-			
-			
+			<td><img class="card-image" alt="" src="@imageSource(card)"></td>
 		</tr>
 	}
 	</tbody>
 </table>
+
+<script type="text/javascript">
+	$(".card").on("click", function() {
+		var id = $(this).attr("id").split("-")[1];
+		var url = @routes.CardController.card("")+id;
+		location.href = url;
+	});
+</script>
+@imageSource(card:magic.Card)= @{
+	"http://mtgimage.com/multiverseid/"+card.getMultiverseId+".jpg"
+}

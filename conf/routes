@@ -20,6 +20,7 @@ GET		/featured								controllers.DeckController.featuredDecks()
 # Card
 GET		/card/search							controllers.CardController.searchForm()
 POST	/card/search							controllers.CardController.search()
+GET		/card/:id								controllers.CardController.card(id:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET		/assets/*file							controllers.Assets.at(path="/public", file)

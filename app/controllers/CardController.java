@@ -3,15 +3,12 @@ package controllers;
 import java.util.List;
 
 import models.magic.Card;
-import play.api.templates.Html;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.libs.Json;
 import play.mvc.Result;
-import scala.collection.mutable.StringBuilder;
-import views.html.card.*;
-
-import com.avaje.ebean.Ebean;
+import views.html.card.cards;
+import views.html.card.searchForm;
+import daos.CardDao;
 
 public class CardController extends BaseController {
 
@@ -22,11 +19,13 @@ public class CardController extends BaseController {
 
 	public static Result search() {
 		DynamicForm form = Form.form().bindFromRequest();
-		String value = form.field("suggestText").value();
-		List<Card> list = Ebean.createQuery(Card.class)
-				.where()
-				.ilike("suggestText", "%"+value+"%")
-				.findList();
+		String name = form.field("suggestText").value();
+		List<Card> list = CardDao.cardsByName(name);
 		return wrapOk(cards.render(list));
+	}
+
+	public static Result card(String id) {
+//		Card card = CardDao.cardByMultiverseId(id);
+		return TODO;
 	}
 }
