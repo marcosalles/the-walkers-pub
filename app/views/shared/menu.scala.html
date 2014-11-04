@@ -1,18 +1,20 @@
-<nav class="nav navbar-nav col-sm-11">
+@(loggedUser:User)
+
+@import user.login
+
+<nav>
 	<ul>
-		<li class="col-sm-10">
-			<ul>
-				<li class="menu">
-					<a class="btn btn-default" href="@routes.CardController.searchForm()">search card</a>
-				</li>
-			</ul>
-		</li>
-		<li class="menu dropdown col-sm-2 pull-right">
-			<a class="btn btn-default dropdown-toggle pull-right" data-toggle='dropdown'>Account<span class="arrow-down"></span></a>
-			<ul class="dropdown-menu">
+		<li><a href="@routes.CardController.searchForm()">search card</a></li>
+		@if(loggedUser.isGhost){
+		<li>@login()</li>
+		}else{
+		<li class="dropdown">
+			<a>Account</a>
+			<ul class="dropdown-data">
 				<li><a href="@routes.UserController.settingsForm(1l)">settings</a></li>
 				<li><a href="@routes.UserController.logout()">logout</a></li>
 			</ul>
 		</li>
+		} 
 	</ul>
 </nav>

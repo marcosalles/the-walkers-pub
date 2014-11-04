@@ -91,6 +91,10 @@ public class User extends Model {
 		this.favorites = favorites;
 	}
 
+	public boolean isGhost() {
+		return (this instanceof Ghost);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

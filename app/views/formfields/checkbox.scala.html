@@ -1,0 +1,8 @@
+@(field:Field, label:String = "", help:String = "")
+
+<div class="field @if(field.hasErrors){field-with-errors}">
+	<label for="@field.id">@label</label>
+	<input type="checkbox" name="@(field.name + "[]")" id="@field.id" @if(field.value==Some("true")){checked}>
+	<span>@help</span>
+	<span>@{field.error.map{ error => error.message }}</span>
+</div>

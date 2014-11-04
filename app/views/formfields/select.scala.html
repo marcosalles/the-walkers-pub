@@ -1,0 +1,15 @@
+@(field:Field, label:String = "", optionMap:Map[String, Boolean], isMultiple:Boolean, help:String = "")
+
+<div class="field @if(field.hasErrors){field-with-errors}">
+	<label for="@field.id">@label</label>
+	<select id="@field.id" name="@if(isMultiple) {@(field.name + "[]")} else {@field.name}" @if(isMultiple){multiple="multiple"}>
+		@if(!isMultiple) {
+		<option value="">Please select a value</option>
+		}
+		@for((optionName, isSelected) <- optionMap) {
+		<option id="@optionName" value="@optionName" @if(isSelected){selected}>@optionName</option>
+		}
+	</select>
+	<span>@help</span>
+	<span>@{field.error.map{ error => error.message }}</span>
+</div>

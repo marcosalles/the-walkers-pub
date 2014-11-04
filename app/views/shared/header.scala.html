@@ -1,17 +1,10 @@
-@import shared.menu
-@import user.login
+@(loggedUser:User)
 
-<header class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<a href="@routes.MainController.home()"><img class="main-logo" title="The Walker's Pub" src="@routes.Assets.at("images/all.png")"></a>
-		</div>
-		@if(authenticated()) {
-			@menu()
-		} else {
-			@login()
-		}
-	</div>
+@import shared.menu
+
+<header>
+	<h1><a href="@routes.MainController.home()" title="Home">Home</a></h1>	
+	@menu(loggedUser)
 </header>
 
 @authenticated() = @{

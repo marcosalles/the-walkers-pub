@@ -7,8 +7,7 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   "org.webjars" %% "webjars-play" % "2.2.1",
-  "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
-  "org.webjars" % "bootstrap" % "3.1.1"
+  "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
 )     
 
 play.Project.playJavaSettings

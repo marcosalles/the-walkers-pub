@@ -11,7 +11,7 @@ import play.db.ebean.Model;
 
 @Entity
 @SuppressWarnings("serial")
-public class Card extends Model {
+public class Card extends Model implements Comparable<Card> {
 
 	@Id
 	@GeneratedValue
@@ -170,6 +170,30 @@ public class Card extends Model {
 
 	public void setRulings(String rulings) {
 		this.rulings = rulings;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof Card) {
+			Card card = (Card)obj;
+			if (card.getSuggestText().equals(this.getSuggestText())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	@Override
+	public int compareTo(Card card) {
+		if (this.getMultiverseId() > card.getMultiverseId()) {
+			return 1;
+		}
+		else if (this.getMultiverseId() < card.getMultiverseId()) {
+			return -1;
+		}
+		return 0;
 	}
 
 }

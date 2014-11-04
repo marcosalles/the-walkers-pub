@@ -1,10 +1,10 @@
 @(cards:List[magic.Card] = null, formCard:Form[magic.Card])
 
-@import bootstrap._
+@import formfields._
 
 @form(routes.CardController.search()) {
 	@text(formCard("suggestText"), placeholder="name")
-	<input class="btn btn-info col-sm-1 col-sm-offset-2" type="submit" value="search">
+	<input type="submit" value="search">
 }
 
 @if(cards != null) {

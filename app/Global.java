@@ -1,6 +1,8 @@
 
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 
 import play.GlobalSettings;
 import play.libs.F.Promise;
@@ -13,6 +15,11 @@ import controllers.routes;
 
 public class Global extends GlobalSettings {
 
+	// Add filtered urls
+	private static final List<String> nonSavedUrls = Arrays.asList(
+			routes.UserController.signUpForm().url()
+	);
+
 	@Override
 	@SuppressWarnings("rawtypes")
 	public Action onRequest(Request request, Method method) {
@@ -22,9 +29,11 @@ public class Global extends GlobalSettings {
 				Request actionRequest = context.request();
 				Session session = context.session();
 				String currentUrl = actionRequest.path();
-				String previousUrl = previousUrl(session);
-				session.put("previousUrl", previousUrl);
-				session.put("currentUrl", currentUrl);
+				if (!nonSavedUrls.contains(currentUrl)) {
+					String previousUrl = previousUrl(session);
+					session.put("previousUrl", previousUrl);
+					session.put("currentUrl", currentUrl);
+				}
 				return delegate.call(context);
 			}
 

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.User;
+import play.api.libs.Crypto;
 import play.api.templates.Html;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -37,8 +38,14 @@ public class BaseController extends Controller {
 		return template.render(loggedUser(), content);
 	}
 
-	private static User loggedUser() {
+	public static User loggedUser() {
 		String login = session().get("login");
+		if (login != null) {
+			login = Crypto.decryptAES(login);
+		}
+		else {
+			login = "";
+		}
 		User user = UserDao.userByLogin(login);
 		return user;
 	}

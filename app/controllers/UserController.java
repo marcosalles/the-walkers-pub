@@ -7,7 +7,7 @@ import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
 import play.mvc.Result;
-import views.html.user.signUp;
+import views.html.user.*;
 
 public class UserController extends BaseController {
 
@@ -21,10 +21,10 @@ public class UserController extends BaseController {
 		User user = form.get();
 		Validator validator = new UserValidator(form).validated();
 		if (validator.isValid()) {
-			String password = form.field("re-password").value();
+			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
 			user.save();
-			flash().put("success", "Account created");
+			flash().put("success", String.format("Account '%s' created", user.getLogin()));
 			return toPreviousUrl();
 		}
 		User invalidUser = new User();
@@ -41,7 +41,7 @@ public class UserController extends BaseController {
 	}
 
 	public static Result loginForm() {
-		return TODO;
+		return ok(login.render());
 	}
 
 	public static Result login() {

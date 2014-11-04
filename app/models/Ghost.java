@@ -59,9 +59,4 @@ public class Ghost extends User {
 	@Override
 	public void setFavorites(List<Deck> favorites) {
 	}
-	@Override
-	public boolean equals(Object obj) {
-		return obj instanceof Ghost;
-	}
-
 }
