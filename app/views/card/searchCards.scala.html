@@ -1,0 +1,57 @@
+@(cards:List[magic.Card] = null, formCard:Form[magic.Card])
+
+@import bootstrap._
+
+@form(routes.CardController.search()) {
+	@text(formCard("suggestText"), placeholder="name")
+	<input class="btn btn-info col-sm-1 col-sm-offset-2" type="submit" value="search">
+}
+
+@if(cards != null) {
+	@if(cards.size > 0) {
+		<style type="text/css">
+		.card-image {
+			height:100px;
+		}
+		.card:hover {
+			background: rgba(0,0,0,0.1);
+		}
+		</style>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>name</th>
+					<th>Card Text</th>
+					<th>Mana Cost</th>
+				</tr>
+			</thead>
+			<tbody>
+			@for((card, index) <- cards.zipWithIndex) {
+				<tr class="card" id="card-@card.getMultiverseId">
+					<td>@index</td>
+					<td>@card.getSuggestText</td>
+					<td>@Html(card.getText)</td>	
+					<td>@card.getManaCost</td>
+					<td><img class="card-image" alt="" src="@imageSource(card)"></td>
+				</tr>
+			}
+			</tbody>
+		</table>
+		
+		<script type="text/javascript">
+			$(".card").on("click", function() {
+				var id = $(this).attr("id").split("-")[1];
+				var url = @routes.CardController.card("")+id;
+				location.href = url;
+			});
+		</script>
+	} else {
+		<div class="clearfix"></div>
+		<h4>No cards found with that name</h4>
+	}
+}
+
+@imageSource(card:magic.Card)= @{
+	"http://mtgimage.com/multiverseid/"+card.getMultiverseId+".jpg"
+}
