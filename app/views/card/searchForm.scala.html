@@ -1,7 +1,0 @@
-@(formCard:Form[magic.Card])
-@import formfields._
-
-@form(routes.CardController.search()) {
-	@text(formCard("suggestText"), placeholder="name")
-	<input type="submit" value="search">
-}

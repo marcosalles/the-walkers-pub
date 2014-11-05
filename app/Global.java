@@ -17,7 +17,8 @@ public class Global extends GlobalSettings {
 
 	// Add filtered urls
 	private static final List<String> nonSavedUrls = Arrays.asList(
-			routes.UserController.signUpForm().url()
+			routes.UserController.signUp().url(),
+			routes.UserController.login().url()
 	);
 
 	@Override

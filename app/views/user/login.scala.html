@@ -1,15 +1,14 @@
-@import formfields.form
+@import formfields._
+
 <ul>
 	<li class="menu-item tooltips">login / register
 		<span>
-		@form(routes.UserController.login) {
-			<input name="login" type="text" placeholder="login">
-			<input name="password" type="password" placeholder="password">
-			<input type="submit" value="login">
+		@form(routes.UserController.login, "form-login") {
+			<input class="text-field" name="login" type="text" placeholder="login">
+			<input class="text-field" name="password" type="password" placeholder="password">
+			@submit("login")
 		}
-		@form(routes.UserController.signUpForm) {
-			<input type="submit" value="register">
-		}
+		@button(routes.UserController.signUpForm, "register")
 		</span>
 	</li>
 </ul>
