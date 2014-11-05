@@ -1,5 +1,5 @@
-@(action:play.api.mvc.Call)(content: Html)
+@(action:play.api.mvc.Call, classes:String="")(content: Html)
 
-@helper.form(action){
+<form class="@classes" action="@action.url" method="@action.method">
 	@content
-}
+</form>

@@ -1,3 +1,6 @@
+@CHARSET "UTF-8";
+
 body {
 	font-family: Helvetica, Verdana, sansserif;
+	background-color: #000;
 }

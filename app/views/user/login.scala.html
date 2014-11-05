@@ -1,12 +1,15 @@
+@import formfields.form
 <ul>
-	<li>
-		@helper.form(routes.UserController.login()) {
+	<li class="menu-item tooltips">login / register
+		<span>
+		@form(routes.UserController.login) {
 			<input name="login" type="text" placeholder="login">
 			<input name="password" type="password" placeholder="password">
 			<input type="submit" value="login">
 		}
-	</li>
-	<li>
-		<a class="btn btn-warning" href="@routes.UserController.signUpForm()">sign up</a>
+		@form(routes.UserController.signUpForm) {
+			<input type="submit" value="register">
+		}
+		</span>
 	</li>
 </ul>

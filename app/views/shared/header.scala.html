@@ -1,10 +1,28 @@
 @(loggedUser:User)
 
 @import shared.menu
+@import user.userMenu
+@import user.login
 
-<header>
-	<h1><a href="@routes.MainController.home()" title="Home">Home</a></h1>	
-	@menu(loggedUser)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/header.css")">
+<header class="header">
+	<div class="container">
+		<h1>
+			<a href="@routes.MainController.home()" title="Home">
+				<img class="header-logo" src="@routes.Assets.at("images/all.png")">
+			</a>
+		</h1>
+		<nav>
+			<ul class="menu">
+				<li class="menu-section">@menu()</li>
+				@if(!loggedUser.isGhost){
+				<li class="menu-section">@userMenu(loggedUser)</li>
+				}else{
+				<li class="menu-section">@login()</li>
+				}
+			</ul>
+		</nav>
+	</div>
 </header>
 
 @authenticated() = @{

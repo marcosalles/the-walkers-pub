@@ -1,7 +1,6 @@
+@(loggedUser:User)
 <ul>
-	<li class="menu-item"><a href="@routes.CardController.searchForm()">search card</a></li>
-	<li class="menu-item"><a href="@routes.CardController.searchForm()">search deck</a></li>
-	<li class="menu-item tooltips">options
+	<li class="menu-item tooltips">@loggedUser.getLogin
 		<span>
 			<ul>
 				<li class="tooltip-menu-item"><a href="@routes.UserController.settingsForm(1l)">settings</a></li>
