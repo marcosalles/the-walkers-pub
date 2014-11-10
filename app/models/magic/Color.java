@@ -1,13 +1,15 @@
 package models.magic;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public enum Color {
-	L, // land
-	A, // artifact
 	C, // colorless
+	A, // artifact
+	L, // land
 	W, // white
 	U, // blue
 	B, // black
@@ -25,7 +27,27 @@ public enum Color {
 		return values()[n];
 	}
 
+	public static Color fromString(String colorAsString) {
+		Color color = C;
+		try {
+			color = Color.valueOf(Color.class, colorAsString);
+		} catch (IllegalArgumentException e) {
+		}
+		return color;
+	}
+
 	public static List<Color> ALL() {
 		return Arrays.asList(values());
+	}
+
+	public static Map<String, Boolean> MAP() {
+		Map<String,Boolean> map = new HashMap<String, Boolean>();
+		map.put(C.toString(), false);
+		map.put(W.toString(), false);
+		map.put(U.toString(), false);
+		map.put(B.toString(), false);
+		map.put(R.toString(), false);
+		map.put(G.toString(), false);
+		return map;
 	}
 }

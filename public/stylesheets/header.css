@@ -2,7 +2,7 @@
 
 .header {
 	width: 100%;
-	height: auto;
+	min-height: 5.5em;
 	background-image: url("/assets/images/header.png");
 	background-position: center;
 }
@@ -13,22 +13,21 @@
 }
 
 .header-logo {
-	margin: 1em;
-	height: 3.5em;
-	float: left;
+	padding: 1em;
 }
 
 .menu {
-	margin: 1em;
-	height: 3.5em;
+	margin-top: .9em;
+	padding: 1em;
+	float: right;
 	display: inline-block;
+	min-height: 1.8em;
 }
 
 .menu-section {
 	display: inline-block;
 	position: relative;
 	top: 25%;
-	height: 50%;
 	text-align: right;
 }
 

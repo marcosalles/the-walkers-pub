@@ -21,7 +21,7 @@ create table card (
   multiverse_id             bigint,
   color                     varchar(6),
   rulings                   varchar(255),
-  constraint ck_card_color check (color in ('L','A','C','W','U','B','R','G','LG','AL','AW','AU','AB','AR','AG','WU','WB','WR','WG','UB','UR','UG','BR','BG','RG','AWU','AWB','AWG','AUB','AUR','AUG','ABR','ARG','WUB','WUR','WUG','WBR','WBG','WRG','UBR','UBG','URG','BRG','AWUB','AUBR','WUBR','WUBG','WURG','WBRG','UBRG','WUBRG','AWUBRG')),
+  constraint ck_card_color check (color in ('C','A','L','W','U','B','R','G','LG','AL','AW','AU','AB','AR','AG','WU','WB','WR','WG','UB','UR','UG','BR','BG','RG','AWU','AWB','AWG','AUB','AUR','AUG','ABR','ARG','WUB','WUR','WUG','WBR','WBG','WRG','UBR','UBG','URG','BRG','AWUB','AUBR','WUBR','WUBG','WURG','WBRG','UBRG','WUBRG','AWUBRG')),
   constraint pk_card primary key (id))
 ;
 

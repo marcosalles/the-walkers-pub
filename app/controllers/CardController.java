@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.magic.Card;
+import models.magic.Color;
 import play.data.Form;
 import play.mvc.Result;
 import views.html.card.searchCards;
@@ -12,14 +13,13 @@ public class CardController extends BaseController {
 
 	public static Result searchForm() {
 		Form<Card> form = Form.form(Card.class);
-		return wrapOk(searchCards.render(null, form));
+		return wrapOk(searchCards.render(null, form, Color.MAP()));
 	}
 
 	public static Result search() {
 		Form<Card> form = Form.form(Card.class).bindFromRequest();
-		String name = form.field("suggestText").value();
-		List<Card> list = CardDao.cardsByName(name);
-		return wrapOk(searchCards.render(list, form));
+		List<Card> list = CardDao.cardsByFilledFields(form.get());
+		return wrapOk(searchCards.render(list, form, Color.MAP()));
 	}
 
 	public static Result card(String id) {

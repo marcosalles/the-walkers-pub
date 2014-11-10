@@ -1,39 +1,36 @@
-@(cards:List[magic.Card] = null, formCard:Form[magic.Card])
+@(cards:List[magic.Card] = null, formCard:Form[magic.Card], colorMap:Map[String,Boolean])
 
 @import formfields._
 
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/cards.css")">
+
 @form(routes.CardController.search()) {
 	@text(formCard("suggestText"), placeholder="name")
-	<input type="submit" value="search">
+	@text(formCard("type"), placeholder="type")
+	@text(formCard("text"), placeholder="ability")
+	@checkboxes(formCard("colors"), checkboxMap=colorMap)
+	@submit("search")
 }
 
 @if(cards != null) {
 	@if(cards.size > 0) {
-		<style type="text/css">
-		.card-image {
-			height:100px;
-		}
-		.card:hover {
-			background: rgba(0,0,0,0.1);
-		}
-		</style>
-		<table class="table">
+		<table>
 			<thead>
 				<tr>
-					<th>#</th>
+					<th></th>
 					<th>name</th>
-					<th>Card Text</th>
-					<th>Mana Cost</th>
+					<th>text</th>
+					<th>cost</th>
 				</tr>
 			</thead>
 			<tbody>
 			@for((card, index) <- cards.zipWithIndex) {
 				<tr class="card" id="card-@card.getMultiverseId">
-					<td>@index</td>
-					<td>@card.getSuggestText</td>
-					<td>@Html(card.getText)</td>	
-					<td>@card.getManaCost</td>
 					<td><img class="card-image" alt="" src="@imageSource(card)"></td>
+					<td>@card.getSuggestText</td>
+					<!-- <td>@Html(card.getText)</td> -->
+					<td>@card.getRarity</td>	
+					<td>@card.getManaCost</td>
 				</tr>
 			}
 			</tbody>
