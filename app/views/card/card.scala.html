@@ -1,0 +1,9 @@
+@(card:magic.Card)
+
+<section>
+	@if(card != null){
+	<img alt="" src="@cardImageSource(card)">
+	}else{
+	<p style="color: white;">Invalid card!</p>
+	}
+</section>

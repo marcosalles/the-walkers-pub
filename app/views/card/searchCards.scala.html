@@ -26,7 +26,7 @@
 			<tbody>
 			@for((card, index) <- cards.zipWithIndex) {
 				<tr class="card" id="card-@card.getMultiverseId">
-					<td><img class="card-image" alt="" src="@imageSource(card)"></td>
+					<td><img class="card-image" alt="" src="@cardImageSource(card)"></td>
 					<td>@card.getSuggestText</td>
 					<!-- <td>@Html(card.getText)</td> -->
 					<td>@card.getRarity</td>	
@@ -42,13 +42,17 @@
 				var url = @routes.CardController.card("")+id;
 				location.href = url;
 			});
+			$("form").on("submit", function() {
+				alert('the action is: ' + $(this).serialize());
+			});
 		</script>
 	} else {
 		<div class="clearfix"></div>
 		<h4>No cards found with that name</h4>
 	}
 }
-
-@imageSource(card:magic.Card)= @{
-	"http://mtgimage.com/multiverseid/"+card.getMultiverseId+".jpg"
-}
+<script type="text/javascript">
+	/* $("form").on("submit", function() {
+		alert('the action is: ' + $(this).serialize());
+	}); */
+</script>

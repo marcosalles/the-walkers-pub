@@ -33,7 +33,7 @@ public class Card extends Model implements Comparable<Card> {
 	private String number;
 	private Long multiverseId;
 	@Enumerated(EnumType.STRING)
-	private Color color;
+	private ColorEnum color;
 	private String rulings;
 
 	public Long getId() {
@@ -156,11 +156,11 @@ public class Card extends Model implements Comparable<Card> {
 		this.multiverseId = multiverseId;
 	}
 
-	public Color getColor() {
+	public ColorEnum getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(ColorEnum color) {
 		this.color = color;
 	}
 

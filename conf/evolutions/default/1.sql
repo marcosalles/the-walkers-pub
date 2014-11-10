@@ -25,6 +25,12 @@ create table card (
   constraint pk_card primary key (id))
 ;
 
+create table color (
+  id                        bigint not null,
+  name                      varchar(255),
+  constraint pk_color primary key (id))
+;
+
 create table deck (
   id                        bigint not null,
   owner_id                  bigint,
@@ -51,6 +57,8 @@ create table deck_card (
 ;
 create sequence card_seq;
 
+create sequence color_seq;
+
 create sequence deck_seq;
 
 create sequence users_seq;
@@ -70,6 +78,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists card;
 
+drop table if exists color;
+
 drop table if exists deck;
 
 drop table if exists deck_card;
@@ -79,6 +89,8 @@ drop table if exists users;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists card_seq;
+
+drop sequence if exists color_seq;
 
 drop sequence if exists deck_seq;
 

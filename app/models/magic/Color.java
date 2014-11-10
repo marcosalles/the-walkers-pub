@@ -1,53 +1,30 @@
 package models.magic;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public enum Color {
-	C, // colorless
-	A, // artifact
-	L, // land
-	W, // white
-	U, // blue
-	B, // black
-	R, // red
-	G, // green
-	LG, AL, AW, AU, AB, AR, AG, WU, WB, WR, WG, UB, UR, UG, BR, BG, RG, AWU, AWB, AWG, AUB, AUR, AUG, ABR, ARG, WUB, WUR, WUG, WBR, WBG, WRG, UBR, UBG, URG, BRG, AWUB, AUBR, WUBR, WUBG, WURG, WBRG, UBRG, WUBRG, AWUBRG;
+import play.db.ebean.Model;
 
-	public static Random random;
+@Entity
+@SuppressWarnings("serial")
+public class Color extends Model {
 
-	public static Color RANDOM() {
-		if (random == null) {
-			random = new Random();
-		}
-		int n = random.nextInt(values().length);
-		return values()[n];
+	@Id
+	@GeneratedValue
+	private Long id;
+	private String name;
+
+	public Long getId() {
+		return id;
 	}
-
-	public static Color fromString(String colorAsString) {
-		Color color = C;
-		try {
-			color = Color.valueOf(Color.class, colorAsString);
-		} catch (IllegalArgumentException e) {
-		}
-		return color;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public static List<Color> ALL() {
-		return Arrays.asList(values());
+	public String getName() {
+		return name;
 	}
-
-	public static Map<String, Boolean> MAP() {
-		Map<String,Boolean> map = new HashMap<String, Boolean>();
-		map.put(C.toString(), false);
-		map.put(W.toString(), false);
-		map.put(U.toString(), false);
-		map.put(B.toString(), false);
-		map.put(R.toString(), false);
-		map.put(G.toString(), false);
-		return map;
+	public void setName(String name) {
+		this.name = name;
 	}
 }
