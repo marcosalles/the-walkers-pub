@@ -4,7 +4,7 @@
 	<li class="menu-item tooltips">@loggedUser.getLogin
 		<span>
 			<ul>
-				<li class="tooltip-menu-item"><a href="@routes.UserController.settingsForm(1l)">settings</a></li>
+				<li class="tooltip-menu-item"><a href="@routes.UserController.profileForm(loggedUser.getId)">profile</a></li>
 				<li class="tooltip-menu-item">@button(routes.UserController.logout, "logout")</li>
 			</ul>
 		</span>

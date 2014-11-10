@@ -1,0 +1,12 @@
+@(userForm:Form[User])
+@import formfields._
+
+@form(routes.UserController.update) {
+	@hidden(userForm("id"))
+	@text(userForm("login"), placeholder="login")
+	@email(userForm("email"), placeholder="user@email.com")
+	@password(userForm("old-password"), placeholder="old password")
+	@password(userForm("password"), placeholder="new password")
+	@password(userForm("re-password"), placeholder="confirmation")
+	@submit("save changes")
+}

@@ -1,7 +1,7 @@
 @(field:Field, label:String = "", placeholder:String = "", help:String = "")
 <div class="fields @if(field.hasErrors){field-with-errors}">
 	<label for="@field.id">@label</label>
-	<input type="text" id="@field.id" name="@field.name" value="@field.value.getOrElse("")"placeholder="@placeholder">
+	<input type="text" id="@field.id" name="@field.name" value="@field.value.getOrElse("")" placeholder="@placeholder">
 	<span>@help</span>
 	<span>@{field.error.map{ error => error.message }}</span>
 </div>

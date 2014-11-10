@@ -1,6 +1,10 @@
+
 package controllers;
 
+import static infra.UserValidator.ValidationType.*;
+import daos.UserDao;
 import infra.UserValidator;
+import infra.UserValidator.ValidationType;
 import infra.Validator;
 import models.User;
 import play.data.Form;
@@ -19,17 +23,17 @@ public class UserController extends BaseController {
 	public static Result signUp() {
 		Form<User> form = Form.form(User.class).bindFromRequest();
 		User user = form.get();
-		Validator validator = new UserValidator(form).validated();
+		Validator validator = new UserValidator(SIGNUP).fromForm(form).validated();
 		if (validator.isValid()) {
 			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
 			user.save();
 			flash().put("success", String.format("Account '%s' created", user.getLogin()));
-			return toPreviousUrl();
+			doLogin(user);
+			return redirect(routes.UserController.profileForm(user.getId()));
 		}
-		User invalidUser = new User();
-		invalidUser.setLogin(user.getLogin());
-		Form<User> invalidForm = form.fill(invalidUser);
+		user.setPassword("");
+		Form<User> invalidForm = form.fill(user);
 		for (ValidationError error : validator.getErrors()) {
 			if (!error.key().equals("global")) {
 				invalidForm.reject(error);
@@ -48,10 +52,9 @@ public class UserController extends BaseController {
 		Form<User> form = Form.form(User.class).bindFromRequest();
 		User user = form.get();
 		user.setPassword(Crypto.encryptAES(user.getPassword()));
-		Validator validator = new UserValidator(user).validated();
+		Validator validator = new UserValidator(LOGIN).fromUser(user).validated();
 		if (validator.isValid()) {
-			session().put("login", Crypto.encryptAES(user.getLogin()));
-			flash().put("success", "Logged in successfully!!");
+			doLogin(user);
 			return toPreviousUrl();
 		}
 
@@ -67,7 +70,45 @@ public class UserController extends BaseController {
 		return redirect(routes.MainController.home());
 	}
 
+//	@Authenticated
 	public static Result settingsForm(Long id) {
 		return TODO;
+	}
+
+//	@Authenticated
+	public static Result profileForm(Long id) {
+		User user = UserDao.userById(id);
+		user.setPassword("");
+		Form<User> form = Form.form(User.class).fill(user);
+		return wrapOk(profileForm.render(form));
+	}
+
+	public static Result update() {
+		Form<User> form = Form.form(User.class).bindFromRequest();
+		User user = form.get();
+		Validator validator = new UserValidator(UPDATE).fromForm(form).validated();
+		if (validator.isValid()) {
+			String password = form.field("password").value();
+			user.setPassword(Crypto.encryptAES(password));
+			user.save();
+			flash().put("success", String.format("Account '%s' updated", user.getLogin()));
+			doLogin(user);
+			return redirect(routes.UserController.profileForm(user.getId()));
+		}
+		user.setPassword("");
+		Form<User> invalidForm = form.fill(user);
+		for (ValidationError error : validator.getErrors()) {
+			if (!error.key().equals("global")) {
+				invalidForm.reject(error);
+			} else {
+				flash().put("danger", error.message());
+			}
+		}
+		return wrapBadRequest(signUp.render(invalidForm));
+	}
+
+	private static void doLogin(User user) {
+		session().put("login", Crypto.encryptAES(user.getLogin()));
+		flash().put("success", "Logged in successfully!!");
 	}
 }
