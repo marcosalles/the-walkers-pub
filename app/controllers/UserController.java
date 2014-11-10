@@ -5,6 +5,7 @@ import static infra.UserValidator.ValidationType.*;
 import daos.UserDao;
 import infra.UserValidator;
 import infra.Validator;
+import models.Deck;
 import models.User;
 import play.data.Form;
 import play.data.validation.ValidationError;
@@ -26,6 +27,9 @@ public class UserController extends BaseController {
 		if (validator.isValid()) {
 			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
+			Deck deck = new Deck();
+			deck.setDescription("My first deck!");
+			user.addDeck(deck);
 			user.save();
 			flash().put("success", String.format("Account '%s' created", user.getLogin()));
 			doLogin(user);

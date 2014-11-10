@@ -18,6 +18,8 @@ GET		/user/:id/profile						controllers.UserController.profileForm(id: Long)
 
 # Deck
 GET		/featured								controllers.DeckController.featuredDecks()
+POST 	/createDeck								controllers.DeckController.createDeck()
+POST 	/add									controllers.DeckController.addCard()
 
 # Card
 GET		/card/search							controllers.CardController.searchForm()

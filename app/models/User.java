@@ -82,9 +82,9 @@ public class User extends Model {
 		return favorites;
 	}
 
-	public void addDeck(Deck deck) {
+	public User addDeck(Deck deck) {
 		decks.add(deck);
-		// deck.setOwner(this);
+		return this;
 	}
 
 	public void setFavorites(List<Deck> favorites) {

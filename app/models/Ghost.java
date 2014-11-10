@@ -54,7 +54,8 @@ public class Ghost extends User {
 		return super.getFavorites();
 	}
 	@Override
-	public void addDeck(Deck deck) {
+	public User addDeck(Deck deck) {
+		return this;
 	}
 	@Override
 	public void setFavorites(List<Deck> favorites) {

@@ -11,6 +11,9 @@ body {
 	border-color: rgb(140, 140, 255);
 	min-width: 7em;
 }
+.hidden{
+	display:none;
+}
 
 .text-field {
 	border-radius: 4px;

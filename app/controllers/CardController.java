@@ -13,13 +13,13 @@ public class CardController extends BaseController {
 
 	public static Result searchForm() {
 		Form<Card> form = Form.form(Card.class);
-		return wrapOk(searchCards.render(null, form, ColorEnum.MAP()));
+		return wrapOk(searchCards.render(loggedUser() ,null, form, ColorEnum.MAP()));
 	}
 
 	public static Result search() {
 		Form<Card> form = Form.form(Card.class).bindFromRequest();
 		List<Card> list = CardDao.cardsByFilledFields(form);
-		return wrapOk(searchCards.render(list, form, ColorEnum.MAP()));
+		return wrapOk(searchCards.render(loggedUser(), list, form, ColorEnum.MAP()));
 	}
 
 	public static Result card(String id) {

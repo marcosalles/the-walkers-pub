@@ -1,10 +1,30 @@
-	@(cards:List[magic.Card] = null, formCard:Form[magic.Card], colorMap:Map[String,Boolean])
+@(logUser:User, cards:List[magic.Card] = null, formCard:Form[magic.Card], colorMap:Map[String,Boolean])
 
 @import formfields._
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/cards.css")">
 
 <section>
+@if(logUser.getId != 0){
+	<select id="select">
+		@for(deck <- logUser.getDecks) {
+		<option value="@deck.getId">@deck.getDescription</option>
+		}
+		<option value= "0" > New deck </option>		
+	</select>
+	
+	@form(routes.DeckController.createDeck(),classes="hidden"){
+		<input type="text" name="name" >
+		@submit("create deck")
+	}
+
+	@form(routes.DeckController.addCard(),classes="addCard hidden"){
+		<input type="hidden" name="deckId">
+		<input type="hidden" name="cardId">
+		<input type="hidden" name="quantity">
+	}
+}
+
 @form(routes.CardController.search()) {
 	@text(formCard("suggestText"), placeholder="name")
 	@text(formCard("type"), placeholder="type")
@@ -14,6 +34,7 @@
 }
 </section>
 
+<section>
 @if(cards != null) {
 	@if(cards.size > 0) {
 		<table>
@@ -40,9 +61,15 @@
 		
 		<script type="text/javascript">
 			$(".card").on("click", function() {
-				var id = $(this).attr("id").split("-")[1];
-				var url = @routes.CardController.card("")+id;
-				location.href = url;
+				var cardId = $(this).attr("id").split("-")[1];
+ 				//var url = @routes.CardController.card("")+id;
+ 				//location.href = url;
+				var number = prompt("How many?");
+				var form = $(".addCard");
+				input.value = $("#select").options[$("#select").selectedIndex].val();
+			});
+			$("#select").on("change",function(){
+				$(".hidden").removeClass("hidden");
 			});
 		</script>
 	} else {
@@ -50,6 +77,7 @@
 		<h4>No cards found with that name</h4>
 	}
 }
+</section>
 <script type="text/javascript">
 	/* $("form").on("submit", function() {
 		alert('the action is: ' + $(this).serialize());

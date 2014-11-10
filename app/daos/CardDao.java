@@ -1,13 +1,15 @@
 package daos;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.magic.Card;
 import play.data.Form;
 import play.db.ebean.Model.Finder;
 
-import com.avaje.ebean.Expr;
-import com.avaje.ebean.Expression;
+import com.avaje.ebean.ExpressionList;
 
 public class CardDao {
 
@@ -26,6 +28,7 @@ public class CardDao {
 	}
 
 	public static List<Card> cardsByFilledFields(Form<Card> form) {
+		ExpressionList<Card> where = find.where();
 		Card card = form.get();
 		String name = card.getSuggestText().trim();
 		String text = card.getText().trim();
@@ -33,27 +36,20 @@ public class CardDao {
 		String colors = form.field("colors[]").value();
 		System.out.println("colors: '"+colors+"'");
 
-		Expression nullExpression = Expr.eq("id", -1);
-		Expression exprName = nullExpression;
-		Expression exprText = nullExpression;
-		Expression exprType = nullExpression;
-		Expression exprColor = nullExpression;
-
 		if (name != null && name.length() > 0) {
-			exprName = Expr.ilike("suggestText", "%"+name+"%");
+			where = where.ilike("suggestText", "%"+name+"%");
 		}
 		if (text != null && text.length() > 0) {
-			exprText = Expr.ilike("text", "%"+text+"%");
+			where = where.ilike("text", "%"+text+"%");
 		}
 		if (type != null && type.length() > 0) {
-			exprType = Expr.ilike("text", "%"+type+"%");
+			where = where.ilike("text", "%"+type+"%");
 		}
-		return find.where()
-				.or(exprName,
-			Expr.or(exprText,
-			Expr.or(exprType,
-					exprColor)))
-				.findList();
+		Map<String,Card> map = new HashMap<String, Card>();
+		for (Card c : where.findList()) {
+			map.put(c.getSuggestText(), c);
+		}
+		return new ArrayList<Card>(map.values());
 	}
 
 //	r: 66 terreno
