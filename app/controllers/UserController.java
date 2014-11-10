@@ -4,7 +4,6 @@ package controllers;
 import static infra.UserValidator.ValidationType.*;
 import daos.UserDao;
 import infra.UserValidator;
-import infra.UserValidator.ValidationType;
 import infra.Validator;
 import models.User;
 import play.data.Form;
@@ -66,7 +65,7 @@ public class UserController extends BaseController {
 
 	public static Result logout() {
 		session().clear();
-		flash().put("info", "Logged out successfully!!");
+		flash().put("warning", "Logged out successfully!!");
 		return redirect(routes.MainController.home());
 	}
 
@@ -90,7 +89,7 @@ public class UserController extends BaseController {
 		if (validator.isValid()) {
 			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
-			user.save();
+			user.update();
 			flash().put("success", String.format("Account '%s' updated", user.getLogin()));
 			doLogin(user);
 			return redirect(routes.UserController.profileForm(user.getId()));
@@ -104,7 +103,7 @@ public class UserController extends BaseController {
 				flash().put("danger", error.message());
 			}
 		}
-		return wrapBadRequest(signUp.render(invalidForm));
+		return wrapBadRequest(profileForm.render(invalidForm));
 	}
 
 	private static void doLogin(User user) {

@@ -71,6 +71,13 @@ public class UserValidator extends Validator {
 				errors.add(new ValidationError("old-password", "Wrong password"));
 			}
 		}
+		// Email check
+		if (!userById.getEmail().equals(user.getEmail())) {
+			if (!Ghost.instance().equals(UserDao.userByEmail(user.getEmail()))) {
+				errors.add(new ValidationError("email", "Email already is use"));
+			}
+		}
+
 		// Length check
 		if (stringNotLongEnough(user.getLogin(), 3)) {
 			errors.add(new ValidationError("login", "Login has to be at least 3 characters long"));
@@ -84,8 +91,10 @@ public class UserValidator extends Validator {
 			errors.add(new ValidationError("login", "Please use only characters, numbers and underscores"));
 		}
 		// Unique check
-		if (!Ghost.instance().equals(UserDao.userByLogin(user.getLogin()))) {
-			errors.add(new ValidationError("login", "Login already taken!"));
+		if (!userById.getLogin().equals(user.getLogin())) {
+			if (!Ghost.instance().equals(UserDao.userByLogin(user.getLogin()))) {
+				errors.add(new ValidationError("login", "Login already taken!"));
+			}
 		}
 
 		if (errors.size() > 0) {
@@ -115,7 +124,9 @@ public class UserValidator extends Validator {
 		if (!Ghost.instance().equals(UserDao.userByLogin(user.getLogin()))) {
 			errors.add(new ValidationError("login", "Login already taken!"));
 		}
-
+		if (!Ghost.instance().equals(UserDao.userByEmail(user.getEmail()))) {
+			errors.add(new ValidationError("login", "Login already taken!"));
+		}
 		if (errors.size() > 0) {
 			errors.add(new ValidationError("global", "Something went wrong.."));
 		}

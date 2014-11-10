@@ -1,9 +1,10 @@
-@(cards:List[magic.Card] = null, formCard:Form[magic.Card], colorMap:Map[String,Boolean])
+	@(cards:List[magic.Card] = null, formCard:Form[magic.Card], colorMap:Map[String,Boolean])
 
 @import formfields._
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/cards.css")">
 
+<section>
 @form(routes.CardController.search()) {
 	@text(formCard("suggestText"), placeholder="name")
 	@text(formCard("type"), placeholder="type")
@@ -11,6 +12,7 @@
 	@checkboxes(formCard("colors"), checkboxMap=colorMap)
 	@submit("search")
 }
+</section>
 
 @if(cards != null) {
 	@if(cards.size > 0) {
@@ -41,9 +43,6 @@
 				var id = $(this).attr("id").split("-")[1];
 				var url = @routes.CardController.card("")+id;
 				location.href = url;
-			});
-			$("form").on("submit", function() {
-				alert('the action is: ' + $(this).serialize());
 			});
 		</script>
 	} else {

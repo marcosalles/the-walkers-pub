@@ -2,6 +2,7 @@
 
 @import formfields._
 
+<section>
 @form(routes.UserController.signUp()){
 	@text(userForm("login"), placeholder="login")
 	@email(userForm("email"), placeholder="user@email.com")
@@ -9,3 +10,4 @@
 	@password(userForm("re-password"), placeholder="confirmation")
 	@submit("sign up")
 }
+</section>

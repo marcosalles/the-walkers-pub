@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+.alert {
+	border-radius: 4px;
+	width: 90%;
+	display: block;
+	margin: 0.5em auto;
+	padding: 0.8em;
+	text-align: center;
+}
+
+.success {
+	border: 1px solid #52be4c;
+	background-color: #7ed77a;
+	color: #086d03;
+}
+.info {
+	border: 1px solid #3e7d92;
+	background-color: #669eb0;
+	color: #054054;
+}
+.warning {
+	border: 1px solid #edb951;
+	background-color: #ffd47f;
+	color: #8b5c00;
+}
+.danger {
+	border: 1px solid #ea5e5e;
+	background-color: #ff9090;
+	color: #860404;
+}

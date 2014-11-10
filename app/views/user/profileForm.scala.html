@@ -1,6 +1,7 @@
 @(userForm:Form[User])
 @import formfields._
 
+<section>
 @form(routes.UserController.update) {
 	@hidden(userForm("id"))
 	@text(userForm("login"), placeholder="login")
@@ -10,3 +11,4 @@
 	@password(userForm("re-password"), placeholder="confirmation")
 	@submit("save changes")
 }
+</section>

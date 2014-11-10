@@ -1,7 +1,6 @@
-<div class="row">
-	@for(key <- flash.keySet) {
-		<p class="alert alert-@key text-@key">
-			@flash.get(key)
-		</p>
-	}
-</div>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/flash.css")">
+@for(key <- flash.keySet) {
+	<p class="alert @key">
+		@flash.get(key)
+	</p>
+}

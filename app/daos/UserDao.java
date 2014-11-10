@@ -31,4 +31,14 @@ public class UserDao {
 		}
 		return user;
 	}
+
+	public static User userByEmail(String email) {
+		User user = find.where()
+				.eq("email", email)
+				.findUnique();
+		if (user == null) {
+			user = Ghost.instance();
+		}
+		return user;
+	}
 }
