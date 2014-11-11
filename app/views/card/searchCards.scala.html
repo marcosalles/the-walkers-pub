@@ -69,10 +69,10 @@
 				var form = $(".addCard");
 				$.ajax({
 					url :"/add",
-					type,
+					type : "post",
 					contentType: "application/x-www-form-urlencoded",
 					data: {
-						deckId: $("option:selected").val ,
+						deckId: $("option:selected").val() ,
 						cardId:  $(this).attr("id").split("-")[1],
 						quantity:  number
 					}
