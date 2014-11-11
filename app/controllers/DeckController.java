@@ -33,7 +33,7 @@ public class DeckController extends BaseController {
 			deck.addCard(card);
 		}
 		deck.update();
-		return redirect(routes.CardController.searchForm());
+		return ok("Card added successfully!!!");
 	}
 	
 	public static Result createDeck() {

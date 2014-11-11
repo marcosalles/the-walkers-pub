@@ -1,7 +1,7 @@
 @(decks: List[Deck])
 
-@for(decks -> deck) {
-	<p>Id: @@deck.id</p>
+@for(deck <- decks) {
+	<p>Id: @deck.getId</p>
 	<ul>
 		@for(card <- deck.getCards) {
 			<li>@card.getSuggestText</li>

@@ -17,12 +17,6 @@
 		<input type="text" name="name" >
 		@submit("create deck")
 	}
-
-	@form(routes.DeckController.addCard(),classes="addCard hidden"){
-		<input type="hidden" name="deckId">
-		<input type="hidden" name="cardId">
-		<input type="hidden" name="quantity">
-	}
 }
 
 @form(routes.CardController.search()) {
@@ -67,7 +61,7 @@
  				//location.href = url;
 				var number = prompt("How many?");
 				var form = $(".addCard");
-				$.ajax({
+				var result = $.ajax({
 					url :"/add",
 					type : "post",
 					contentType: "application/x-www-form-urlencoded",
@@ -76,10 +70,19 @@
 						cardId:  $(this).attr("id").split("-")[1],
 						quantity:  number
 					}
-				});	
+				});
+				result.done(function(data){
+						alert(data);
+				});
+				result.fail(function( jqXHR, textStatus ) {
+  					alert( "Something went wrong!" );
+				});
 			});
 			$("#select").on("change",function(){
-				$(".hidden").removeClass("hidden");
+				if($("option:selected").val() == 0){
+					$(".hidden").removeClass("hidden");
+				}
+				
 			});
 		</script>
 	} else {
