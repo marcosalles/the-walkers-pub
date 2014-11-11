@@ -30,8 +30,8 @@
 }
 </section>
 
-<section>
 @if(cards != null) {
+<section>
 	@if(cards.size > 0) {
 		<table>
 			<thead>
@@ -86,11 +86,10 @@
 			});
 		</script>
 	} else {
-		<div class="clearfix"></div>
-		<h4>No cards found with that name</h4>
+		<h2>No cards found with that name</h2>
 	}
-}
 </section>
+}
 <script type="text/javascript">
 	/* $("form").on("submit", function() {
 		alert('the action is: ' + $(this).serialize());

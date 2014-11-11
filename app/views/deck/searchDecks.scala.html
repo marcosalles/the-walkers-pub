@@ -1,0 +1,33 @@
+@(deckForm:Form[Deck], decks:List[Deck])
+@import formfields._
+
+<section>
+@form(routes.DeckController.search) {
+	@text(deckForm("name"), placeholder="name")
+	@submit("search decks")
+}
+</section>
+
+@if(decks != null) {
+<section>
+	@if(decks.size > 0) {
+	<ul>
+		@for(deck <- decks) {
+		<li>
+			<section>
+				<h2>@deck.getName</h2>
+				<p>@deck.getDescription</p>
+				<ul>
+					@for(card <- deck.getCards) {
+					<li> @card.getSuggestText</li>
+					}
+				</ul>
+			</section>
+		</li>
+		}
+	</ul>
+	}else{
+	<h2>No decks found with that name</h2>
+	}
+</section>
+}

@@ -14,7 +14,15 @@ import daos.DeckDao;
 public class DeckController extends BaseController {
 
 	public static Result searchForm() {
-		return ok();
+		Form<Deck> form = Form.form(Deck.class);
+		return wrapOk(searchDecks.render(form, null));
+	}
+
+	public static Result search() {
+		Form<Deck> form = Form.form(Deck.class).bindFromRequest();
+		String name = form.field("name").valueOr("");
+		List<Deck> list = DeckDao.listByName(name);
+		return wrapOk(searchDecks.render(form, list));
 	}
 
 	public static Result featuredDecks() {

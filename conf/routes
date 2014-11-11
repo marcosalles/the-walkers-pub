@@ -4,7 +4,7 @@
 
 # Main
 GET		/										controllers.MainController.home()
-GET		/auth									controllers.MainController.authenticated()
+GET		/TODO									controllers.MainController.authenticated()
 
 # User
 GET		/user/sign-up							controllers.UserController.signUpForm()
@@ -18,10 +18,12 @@ GET		/user/:id/profile						controllers.UserController.profileForm(id: Long)
 GET		/user/:id/decks							controllers.UserController.decks(id: Long)
 
 # Deck
-GET	 	/createDeck								controllers.DeckController.createDeckForm()
-POST 	/createDeck								controllers.DeckController.createDeck()
+GET	 	/deck/create							controllers.DeckController.createDeckForm()
+POST 	/deck/create							controllers.DeckController.createDeck()
 POST 	/add									controllers.DeckController.addCard()
-GET		/featured								controllers.DeckController.featuredDecks()
+GET		/deck/featured							controllers.DeckController.featuredDecks()
+GET		/deck/search							controllers.DeckController.searchForm()
+POST	/deck/search							controllers.DeckController.search()
 
 # Card
 GET		/card/search							controllers.CardController.searchForm()

@@ -26,4 +26,10 @@ public class DeckDao {
 				.findList();
 		return list;
 	}
+
+	public static List<Deck> listByName(String name) {
+		return find.where()
+				.ilike("name", "%"+name+"%")
+				.findList();
+	}
 }
