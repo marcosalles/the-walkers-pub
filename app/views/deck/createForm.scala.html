@@ -1,0 +1,8 @@
+@(deckForm:Form[Deck])
+@import formfields._
+
+@form(routes.DeckController.createDeck) {
+	@text(deckForm("name"), placeholder="name")
+	@text(deckForm("description"), placeholder="description")
+	@submit("create deck")
+}

@@ -19,7 +19,7 @@ public class DeckController extends BaseController {
 
 	public static Result featuredDecks() {
 		List<Deck> decks = DeckDao.list();
-		return ok(featuredDecksList.render(decks));
+		return wrapOk(featuredDecksList.render(decks));
 	}
 	public static Result addCard() {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -35,13 +35,19 @@ public class DeckController extends BaseController {
 		deck.update();
 		return redirect(routes.CardController.searchForm());
 	}
-	
+
+	public static Result createDeckForm() {
+		Form<Deck> form = Form.form(Deck.class);
+		return wrapOk(createForm.render(form));
+	}
+
 	public static Result createDeck() {
 		Deck deck = new Deck();
 		DynamicForm form = Form.form().bindFromRequest();
-		deck.setDescription(form.field("name").value());
+		deck.setName(form.field("name").value());
+		deck.setDescription(form.field("description").valueOr(""));
 		loggedUser().addDeck(deck).update();
-		flash().put("success", "Deck created successfully!!!!");
+		flash().put("success", "Deck created successfully!!");
 		return redirect(routes.CardController.searchForm());
 	}
 }

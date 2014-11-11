@@ -34,6 +34,7 @@ create table color (
 create table deck (
   id                        bigint not null,
   owner_id                  bigint,
+  name                      varchar(255),
   description               varchar(255),
   format                    integer,
   constraint ck_deck_format check (format in (0,1,2)),

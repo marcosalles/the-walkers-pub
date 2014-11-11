@@ -5,6 +5,7 @@
 	@for(deck <- decks) {
 	<section>
 		<h2>@deck.getName</h2>
+		<p>@deck.getDescription</p>
 		<ul>
 			@for(card <- deck.getCards) {
 				<li>@card.getSuggestText</li>
@@ -14,7 +15,7 @@
 	}
 }else{
 <section>
-	<p>No decks found. Do you want to be the first to create one?</p>
+	<p>No decks found. Do you wish to create one?</p>
 	@button(routes.DeckController.createDeckForm, "create deck")
 </section>
 }

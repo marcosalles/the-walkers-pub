@@ -2,6 +2,9 @@
 package controllers;
 
 import static infra.UserValidator.ValidationType.*;
+
+import java.util.List;
+
 import daos.UserDao;
 import infra.UserValidator;
 import infra.Validator;
@@ -28,7 +31,7 @@ public class UserController extends BaseController {
 			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
 			Deck deck = new Deck();
-			deck.setDescription("My first deck!");
+			deck.setName("My first deck!");
 			user.addDeck(deck);
 			user.save();
 			flash().put("success", String.format("Account '%s' created", user.getLogin()));
@@ -108,6 +111,12 @@ public class UserController extends BaseController {
 			}
 		}
 		return wrapBadRequest(profileForm.render(invalidForm));
+	}
+
+	public static Result decks(Long id) {
+		User user = UserDao.userById(id);
+		List<Deck> list = user.getDecks();
+		return wrapOk(decks.render(list));
 	}
 
 	private static void doLogin(User user) {

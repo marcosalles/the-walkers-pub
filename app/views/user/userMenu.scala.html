@@ -1,6 +1,14 @@
 @(loggedUser:User)
 @import formfields.button
 <ul>
+	<li class="menu-item tooltips">decks
+		<span>
+			<ul>
+				<li class="tooltip-menu-item"><a href="@routes.DeckController.createDeckForm">new deck</a></li>
+				<li class="tooltip-menu-item"><a href="@routes.UserController.decks(loggedUser.getId)">owned</a></li>
+			</ul>
+		</span>
+	</li>
 	<li class="menu-item tooltips">@loggedUser.getLogin
 		<span>
 			<ul>

@@ -23,6 +23,7 @@ public class Deck extends Model {
 	private Long id;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User owner;
+	private String name;
 	private String description;
 	private Format format;
 	@ManyToMany(cascade = CascadeType.PERSIST)
@@ -46,6 +47,14 @@ public class Deck extends Model {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
