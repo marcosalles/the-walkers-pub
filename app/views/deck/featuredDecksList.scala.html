@@ -2,16 +2,21 @@
 @import formfields.button
 
 @if(decks.size > 0){
+<ul>
 	@for(deck <- decks) {
-	<section>
-		<h2>@deck.getName</h2>
-		<ul>
-			@for(card <- deck.getCards) {
-				<li>@card.getSuggestText</li>
-			}
-		</ul>
-	</section>
+	<li>
+		<section>
+			<h2>@deck.getName</h2>
+			<p>@deck.getDescription</p>
+			<ul>
+				@for(card <- deck.getCards) {
+					<li>@card.getSuggestText</li>
+				}
+			</ul>
+		</section>
+	</li>
 	}
+</ul>
 }else{
 <section>
 	<p>No decks found. Do you want to be the first to create one?</p>
