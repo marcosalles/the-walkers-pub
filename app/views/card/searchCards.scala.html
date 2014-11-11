@@ -26,11 +26,12 @@
 }
 
 @form(routes.CardController.search()) {
-	@text(formCard("suggestText"), placeholder="name")
+	@text(formCard("suggestText"), placeholder="name", clazz="ui-state-default autocomplete")
 	@text(formCard("type"), placeholder="type")
 	@text(formCard("text"), placeholder="ability")
 	@checkboxes(formCard("colors"), checkboxMap=colorMap)
 	@submit("search")
+	@autocomplete(method="CardController.searchAutoComplete")
 }
 </section>
 

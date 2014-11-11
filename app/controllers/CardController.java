@@ -22,6 +22,10 @@ public class CardController extends BaseController {
 		return wrapOk(searchCards.render(loggedUser(), list, form, ColorEnum.MAP()));
 	}
 
+	public static void getObjects(final String term){
+		//TODO
+	}
+	
 	public static Result card(String id) {
 		Card foundCard = CardDao.cardByMultiverseId(id);
 		return wrapOk(card.render(foundCard));
