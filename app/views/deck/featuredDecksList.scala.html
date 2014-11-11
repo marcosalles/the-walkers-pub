@@ -1,5 +1,10 @@
 @(decks: List[Deck])
 
-@@for(decks -> deck) {
+@for(decks -> deck) {
 	<p>Id: @@deck.id</p>
+	<ul>
+		@for(card <- deck.getCards) {
+			<li>@card.getSuggestText</li>
+		}
+	</ul>
 }
