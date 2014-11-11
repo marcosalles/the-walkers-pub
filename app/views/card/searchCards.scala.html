@@ -26,12 +26,13 @@
 }
 
 @form(routes.CardController.search()) {
+	<script src="@routes.Assets.at("javascripts/jquery-ui.min.js")" type="text/javascript"></script>
+	@autocomplete(method="CardController.searchAutoComplete()")
 	@text(formCard("suggestText"), placeholder="name", clazz="ui-state-default autocomplete")
 	@text(formCard("type"), placeholder="type")
 	@text(formCard("text"), placeholder="ability")
 	@checkboxes(formCard("colors"), checkboxMap=colorMap)
 	@submit("search")
-	@autocomplete(method="CardController.searchAutoComplete")
 }
 </section>
 
@@ -62,12 +63,20 @@
 		
 		<script type="text/javascript">
 			$(".card").on("click", function() {
-				var cardId = $(this).attr("id").split("-")[1];
  				//var url = @routes.CardController.card("")+id;
  				//location.href = url;
 				var number = prompt("How many?");
 				var form = $(".addCard");
-				input.value = $("#select").options[$("#select").selectedIndex].val();
+				$.ajax({
+					url :"/add",
+					type,
+					contentType: "application/x-www-form-urlencoded",
+					data: {
+						deckId: $("option:selected").val ,
+						cardId:  $(this).attr("id").split("-")[1],
+						quantity:  number
+					}
+				});	
 			});
 			$("#select").on("change",function(){
 				$(".hidden").removeClass("hidden");

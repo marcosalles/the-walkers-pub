@@ -1,4 +1,4 @@
-@(method:String = "",)
+@(method:String = "")
 <script type="text/javascript">
 	$(document).ready(function(){
 		  $('input.autocomplete').each( function() {
@@ -7,7 +7,7 @@
 		    $(this).autocomplete({
 		    	minLength: 3,
 		    	source : function(req, resp) {
-		    		$.getJSON("@{@method}?term=" + req.term , req, function(data) {
+		    		$.getJSON("@{method}?term=" + req.term , req, function(data) {
 		            var suggestions = [];
 		            $.each(data, function(i, val) {
 		            	var obj = {};

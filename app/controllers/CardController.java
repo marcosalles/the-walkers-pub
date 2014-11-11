@@ -5,6 +5,7 @@ import java.util.List;
 import models.magic.Card;
 import models.magic.ColorEnum;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Result;
 import views.html.card.*;
 import daos.CardDao;
@@ -22,8 +23,10 @@ public class CardController extends BaseController {
 		return wrapOk(searchCards.render(loggedUser(), list, form, ColorEnum.MAP()));
 	}
 
-	public static void getObjects(final String term){
-		//TODO
+	public static Result searchAutoComplete(){
+		Form<Card> form = Form.form(Card.class).bindFromRequest();
+		List<Card> list = CardDao.cardsByName(form.field("name").value());
+		return ok(Json.toJson(list));
 	}
 	
 	public static Result card(String id) {
