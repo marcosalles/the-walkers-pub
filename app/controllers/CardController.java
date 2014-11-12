@@ -7,7 +7,7 @@ import models.magic.ColorEnum;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
-import views.html.card.*;
+import views.html.cards.*;
 import daos.CardDao;
 
 public class CardController extends BaseController {

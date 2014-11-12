@@ -8,7 +8,7 @@
 @if(logUser.getId != 0){
 	<select id="select">
 		@for(deck <- logUser.getDecks) {
-		<option value="@deck.getId">@deck.getDescription</option>
+		<option value="@deck.getId">@deck.getName</option>
 		}
 		<option value= "0" > New deck </option>		
 	</select>

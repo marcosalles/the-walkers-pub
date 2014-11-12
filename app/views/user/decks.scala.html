@@ -1,5 +1,5 @@
 @(decks:List[Deck])
-@import formfields.button
+@import formfields.button; var card:magic.Card=null;
 
 @if(decks.size > 0){
 <ul>
@@ -9,7 +9,8 @@
 			<h2>@deck.getName</h2>
 			<p>@deck.getDescription</p>
 			<ul>
-				@for(card <- deck.getCards) {
+				@for(deckCard <- deck.getCards) {
+					@card=@{deckCard.getCard}
 					<li>@card.getSuggestText</li>
 				}
 			</ul>

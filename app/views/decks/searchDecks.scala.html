@@ -1,5 +1,5 @@
 @(deckForm:Form[Deck], decks:List[Deck])
-@import formfields._
+@import formfields._; var card:magic.Card=null;
 
 <section>
 @form(routes.DeckController.search) {
@@ -18,7 +18,8 @@
 				<h2>@deck.getName</h2>
 				<p>@deck.getDescription</p>
 				<ul>
-					@for(card <- deck.getCards) {
+					@for(deckCard <- deck.getCards) {
+					@card=@{deckCard.getCard}
 					<li> @card.getSuggestText</li>
 					}
 				</ul>

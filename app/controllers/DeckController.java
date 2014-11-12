@@ -3,11 +3,12 @@ package controllers;
 import java.util.List;
 
 import models.Deck;
+import models.DeckCard;
 import models.magic.Card;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Result;
-import views.html.deck.*;
+import views.html.decks.*;
 import daos.CardDao;
 import daos.DeckDao;
 
@@ -37,9 +38,12 @@ public class DeckController extends BaseController {
 
 		Deck deck = DeckDao.deckById(deckId);
 		Card card = CardDao.cardByMultiverseId(cardId);
-		for (int i = 0; i < quantity; i++) {
-			deck.addCard(card);
-		}
+
+		DeckCard deckCard = new DeckCard();
+		deckCard.setCard(card);
+		deckCard.setQuantity(quantity);
+		deck.addCard(deckCard);
+
 		deck.update();
 		return ok("Card added successfully!!!");
 	}

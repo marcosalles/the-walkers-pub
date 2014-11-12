@@ -7,15 +7,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import models.magic.Card;
 import models.magic.Format;
 import play.db.ebean.Model;
 
-@SuppressWarnings("serial")
 @Entity
+@SuppressWarnings("serial")
 public class Deck extends Model {
 
 	@Id
@@ -26,11 +25,11 @@ public class Deck extends Model {
 	private String name;
 	private String description;
 	private Format format;
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Card> cards;
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List<DeckCard> cards;
 
 	public Deck() {
-		cards = new ArrayList<Card>();
+		cards = new ArrayList<DeckCard>();
 	}
 
 	public Long getId() {
@@ -73,15 +72,15 @@ public class Deck extends Model {
 		this.format = format;
 	}
 
-	public List<Card> getCards() {
+	public List<DeckCard> getCards() {
 		return cards;
 	}
 
-	public void setCards(List<Card> cards) {
+	public void setCards(List<DeckCard> cards) {
 		this.cards = cards;
 	}
 
-	public void addCard(Card card) {
+	public void addCard(DeckCard card) {
 		cards.add(card);
 	}
 }
