@@ -25,7 +25,7 @@
 	@text(formCard("suggestText"), placeholder="name", clazz="ui-state-default autocomplete")
 	@text(formCard("type"), placeholder="type")
 	@text(formCard("text"), placeholder="ability")
-	@checkboxes(formCard("colors"), checkboxMap=colorMap)
+	<!--@checkboxes(formCard("colors"), checkboxMap=colorMap)-->
 	@submit("search")
 }
 </section>
@@ -38,8 +38,8 @@
 				<tr>
 					<th></th>
 					<th>name</th>
-					<th>text</th>
-					<th>cost</th>
+					<th>description</th>
+					<th>mana cost</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -47,8 +47,7 @@
 				<tr class="card" id="card-@card.getMultiverseId">
 					<td><img class="card-image" alt="" src="@cardImageSource(card)"></td>
 					<td>@card.getSuggestText</td>
-					<!-- <td>@Html(card.getText)</td> -->
-					<td>@card.getRarity</td>	
+					<td>@Html(card.getText)</td>
 					<td>@card.getManaCost</td>
 				</tr>
 			}

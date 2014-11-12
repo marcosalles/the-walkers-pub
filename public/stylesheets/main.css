@@ -32,3 +32,14 @@ section {
 	width: 90%;
 	margin: 1em auto;
 }
+
+p, th, td {
+	color: white;
+	min-width: 3em;
+}
+th {
+	text-transform:bold;
+}
+td {
+	padding: 0 1em;
+}
