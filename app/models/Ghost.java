@@ -50,14 +50,7 @@ public class Ghost extends User {
 	public void setDecks(List<Deck> decks) {
 	}
 	@Override
-	public List<Deck> getFavorites() {
-		return super.getFavorites();
-	}
-	@Override
 	public User addDeck(Deck deck) {
 		return this;
-	}
-	@Override
-	public void setFavorites(List<Deck> favorites) {
 	}
 }

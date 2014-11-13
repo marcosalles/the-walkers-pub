@@ -1,4 +1,4 @@
-@(logUser:User, cards:List[magic.Card] = null, formCard:Form[magic.Card], colorMap:Map[String,Boolean])
+@(logUser:User, cards:List[magic.MagicCard] = null, formCard:Form[magic.MagicCard], colorMap:Map[String,Boolean])
 
 @import formfields._
 
@@ -56,18 +56,23 @@
 		
 		<script type="text/javascript">
 			$(".card").on("click", function() {
- 				//var url = @routes.CardController.card("")+id;
- 				//location.href = url;
-				var number = prompt("How many?");
+ 				var url = "@routes.DeckController.addCard()";
+ 				var deckId = $("option:selected").val();
+ 				var cardId = $(this).attr("id").split("-")[1];
+				var quantity = prompt("How many of that card would you like to add?");
+				var isSide = prompt("Is it a side card? (y/n)");
+				isSide = (isSide=="y"?true:false);
+
 				var form = $(".addCard");
 				var result = $.ajax({
-					url :"/add",
-					type : "post",
+					url: url,
+					type: "post",
 					contentType: "application/x-www-form-urlencoded",
 					data: {
-						deckId: $("option:selected").val() ,
-						cardId:  $(this).attr("id").split("-")[1],
-						quantity:  number
+						deckId: deckId,
+						cardId: cardId,
+						quantity: quantity,
+						side: isSide
 					}
 				});
 				result.done(function(data){

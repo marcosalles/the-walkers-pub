@@ -40,7 +40,7 @@ public class BaseController extends Controller {
 
 	public static User loggedUser() {
 		String login = session().get("login");
-		if (login != null) {
+		if (login != null && !login.equals("")) {
 			login = Crypto.decryptAES(login);
 		}
 		else {

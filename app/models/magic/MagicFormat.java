@@ -1,5 +1,5 @@
 package models.magic;
 
-public enum Format {
+public enum MagicFormat {
 	VINTAGE, COMMANDER, EDH
 }

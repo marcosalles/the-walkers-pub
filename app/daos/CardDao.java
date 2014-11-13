@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import models.magic.Card;
+import models.magic.MagicCard;
 import play.data.Form;
 import play.db.ebean.Model.Finder;
 
@@ -13,23 +13,23 @@ import com.avaje.ebean.ExpressionList;
 
 public class CardDao {
 
-	public static Finder<Long, Card> find = new Finder<Long, Card>(Long.class, Card.class);
+	public static Finder<Long, MagicCard> find = new Finder<Long, MagicCard>(Long.class, MagicCard.class);
 
-	public static List<Card> cardsByName(String name) {
+	public static List<MagicCard> cardsByName(String name) {
 		return find.where()
 				.ilike("suggestText", "%"+name+"%")
 				.findList();
 	}
 
-	public static Card cardByMultiverseId(String id) {
+	public static MagicCard cardByMultiverseId(String id) {
 		return find.where()
 				.eq("multiverseId", id)
 				.findUnique();
 	}
 
-	public static List<Card> cardsByFilledFields(Form<Card> form) {
-		ExpressionList<Card> where = find.where();
-		Card card = form.get();
+	public static List<MagicCard> cardsByFilledFields(Form<MagicCard> form) {
+		ExpressionList<MagicCard> where = find.where();
+		MagicCard card = form.get();
 		String name = card.getSuggestText().trim();
 		String text = card.getText().trim();
 		String type = card.getType().trim();
@@ -45,11 +45,15 @@ public class CardDao {
 		if (type != null && type.length() > 0) {
 			where = where.ilike("text", "%"+type+"%");
 		}
-		Map<String,Card> map = new HashMap<String, Card>();
-		for (Card c : where.findList()) {
+		Map<String,MagicCard> map = new HashMap<String, MagicCard>();
+		for (MagicCard c : where.findList()) {
 			map.put(c.getSuggestText(), c);
 		}
-		return new ArrayList<Card>(map.values());
+		return new ArrayList<MagicCard>(map.values());
+	}
+
+	public static List<MagicCard> list() {
+		return find.all();
 	}
 
 //	r: 66 terreno

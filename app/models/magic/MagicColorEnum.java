@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public enum ColorEnum {
+public enum MagicColorEnum {
 	C, // colorless
 	A, // artifact
 	L, // land
@@ -19,7 +19,7 @@ public enum ColorEnum {
 
 	public static Random random;
 
-	public static ColorEnum RANDOM() {
+	public static MagicColorEnum RANDOM() {
 		if (random == null) {
 			random = new Random();
 		}
@@ -27,16 +27,16 @@ public enum ColorEnum {
 		return values()[n];
 	}
 
-	public static ColorEnum fromString(String colorAsString) {
-		ColorEnum color = C;
+	public static MagicColorEnum fromString(String colorAsString) {
+		MagicColorEnum color = C;
 		try {
-			color = ColorEnum.valueOf(ColorEnum.class, colorAsString);
+			color = MagicColorEnum.valueOf(MagicColorEnum.class, colorAsString);
 		} catch (IllegalArgumentException e) {
 		}
 		return color;
 	}
 
-	public static List<ColorEnum> ALL() {
+	public static List<MagicColorEnum> ALL() {
 		return Arrays.asList(values());
 	}
 

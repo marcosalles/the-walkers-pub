@@ -4,11 +4,13 @@ import java.util.List;
 
 import models.Deck;
 import models.DeckCard;
-import models.magic.Card;
+import models.magic.MagicCard;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Result;
-import views.html.decks.*;
+import views.html.decks.createForm;
+import views.html.decks.featuredDecksList;
+import views.html.decks.searchDecks;
 import daos.CardDao;
 import daos.DeckDao;
 
@@ -35,16 +37,17 @@ public class DeckController extends BaseController {
 		Long deckId = Long.parseLong(form.field("deckId").value());
 		String cardId = form.field("cardId").value();
 		int quantity = Integer.parseInt(form.field("quantity").value());
+		boolean side = Boolean.parseBoolean(form.field("side").value());
 
 		Deck deck = DeckDao.deckById(deckId);
-		Card card = CardDao.cardByMultiverseId(cardId);
+		MagicCard card = CardDao.cardByMultiverseId(cardId);
 
-		DeckCard deckCard = new DeckCard();
-		deckCard.setCard(card);
-		deckCard.setQuantity(quantity);
+		DeckCard deckCard = new DeckCard(card).setSide(side)
+				.setQuantity(quantity)
+				.setDeck(deck);
 		deck.addCard(deckCard);
-
 		deck.update();
+
 		return ok("Card added successfully!!!");
 	}
 

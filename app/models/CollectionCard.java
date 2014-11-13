@@ -13,65 +13,52 @@ import play.db.ebean.Model;
 
 @Entity
 @SuppressWarnings("serial")
-public class DeckCard extends Model implements Card {
+public class CollectionCard extends Model implements Card {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private BaseCard card;
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	private Deck deck;
 	private Integer quantity;
-	private Boolean side;
-
-	public DeckCard() {
-	}
-	public DeckCard(BaseCard card) {
-		setCard(card);
-	}
-	public DeckCard(MagicCard card) {
-		setCard(card);
-	}
-
+	private Double acquiredPrice;
+	private String tradeSuggestion;
+	private Boolean tradable;
 	public Long getId() {
 		return id;
 	}
-	public DeckCard setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
 	public BaseCard getCard() {
 		return card;
 	}
-	public DeckCard setCard(BaseCard card) {
+	public void setCard(BaseCard card) {
 		this.card = card;
-		return this;
-	}
-	public DeckCard setCard(MagicCard card) {
-		this.card = new BaseCard(card);
-		return this;
-	}
-	public Deck getDeck() {
-		return deck;
-	}
-	public DeckCard setDeck(Deck deck) {
-		this.deck = deck;
-		return this;
 	}
 	public Integer getQuantity() {
 		return quantity;
 	}
-	public DeckCard setQuantity(Integer quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
-		return this;
 	}
-	public Boolean getSide() {
-		return side;
+	public Double getAcquiredPrice() {
+		return acquiredPrice;
 	}
-	public DeckCard setSide(Boolean side) {
-		this.side = side;
-		return this;
+	public void setAcquiredPrice(Double acquiredPrice) {
+		this.acquiredPrice = acquiredPrice;
+	}
+	public String getTradeSuggestion() {
+		return tradeSuggestion;
+	}
+	public void setTradeSuggestion(String tradeSuggestion) {
+		this.tradeSuggestion = tradeSuggestion;
+	}
+	public Boolean getTradable() {
+		return tradable;
+	}
+	public void setTradable(Boolean tradable) {
+		this.tradable = tradable;
 	}
 	@Override
 	public String getName() {

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,14 +25,16 @@ public class User extends Model {
 	@Column(unique = true)
 	private String login;
 	private String password;
+	@Column(unique = true)
 	private String email;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private List<CollectionCard> collection;
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
 	private List<Deck> decks;
-	private List<Deck> favorites;
+	private String location;
 
 	public User() {
 		decks = new ArrayList<Deck>();
-		favorites = new ArrayList<Deck>();
 	}
 
 	public Long getId() {
@@ -78,17 +81,9 @@ public class User extends Model {
 		this.decks = decks;
 	}
 
-	public List<Deck> getFavorites() {
-		return favorites;
-	}
-
 	public User addDeck(Deck deck) {
 		decks.add(deck);
 		return this;
-	}
-
-	public void setFavorites(List<Deck> favorites) {
-		this.favorites = favorites;
 	}
 
 	public boolean isGhost() {
@@ -113,6 +108,14 @@ public class User extends Model {
 		} else if (!getPassword().equals(other.getPassword()))
 			return false;
 		return true;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }

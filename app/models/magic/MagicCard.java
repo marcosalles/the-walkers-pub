@@ -6,12 +6,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import play.db.ebean.Model;
 
 @Entity
 @SuppressWarnings("serial")
-public class Card extends Model implements Comparable<Card> {
+@Table(name="card")
+public class MagicCard extends Model implements Comparable<MagicCard> {
 
 	@Id
 	@GeneratedValue
@@ -33,7 +35,7 @@ public class Card extends Model implements Comparable<Card> {
 	private String number;
 	private Long multiverseId;
 	@Enumerated(EnumType.STRING)
-	private ColorEnum color;
+	private MagicColorEnum color;
 	private String rulings;
 
 	public Long getId() {
@@ -156,11 +158,11 @@ public class Card extends Model implements Comparable<Card> {
 		this.multiverseId = multiverseId;
 	}
 
-	public ColorEnum getColor() {
+	public MagicColorEnum getColor() {
 		return color;
 	}
 
-	public void setColor(ColorEnum color) {
+	public void setColor(MagicColorEnum color) {
 		this.color = color;
 	}
 
@@ -177,8 +179,8 @@ public class Card extends Model implements Comparable<Card> {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof Card) {
-			Card card = (Card)obj;
+		if (obj instanceof MagicCard) {
+			MagicCard card = (MagicCard)obj;
 			if (card.getSuggestText().equals(this.getSuggestText())) {
 				return true;
 			}
@@ -186,7 +188,7 @@ public class Card extends Model implements Comparable<Card> {
 		return false;
 	}
 	@Override
-	public int compareTo(Card card) {
+	public int compareTo(MagicCard card) {
 		if (this.getMultiverseId() > card.getMultiverseId()) {
 			return 1;
 		}

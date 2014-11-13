@@ -20,7 +20,7 @@ GET		/user/:id/decks							controllers.UserController.decks(id: Long)
 # Deck
 GET	 	/deck/create							controllers.DeckController.createDeckForm()
 POST 	/deck/create							controllers.DeckController.createDeck()
-POST 	/add									controllers.DeckController.addCard()
+POST 	/deck/add								controllers.DeckController.addCard()
 GET		/deck/featured							controllers.DeckController.featuredDecks()
 GET		/deck/search							controllers.DeckController.searchForm()
 POST	/deck/search							controllers.DeckController.search()

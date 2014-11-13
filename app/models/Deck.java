@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import models.magic.Format;
+import models.magic.MagicFormat;
 import play.db.ebean.Model;
 
 @Entity
@@ -24,8 +24,10 @@ public class Deck extends Model {
 	private User owner;
 	private String name;
 	private String description;
-	private Format format;
-	@OneToMany(cascade = CascadeType.PERSIST)
+	private String howToPlay;
+	@ManyToOne
+	private MagicFormat format;
+	@OneToMany(mappedBy = "deck", cascade = CascadeType.PERSIST)
 	private List<DeckCard> cards;
 
 	public Deck() {
@@ -36,51 +38,68 @@ public class Deck extends Model {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public Deck setId(Long id) {
 		this.id = id;
+		return this;
 	}
 
 	public User getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public Deck setOwner(User owner) {
 		this.owner = owner;
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Deck setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public Deck setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
-	public Format getFormat() {
+	public String getHowToPlay() {
+		return howToPlay;
+	}
+
+	public Deck setHowToPlay(String howToPlay) {
+		this.howToPlay = howToPlay;
+		return this;
+	}
+
+	public MagicFormat getFormat() {
 		return format;
 	}
 
-	public void setFormat(Format format) {
+	public Deck setFormat(MagicFormat format) {
 		this.format = format;
+		return this;
 	}
 
 	public List<DeckCard> getCards() {
 		return cards;
 	}
 
-	public void setCards(List<DeckCard> cards) {
+	public Deck setCards(List<DeckCard> cards) {
 		this.cards = cards;
+		return this;
 	}
 
-	public void addCard(DeckCard card) {
+	public Deck addCard(DeckCard card) {
 		cards.add(card);
+		return this;
 	}
+
 }

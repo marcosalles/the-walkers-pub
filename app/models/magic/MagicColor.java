@@ -3,12 +3,14 @@ package models.magic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import play.db.ebean.Model;
 
 @Entity
 @SuppressWarnings("serial")
-public class Color extends Model {
+@Table(name="color")
+public class MagicColor extends Model {
 
 	@Id
 	@GeneratedValue
