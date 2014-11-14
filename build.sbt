@@ -7,7 +7,6 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   "org.webjars" %% "webjars-play" % "2.2.1",
-  "org.webjars" % "angularjs" % "1.3.2",
   "org.webjars" % "jquery" % "1.11.1",
   "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
 )     

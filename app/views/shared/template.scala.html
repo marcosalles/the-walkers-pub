@@ -7,11 +7,12 @@
 	<head>
 		<meta charset="utf-8">
 		<title>The Walker's Pub</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/reset.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("pure-min.css")">
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 		<script src="@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))"></script>
-		<script src="@routes.WebJarAssets.at(WebJarAssets.locate("angular.js"))"></script>
 	</head>
 	<body>
 		@header(loggedUser)
