@@ -33,8 +33,7 @@ public class CardDao {
 		String name = card.getSuggestText().trim();
 		String text = card.getText().trim();
 		String type = card.getType().trim();
-		String colors = form.field("colors[]").value();
-		System.out.println("colors: '"+colors+"'");
+//		String colors = form.field("colors[]").value();
 
 		if (name != null && name.length() > 0) {
 			where = where.ilike("suggestText", "%"+name+"%");
