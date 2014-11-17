@@ -1,7 +1,7 @@
 package controllers;
 
 import play.mvc.Result;
-import views.html.main.home;
+import views.html.main.*;
 
 public class MainController extends BaseController {
 
@@ -10,7 +10,7 @@ public class MainController extends BaseController {
 	}
 
 	public static Result authenticated() {
-		return TODO;
+		return ok(views.html.refactor.test.render());
 	}
 
 }

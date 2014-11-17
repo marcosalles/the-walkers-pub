@@ -1,79 +1,41 @@
-@CHARSET "UTF-8";
+.container {
+	width: 90%;
+	margin: 0 auto;
+}
 
 .header {
 	width: 100%;
-	min-height: 5.5em;
 	background-image: url("/assets/images/header.png");
 	background-position: center;
+	padding: .5em 0;
 }
 
-.container {
+.logo-link {
+	display: block;
+	width: 155px;
 	margin: 0 auto;
-	width: 90%;
-}
-
-.header-logo {
-	padding: 1em;
-}
-
-.menu {
-	margin-top: .9em;
-	padding: 1em;
-	float: right;
-	display: inline-block;
-	min-height: 1.8em;
-}
-
-.menu-section {
-	display: inline-block;
-	position: relative;
-	top: 25%;
-	text-align: right;
 }
 
 .menu-item {
-	padding: 0.3em;
-	border: 1px solid #fff;
-	background-color: rgba(255,255,255,0.8);
-	border-radius: 4px;
-	display: inline-block;
+	margin: .2em 0;
 }
-.tooltip-menu-item {
-	padding: 0.2em 0.3em;
-	min-width: 8em;
-	border-radius: 4px;
-	display: block;
+.btn {
+	color: black;
+	border-radius: 3px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	background: rgba(255,255,255,0.8);
+	border: 1px dotted rgba(255,255,255,0.3);;
+	text-transform: lowercase;
+	width: calc(100% - 2em);
 }
 
-.menu-item.tooltips {
-  position: relative;
-  display: inline-block;
+@media only screen and (max-width: 1024px) {
 }
-.menu-item.tooltips span {
-  position: absolute;
-  color: #000;
-  background: rgba(255,255,255,0.8);
-  border: 1px solid #fff;
-  line-height: 1.2em;
-  text-align: center;
-  visibility: hidden;
-  border-radius: 5px;
+@media only screen and (max-width: 960px) {
 }
-.menu-item.tooltips span:after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  right: 0%;
-  margin-right: 12px;
-  width: 0; height: 0;
-  /* border-bottom: 12px solid #fff;
-  border-right: 12px solid transparent;
-  border-left: 12px solid transparent; */
+@media only screen and (max-width: 768px) {
 }
-.menu-item:hover.tooltips span {
-  visibility: visible;
-  opacity: 1;
-  top: 26px;
-  right: 0%;
-  z-index: 999;
+@media only screen and (max-width: 640px) {
+}
+@media only screen and (max-width: 360px) {
 }
