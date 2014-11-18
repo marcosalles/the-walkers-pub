@@ -16,7 +16,7 @@
 .menu-item {
 	margin: .4em 0;
 }
-.menu-item a {
+.menu-item > a {
 	margin: 0 auto;
 	width: calc(100% - 1em);
 	display: block;
