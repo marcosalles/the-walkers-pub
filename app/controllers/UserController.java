@@ -125,6 +125,6 @@ public class UserController extends BaseController {
 
 	private static void doLogin(User user) {
 		session().put("login", Crypto.encryptAES(user.getLogin()));
-		flash().put("success", "Logged in successfully!!");
+		flash().put("info", "Logged in successfully!!");
 	}
 }

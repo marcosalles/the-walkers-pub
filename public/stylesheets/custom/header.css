@@ -3,6 +3,7 @@
 	background-image: url("/assets/images/header-192.png");
 	background-position: top;
 	padding: .5em 0;
+	margin-bottom: .5em;
 }
 .logo a {
 	display: block;

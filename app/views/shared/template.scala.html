@@ -16,14 +16,13 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pure/grid.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/custom/main.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/custom/header.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/custom/flash.css")">
 <script src="@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))"></script>
 </head>
 <body>
 	@header(loggedUser)
 	@flashmessages()
-	<div class="content">
-		@content
-	</div>
+	@content
 	@footer()
 </body>
 </html>

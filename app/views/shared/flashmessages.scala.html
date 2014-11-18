@@ -1,6 +1,7 @@
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/flash.css")">
+<section class="container pure-g">
 @for(key <- flash.keySet) {
-	<p class="alert @key">
+	<h3 class="alert alert-@key pure-u-1">
 		@flash.get(key)
-	</p>
+	</h3>
 }
+</section>
