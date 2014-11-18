@@ -1,30 +1,19 @@
 @(loggedUser:User)
 
-@import shared.menu
-@import user.userMenu
-@import user.login
+@import refactor.menu
+@import refactor.userMenu
+@import refactor.login
 
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/header.css")">
 <header class="header">
-	<div class="container">
-		<nav>
-			<ul class="menu">
-				<li class="menu-section">@menu()</li>
-				@if(!loggedUser.isGhost){
-				<li class="menu-section">@userMenu(loggedUser)</li>
-				}else{
-				<li class="menu-section">@login()</li>
-				}
-			</ul>
-		</nav>
-		<h1 class="header-logo">
-			<a href="@routes.MainController.home()" title="Home">
-				<img src="@routes.Assets.at("images/logo.png")">
+	<nav class="container pure-g">
+		<h1 class="logo pure-u-1 pure-u-s2-1-3 pure-u-m2-1-4 pure-u-l1-1-5 pure-u-x1-1-6">
+			<a href="@routes.MainController.home()" title="the walker's pub">
+				<img src="@routes.Assets.at("images/logo.png")" alt="the walker's pub">
 			</a>
 		</h1>
-	</div>
+		<ul class="menu pure-u-1 pure-u-s2-2-3 pure-u-m2-3-4 pure-u-l1-4-5 pure-u-x1-5-6">
+			@menu()<!-- 
+			 -->@if(!loggedUser.isGhost){@userMenu(loggedUser)}else{@login()}
+		</ul>
+	</nav>
 </header>
-
-@authenticated() = @{
-	session.get("login") != null
-}
