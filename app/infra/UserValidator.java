@@ -73,7 +73,7 @@ public class UserValidator extends Validator {
 		}
 		// Email check
 		if (!userById.getEmail().equals(user.getEmail())) {
-			if (!Ghost.instance().equals(UserDao.userByEmail(user.getEmail()))) {
+			if (!UserDao.userByEmail(user.getEmail()).isGhost()) {
 				errors.add(new ValidationError("email", "Email already is use"));
 			}
 		}
@@ -116,16 +116,19 @@ public class UserValidator extends Validator {
 			errors.add(new ValidationError("password", ""));
 			errors.add(new ValidationError("re-password", "Password has to be at least 3 characters long"));
 		}
+		if (stringNotLongEnough(user.getEmail(), 1)) {
+			errors.add(new ValidationError("email", "Email can't be empty"));
+		}
 		// Pattern check
 		if (!user.getLogin().matches("[\\w]+")) {
 			errors.add(new ValidationError("login", "Please use only characters, numbers and underscores"));
 		}
 		// Unique check
-		if (!Ghost.instance().equals(UserDao.userByLogin(user.getLogin()))) {
+		if (!UserDao.userByLogin(user.getLogin()).isGhost()) {
 			errors.add(new ValidationError("login", "Login already taken!"));
 		}
-		if (!Ghost.instance().equals(UserDao.userByEmail(user.getEmail()))) {
-			errors.add(new ValidationError("login", "Login already taken!"));
+		if (!UserDao.userByEmail(user.getEmail()).isGhost()) {
+			errors.add(new ValidationError("email", "Email already taken!"));
 		}
 		if (errors.size() > 0) {
 			errors.add(new ValidationError("global", "Something went wrong.."));

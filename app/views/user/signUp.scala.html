@@ -4,6 +4,7 @@
 
 <section>
 @form(routes.UserController.signUp()){
+	All fields are required *
 	@text(userForm("login"), placeholder="login")
 	@email(userForm("email"), placeholder="user@email.com")
 	@password(userForm("password"), placeholder="password")

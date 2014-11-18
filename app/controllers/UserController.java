@@ -27,6 +27,11 @@ public class UserController extends BaseController {
 
 	public static Result signUp() {
 		Form<User> form = Form.form(User.class).bindFromRequest();
+		String fromLogin = form.field("fromLogin").value();
+		if (fromLogin != null) {
+			flash().put("info", "Fill the form to complete your registration!");
+			return wrapOk(signUp.render(form));
+		}
 		User user = form.get();
 		Validator validator = new UserValidator(SIGNUP).fromForm(form).validated();
 		if (validator.isValid()) {

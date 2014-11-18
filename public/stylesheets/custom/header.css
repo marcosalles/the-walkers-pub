@@ -28,7 +28,21 @@
 .side-item {
 	float: right;
 }
-
+.login-field {
+	display: block !important;
+	margin: 0 auto;
+	width: 90%;
+}
+.login-button,
+.register-button {
+	display: block;
+}
+.login-button {
+	background-color: rgba(5,194,0,0.95);
+}
+.register-button {
+	background-color: rgba(255,145,0,0.95);
+}
 @media only screen and (min-width: 90em) { /* 1440 */
 }
 @media only screen and (min-width: 80em) { /* 1280 */

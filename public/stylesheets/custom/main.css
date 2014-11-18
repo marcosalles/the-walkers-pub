@@ -11,28 +11,26 @@ body {
 .btn {
 	color: #000;
 	border-radius: 4px;
-	background: #f0f0f0;
-	opacity: 0.9;
+	background-color: rgba(240,240,240,0.95);
 	text-transform: lowercase;
 	font-weight: bold;
 	font-size: 90%;
 }
 .btn-call {
-	background-color: #7ee7e5;
+	background-color: rgba(126,231,229,0.95);
 }
 .btn-secondary {
-	background-color: #e7bf7e;
+	background-color: rgba(255,145,0,0.95);/* #e7bf7e; */
 }
 .dropdown-mix {
 	border-radius:  4px 4px 0 0;
-	background-color: #73d4d2;
+	background-color: rgba(115,212,210,0.95);
 }
 .dropdown-content {
 	border-radius: 0 0 4px 4px;
-	background-color: #88faf8;
-	opacity: 0.9;
+	background-color: rgba(174,233,232,0.95);
 	text-transform: lowercase;
-	font-size: 90%;
+	font-size: 95%;
 	width: calc(100% - 1em);
 	margin: 0 auto;
 }

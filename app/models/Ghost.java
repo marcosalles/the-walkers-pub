@@ -53,4 +53,8 @@ public class Ghost extends User {
 	public User addDeck(Deck deck) {
 		return this;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof Ghost);
+	}
 }

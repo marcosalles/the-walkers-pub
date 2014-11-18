@@ -24,7 +24,7 @@ public class UserDao {
 
 	public static User userByLogin(String login) {
 		User user = find.where()
-				.eq("login", login)
+				.ieq("login", login)
 				.findUnique();
 		if (user == null) {
 			user = Ghost.instance();
@@ -34,7 +34,7 @@ public class UserDao {
 
 	public static User userByEmail(String email) {
 		User user = find.where()
-				.eq("email", email)
+				.ieq("email", email)
 				.findUnique();
 		if (user == null) {
 			user = Ghost.instance();
