@@ -1,7 +1,7 @@
 .header {
 	width: 100%;
-	background-image: url("/assets/images/header.png");
-	background-position: center;
+	background-image: url("/assets/images/header-192.png");
+	background-position: top;
 	padding: .5em 0;
 }
 .logo a {
