@@ -12,6 +12,7 @@ body {
 	margin: .5em 0;
 }
 .block {
+	min-height: 5em;
 	margin: auto;
 	display: block;
 	padding: .5em;

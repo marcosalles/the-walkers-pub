@@ -10,7 +10,7 @@ public class MainController extends BaseController {
 	}
 
 	public static Result authenticated() {
-		return ok(views.html.refactor.test.render());
+		return TODO;
 	}
 
 }

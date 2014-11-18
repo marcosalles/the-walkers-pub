@@ -24,6 +24,7 @@ POST 	/deck/add								controllers.DeckController.addCard()
 GET		/deck/featured							controllers.DeckController.featuredDecks()
 GET		/deck/search							controllers.DeckController.searchForm()
 POST	/deck/search							controllers.DeckController.search()
+GET		/deck/:category							controllers.DeckController.decks(category:String)
 
 # Card
 GET		/card/search							controllers.CardController.searchForm()

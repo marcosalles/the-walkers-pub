@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collections;
 import java.util.List;
 
 import models.Deck;
@@ -9,7 +10,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Result;
 import views.html.decks.createForm;
-import views.html.decks.featuredDecksList;
+import views.html.decks.list;
 import views.html.decks.searchDecks;
 import daos.CardDao;
 import daos.DeckDao;
@@ -30,8 +31,20 @@ public class DeckController extends BaseController {
 
 	public static Result featuredDecks() {
 		List<Deck> decks = DeckDao.list();
-		return wrapOk(featuredDecksList.render(decks));
+		return ok(list.render(decks));
 	}
+
+	public static Result decks(String category) {
+		List<Deck> decks = Collections.emptyList();
+		if (category.equals("highlighted")) {
+			decks = DeckDao.list();
+		}
+		else if (category.equals("latest")) {
+			decks = DeckDao.list();
+		}
+		return ok(list.render(decks));
+	}
+
 	public static Result addCard() {
 		DynamicForm form = Form.form().bindFromRequest();
 		Long deckId = Long.parseLong(form.field("deckId").value());
