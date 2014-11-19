@@ -1,0 +1,8 @@
+@(deck:Deck)
+@if(deck != null) {
+<h2>@deck.getName</h2>
+<p>@deck.getDescription</p>
+<p>@deck.getHowToPlay</p>
+}else{
+<p>no decks available.</p>
+}

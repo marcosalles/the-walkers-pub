@@ -26,6 +26,7 @@ create table deck (
   description               varchar(255),
   how_to_play               varchar(255),
   format                    integer,
+  available_to_public       boolean not null default true,
   constraint ck_deck_format check (format in (0,1,2)),
   constraint pk_deck primary key (id))
 ;

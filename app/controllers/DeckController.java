@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.Collections;
 import java.util.List;
 
 import models.Deck;
@@ -10,8 +9,10 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Result;
 import views.html.decks.createForm;
+import views.html.decks.deck;
 import views.html.decks.list;
 import views.html.decks.searchDecks;
+import views.html.decks.single;
 import daos.CardDao;
 import daos.DeckDao;
 
@@ -25,24 +26,26 @@ public class DeckController extends BaseController {
 	public static Result search() {
 		Form<Deck> form = Form.form(Deck.class).bindFromRequest();
 		String name = form.field("name").valueOr("");
-		List<Deck> list = DeckDao.listByName(name);
+		List<Deck> list = DeckDao.decksByName(name);
 		return wrapOk(searchDecks.render(form, list));
 	}
 
-	public static Result featuredDecks() {
-		List<Deck> decks = DeckDao.list();
-		return ok(list.render(decks));
-	}
-
 	public static Result decks(String category) {
-		List<Deck> decks = Collections.emptyList();
 		if (category.equals("highlighted")) {
-			decks = DeckDao.list();
+			List<Deck> decks = DeckDao.list();
+			return ok(list.render(decks));
 		}
 		else if (category.equals("latest")) {
-			decks = DeckDao.list();
+			List<Deck> decks = DeckDao.list();
+			return ok(list.render(decks));
 		}
-		return ok(list.render(decks));
+		else if (category.equals("random")) {
+			Deck random = DeckDao.random();
+			return ok(deck.render(random));
+		}
+		else {
+			return ok("category not found");
+		}
 	}
 
 	public static Result addCard() {
@@ -77,5 +80,9 @@ public class DeckController extends BaseController {
 		loggedUser().addDeck(deck).update();
 		flash().put("success", "Deck created successfully!!");
 		return redirect(routes.CardController.searchForm());
+	}
+
+	public static Result randomDeck() {
+		return wrapOk(single.render("random"));
 	}
 }

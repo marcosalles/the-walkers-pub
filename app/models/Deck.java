@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,6 +30,8 @@ public class Deck extends Model {
 	private MagicFormat format;
 	@OneToMany(mappedBy = "deck", cascade = CascadeType.PERSIST)
 	private List<DeckCard> cards;
+	@Column(columnDefinition="boolean not null default true")
+	private Boolean availableToPublic = true;
 
 	public Deck() {
 		cards = new ArrayList<DeckCard>();
@@ -99,6 +102,15 @@ public class Deck extends Model {
 
 	public Deck addCard(DeckCard card) {
 		cards.add(card);
+		return this;
+	}
+
+	public Boolean getAvailableToPublic() {
+		return availableToPublic;
+	}
+
+	public Deck setAvailableToPublic(Boolean availableToPublic) {
+		this.availableToPublic = availableToPublic;
 		return this;
 	}
 

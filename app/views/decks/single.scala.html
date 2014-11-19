@@ -1,0 +1,21 @@
+@(category:String="")
+<section class="container pure-g">
+	<article class="content pure-u-1">
+		<div id="@category" class="block template pure-u-11-12">loading random deck..</div>
+	</article>
+</section>
+<script type="text/javascript">
+$(function(){
+	var template = $(".template");
+	var category = template.attr("id");
+	var url = "@routes.DeckController.decks("")"+category;
+	var method = "get";
+	var result = ajax(url, method, {});
+	result.done(function(data) {
+		template.html(data);
+	});
+	result.fail(function(jqXHR, textStatus) {
+		template.html("error loading "+category+"..");
+	});
+});
+</script>
