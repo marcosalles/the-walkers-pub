@@ -15,6 +15,7 @@ import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
 import play.mvc.Result;
+import views.html.decks.list;
 import views.html.user.*;
 import daos.UserDao;
 
@@ -37,6 +38,7 @@ public class UserController extends BaseController {
 		if (validator.isValid()) {
 			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
+			user = User.fromUser(user);
 			user.save();
 			flash().put("success", String.format("Account '%s' created", user.getLogin()));
 			doLogin(user);
@@ -119,8 +121,8 @@ public class UserController extends BaseController {
 
 	public static Result decks(Long id) {
 		User user = UserDao.userById(id);
-		List<Deck> list = user.getDecks();
-		return wrapOk(decks.render(list));
+		List<Deck> decks = user.getDecks();
+		return wrapOk(list.render(decks));
 	}
 
 	private static void doLogin(User user) {

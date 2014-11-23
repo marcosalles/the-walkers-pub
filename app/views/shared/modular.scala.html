@@ -1,0 +1,8 @@
+@(modules: List[infra.Module])
+<section class="container pure-g">
+	@for(module <- modules) {
+	<article class="content pure-u-1 pure-u-l1-1-2 pure-u-x1-1-3">
+		<div id="@module.getId" class="block template pure-u-11-12" data-url="@module.getCall">loading @module.getId..</div>
+	</article>
+	}
+</section>

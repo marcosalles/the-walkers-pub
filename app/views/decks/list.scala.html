@@ -1,22 +1,12 @@
-@(decks:List[Deck])
-@if(decks.size > 0){
+@(list:List[Deck])
+@if(list.size > 0){
 <ul>
-	@for(deck <- decks) {
+	@for(deck <- list) {
 	<li>
-		<section>
-			<h2>@deck.getName</h2>
-			<p>@deck.getDescription</p>
-			<ul>
-				@for(card <- deck.getCards) {
-					<li>@{card.getQuantity}x @card.getName</li>
-				}
-			</ul>
-		</section>
+		@decks.deck(deck)
 	</li>
 	}
 </ul>
 }else{
-<section>
-	<p>No decks found.</p>
-</section>
+<h3>no decks found</h3>
 }

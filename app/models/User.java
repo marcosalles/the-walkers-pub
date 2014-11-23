@@ -33,6 +33,16 @@ public class User extends Model {
 	private List<Deck> decks;
 	private String location;
 
+	public static User fromUser(User user) {
+		User newUser = new User();
+		newUser.setLogin(user.getLogin());
+		newUser.setPassword(user.getPassword());
+		newUser.setEmail(user.getEmail());
+		newUser.setLocation(user.getLocation());
+		newUser.setDecks(user.getDecks());
+		return newUser;
+	}
+
 	public User() {
 		decks = new ArrayList<Deck>();
 	}

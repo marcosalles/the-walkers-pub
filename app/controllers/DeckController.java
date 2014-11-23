@@ -1,5 +1,8 @@
 package controllers;
 
+import infra.Module;
+
+import java.util.Arrays;
 import java.util.List;
 
 import models.Deck;
@@ -12,7 +15,7 @@ import views.html.decks.createForm;
 import views.html.decks.deck;
 import views.html.decks.list;
 import views.html.decks.searchDecks;
-import views.html.decks.single;
+import views.html.shared.modular;
 import daos.CardDao;
 import daos.DeckDao;
 
@@ -32,20 +35,18 @@ public class DeckController extends BaseController {
 
 	public static Result decks(String category) {
 		if (category.equals("highlighted")) {
-			List<Deck> decks = DeckDao.list();
+			List<Deck> decks = DeckDao.highlightedDecks();
 			return ok(list.render(decks));
 		}
 		else if (category.equals("latest")) {
-			List<Deck> decks = DeckDao.list();
+			List<Deck> decks = DeckDao.latestDecks();
 			return ok(list.render(decks));
 		}
 		else if (category.equals("random")) {
 			Deck random = DeckDao.random();
-			return ok(deck.render(random));
+			return ok(deck.render(random, true));
 		}
-		else {
-			return ok("category not found");
-		}
+		return badRequest("category not found");
 	}
 
 	public static Result addCard() {
@@ -83,6 +84,8 @@ public class DeckController extends BaseController {
 	}
 
 	public static Result randomDeck() {
-		return wrapOk(single.render("random"));
+		Module random = new Module(routes.DeckController.decks("random"), "random");
+		List<Module> list = Arrays.asList(random);
+		return wrapOk(modular.render(list));
 	}
 }

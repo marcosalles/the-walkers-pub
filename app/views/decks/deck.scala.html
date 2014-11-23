@@ -1,8 +1,32 @@
-@(deck:Deck)
+@(deck:Deck, showCards:Boolean=false)
 @if(deck != null) {
-<h2>@deck.getName</h2>
-<p>@deck.getDescription</p>
-<p>@deck.getHowToPlay</p>
+	<h2 class="deck-name">@deck.getName</h2>
+	<span class="deck-info">
+		<a class="toggle" href=""><h3>Description</h3></a>
+		<p class="info hidden">@deck.getDescription</p>
+	</span>
+	<span class="deck-info">
+		<a class="toggle" href=""><h3>How to play</h3></a>
+		<p class="info hidden">@deck.getHowToPlay</p>
+	</span>
+	@if(showCards){
+	<ul>
+		@for(card <- deck.getCards) {
+		<li>@{card.getQuantity}x @card.getName</li>
+		}
+	</ul>
+	}
+	<script type="text/javascript">
+		$(".toggle").on("click", function(e) {
+			var info = $(this).siblings().eq(0);
+			if (info.hasClass("hidden")) {
+				info.removeClass("hidden");
+			} else {
+				info.addClass("hidden");
+			}
+			e.preventDefault();
+		});
+	</script>
 }else{
-<p>no decks available.</p>
+	<p>deck not available</p>
 }

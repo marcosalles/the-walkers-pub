@@ -47,4 +47,16 @@ public class DeckDao {
 		int n = random.nextInt(list.size());
 		return list.get(n);
 	}
+
+	public static List<Deck> highlightedDecks() {
+		return find.all().subList(0, 5);
+	}
+
+	public static List<Deck> latestDecks() {
+		return find.where()
+				.order()
+				.desc("id")
+				.findList()
+				.subList(0, 5);
+	}
 }

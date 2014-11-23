@@ -1,7 +1,7 @@
 @(category:String="")
 <section class="container pure-g">
 	<article class="content pure-u-1">
-		<div id="@category" class="block template pure-u-11-12">loading random deck..</div>
+		<div id="@category" class="block template pure-u-11-12">loading @category deck..</div>
 	</article>
 </section>
 <script type="text/javascript">
@@ -14,8 +14,8 @@ $(function(){
 	result.done(function(data) {
 		template.html(data);
 	});
-	result.fail(function(jqXHR, textStatus) {
-		template.html("error loading "+category+"..");
+	result.fail(function(jqXHR, textStatus, errorThrown) {
+		template.html("error loading "+category+".. "+jqXHR.responseText);
 	});
 });
 </script>
