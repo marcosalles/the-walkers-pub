@@ -1,8 +1,16 @@
 @(modules: List[infra.Module])
 <section class="container pure-g">
 	@for(module <- modules) {
-	<article class="content pure-u-1 pure-u-l1-1-2 pure-u-x1-1-3">
-		<div id="@module.getId" class="block template pure-u-11-12" data-url="@module.getCall">loading @module.getId..</div>
+	<article class="content pure-u-1 pure-u-l1-1-@mod(2) pure-u-x1-1-@mod(3)">
+		<div id="@module.id" class="block template pure-u-11-12" data-url="@module.url" data-sort="@module.priority">loading @module.id..</div>
 	</article>
 	}
 </section>
+@mod(max:Integer)=@{
+	var size = modules.size()
+	if (size >= max) {
+		max
+	} else {
+		size%max
+	}
+}

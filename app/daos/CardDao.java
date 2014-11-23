@@ -30,18 +30,21 @@ public class CardDao {
 	public static List<MagicCard> cardsByFilledFields(Form<MagicCard> form) {
 		ExpressionList<MagicCard> where = find.where();
 		MagicCard card = form.get();
-		String name = card.getSuggestText().trim();
-		String text = card.getText().trim();
-		String type = card.getType().trim();
+		if (card == null) {
+			return null;
+		}
+		String name = card.getSuggestText();
+		String text = card.getText();
+		String type = card.getType();
 //		String colors = form.field("colors[]").value();
 
-		if (name != null && name.length() > 0) {
+		if (name != null && (name = name.trim()).length() > 0) {
 			where = where.ilike("suggestText", "%"+name+"%");
 		}
-		if (text != null && text.length() > 0) {
+		if (text != null && (text = text.trim()).length() > 0) {
 			where = where.ilike("text", "%"+text+"%");
 		}
-		if (type != null && type.length() > 0) {
+		if (type != null && (type = type.trim()).length() > 0) {
 			where = where.ilike("text", "%"+type+"%");
 		}
 		Map<String,MagicCard> map = new HashMap<String, MagicCard>();

@@ -1,2 +1,9 @@
-@(field:Field)
-<input type="hidden" id="@field.id" name="@field.name" value="@field.value.getOrElse("")">
+@(field:Field, value:String=null)
+<input type="hidden" id="@field.id" name="@field.name" value="@fieldValue()">
+@fieldValue() = @{
+	if (value != null) {
+		value
+	} else {
+		field.value.getOrElse("")
+	}
+}

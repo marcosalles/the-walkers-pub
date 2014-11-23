@@ -4,13 +4,13 @@
 
 # Main
 GET		/										controllers.MainController.home()
-GET		/TODO									controllers.MainController.authenticated()
+GET		/TODO									controllers.MainController.todo()
 
 # User
+GET		/content/users/:content					controllers.UserController.content(content:String)
 GET		/user/sign-up							controllers.UserController.signUpForm()
 POST	/user/sign-up							controllers.UserController.signUp()
 POST	/user/update							controllers.UserController.update()
-GET		/user/login								controllers.UserController.loginForm()
 POST	/user/login								controllers.UserController.login()
 GET		/user/logout							controllers.UserController.logout()
 GET		/user/:id/settings						controllers.UserController.settingsForm(id: Long)
@@ -18,17 +18,15 @@ GET		/user/:id/profile						controllers.UserController.profileForm(id: Long)
 GET		/user/:id/decks							controllers.UserController.decks(id: Long)
 
 # Deck
+GET		/content/decks/:content					controllers.DeckController.content(content:String)
 GET	 	/deck/create							controllers.DeckController.createDeckForm()
 POST 	/deck/create							controllers.DeckController.createDeck()
 POST 	/deck/add								controllers.DeckController.addCard()
-GET		/deck/search							controllers.DeckController.searchForm()
-POST	/deck/search							controllers.DeckController.search()
+GET		/deck/search							controllers.DeckController.search()
 GET		/deck/random							controllers.DeckController.randomDeck()
-GET		/decks/:category							controllers.DeckController.decks(category:String)
 
 # Card
-GET		/card/search							controllers.CardController.searchForm()
-POST	/card/search							controllers.CardController.search()
+GET		/card/search							controllers.CardController.search()
 GET		/card/:id								controllers.CardController.card(id:String)
 
 # Map static resources from the /public folder to the /assets URL path

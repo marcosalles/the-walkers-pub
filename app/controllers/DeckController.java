@@ -21,32 +21,34 @@ import daos.DeckDao;
 
 public class DeckController extends BaseController {
 
-	public static Result searchForm() {
-		Form<Deck> form = Form.form(Deck.class);
-		return wrapOk(searchDecks.render(form, null));
+	public static final String HIGHLIGHTED = "highlighted";
+	public static final String LATEST = "latest";
+	public static final String RANDOM = "random";
+
+	public static Result content(String content) {
+		if (content.equalsIgnoreCase(HIGHLIGHTED)) {
+			List<Deck> decks = DeckDao.highlightedDecks();
+			return ok(list.render(decks));
+		}
+		else if (content.equalsIgnoreCase(LATEST)) {
+			List<Deck> decks = DeckDao.latestDecks();
+			return ok(list.render(decks));
+		}
+		else if (content.equalsIgnoreCase(RANDOM)) {
+			Deck random = DeckDao.random();
+			return ok(deck.render(random, true));
+		}
+		return badRequest("content not found");
 	}
 
 	public static Result search() {
 		Form<Deck> form = Form.form(Deck.class).bindFromRequest();
 		String name = form.field("name").valueOr("");
-		List<Deck> list = DeckDao.decksByName(name);
+		List<Deck> list = null;
+		if (form.field("q").valueOr("").equals("1")) {
+			list = DeckDao.decksByName(name);
+		}
 		return wrapOk(searchDecks.render(form, list));
-	}
-
-	public static Result decks(String category) {
-		if (category.equals("highlighted")) {
-			List<Deck> decks = DeckDao.highlightedDecks();
-			return ok(list.render(decks));
-		}
-		else if (category.equals("latest")) {
-			List<Deck> decks = DeckDao.latestDecks();
-			return ok(list.render(decks));
-		}
-		else if (category.equals("random")) {
-			Deck random = DeckDao.random();
-			return ok(deck.render(random, true));
-		}
-		return badRequest("category not found");
 	}
 
 	public static Result addCard() {
@@ -80,11 +82,11 @@ public class DeckController extends BaseController {
 		deck.setDescription(form.field("description").valueOr(""));
 		loggedUser().addDeck(deck).update();
 		flash().put("success", "Deck created successfully!!");
-		return redirect(routes.CardController.searchForm());
+		return redirect(routes.CardController.search());
 	}
 
 	public static Result randomDeck() {
-		Module random = new Module(routes.DeckController.decks("random"), "random");
+		Module random = new Module(routes.DeckController.content(RANDOM), RANDOM, 5);
 		List<Module> list = Arrays.asList(random);
 		return wrapOk(modular.render(list));
 	}

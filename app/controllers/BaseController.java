@@ -1,17 +1,21 @@
 package controllers;
 
+import infra.Module;
 import models.User;
 import play.api.libs.Crypto;
 import play.api.templates.Html;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.shared.footer;
+import views.html.shared.header;
 import views.html.shared.template;
 import daos.UserDao;
 
 public class BaseController extends Controller {
 
 	protected static Result toPreviousUrl() {
-		String url = session().get("previousUrl");
+		String url = session().get("currentUrl");
+		if (url == null) url = "";
 		return redirect(url);
 	}
 
@@ -35,12 +39,21 @@ public class BaseController extends Controller {
 		if (content == null) {
 			content = new Html(null);
 		}
-		return template.render(loggedUser(), content);
+		Module userModule = userModule(loggedUser());
+		return template.render(header.render(userModule), content, footer.render());
+	}
+
+	private static Module userModule(User user) {
+		String id = UserController.LOGIN;
+		if (!user.isGhost()) {
+			id = UserController.MENU;
+		}
+		return new Module(routes.UserController.content(id), id, 99);
 	}
 
 	public static User loggedUser() {
 		String login = session().get("login");
-		if (login != null && !login.equals("")) {
+		if (login != null) {
 			login = Crypto.decryptAES(login);
 		}
 		else {

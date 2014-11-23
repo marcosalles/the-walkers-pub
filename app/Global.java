@@ -16,10 +16,12 @@ import controllers.routes;
 public class Global extends GlobalSettings {
 
 	// Add filtered urls
-	private static final List<String> nonSavedUrls = Arrays.asList(
+	private static final List<String> EXCEPTIONS = Arrays.asList(
+			routes.MainController.todo().url(),
 			routes.UserController.signUp().url(),
 			routes.UserController.login().url()
 	);
+	private static final String CONTENT = "/content";
 
 	@Override
 	@SuppressWarnings("rawtypes")
@@ -28,12 +30,14 @@ public class Global extends GlobalSettings {
 			@Override
 			public Promise<SimpleResult> call(Context context) throws Throwable {
 				Request actionRequest = context.request();
-				Session session = context.session();
 				String currentUrl = actionRequest.path();
-				if (!nonSavedUrls.contains(currentUrl)) {
-					String previousUrl = previousUrl(session);
-					session.put("previousUrl", previousUrl);
-					session.put("currentUrl", currentUrl);
+				if (!currentUrl.startsWith(CONTENT)) {
+					Session session = context.session();
+					if (!EXCEPTIONS.contains(currentUrl)) {
+						String previousUrl = previousUrl(session);
+						session.put("previousUrl", previousUrl);
+						session.put("currentUrl", currentUrl);
+					}
 				}
 				return delegate.call(context);
 			}

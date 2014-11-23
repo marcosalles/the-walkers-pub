@@ -1,33 +1,33 @@
-@(deckForm:Form[Deck], decks:List[Deck])
+@(deckForm:Form[Deck], list:List[Deck])
 @import formfields._
 
-<section>
-@form(routes.DeckController.search) {
-	@text(deckForm("name"), placeholder="name")
-	@submit("search decks")
-}
-</section>
-
-@if(decks != null) {
-<section>
-	@if(decks.size > 0) {
-	<ul>
-		@for(deck <- decks) {
-		<li>
-			<section>
-				<h2>@deck.getName</h2>
-				<p>@deck.getDescription</p>
-				<ul>
-					@for(card <- deck.getCards) {
-					<li>@{card.getQuantity}x @card.getName</li>
-					}
-				</ul>
-			</section>
-		</li>
+<section class="container pure-g">
+	@if(deckForm != null) {
+	<article class="content pure-u-1 pure-u-l1-1-2 pure-u-x1-1-3">
+		<div class="block pure-u-11-12">
+			@form(routes.DeckController.search) {
+				@hidden(deckForm("q"), value="1")
+				@text(deckForm("name"), placeholder="name")
+				@text(deckForm("description"), placeholder="description")
+				@text(deckForm("howToPlay"), placeholder="how to play")
+				@submit("search decks")
+			}
+		</div>
+	</article>
+	}
+	@if(list != null) {
+	<article class="content pure-u-1 pure-u-l1-1-2 pure-u-x1-1-3">
+		@if(list.size > 0) {
+		<ul>
+			@for(deck <- list) {
+			<li>
+				@decks.deck(deck)
+			</li>
+			}
+		</ul>
+		}else{
+		<h2>no decks found</h2>
 		}
-	</ul>
-	}else{
-	<h2>No decks found with that name</h2>
+	</article>
 	}
 </section>
-}
