@@ -32,3 +32,6 @@
 	background-color: #ff9090;
 	color: #860404;
 }
+#alert-template {
+	display: none;
+}

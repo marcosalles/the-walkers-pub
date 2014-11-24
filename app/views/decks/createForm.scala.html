@@ -4,7 +4,8 @@
 <section>
 @form(routes.DeckController.createDeck) {
 	@text(deckForm("name"), placeholder="name")
-	@text(deckForm("description"), placeholder="description")
+	@textfield(deckForm("description"), placeholder="description")
+	@textfield(deckForm("howToPlay"), placeholder="how to play")
 	@submit("create deck")
 }
 </section>

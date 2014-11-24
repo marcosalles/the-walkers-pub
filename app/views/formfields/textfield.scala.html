@@ -1,0 +1,7 @@
+@(field:Field, label:String = "", placeholder:String = "", help:String = "", clazz:String= "")
+<div class="field @if(field.hasErrors){field-with-errors}">
+	<label for="@field.id">@label</label>
+	<textarea id="@field.id" name="@field.name" value="@field.value.getOrElse("")" placeholder="@placeholder" class="@clazz"></textarea>
+	<span>@help</span>
+	<span>@{field.error.map{ error => error.message }}</span>
+</div>

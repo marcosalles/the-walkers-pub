@@ -45,7 +45,7 @@ public class CardDao {
 			where = where.ilike("text", "%"+text+"%");
 		}
 		if (type != null && (type = type.trim()).length() > 0) {
-			where = where.ilike("text", "%"+type+"%");
+			where = where.ilike("type", "%"+type+"%");
 		}
 		Map<String,MagicCard> map = new HashMap<String, MagicCard>();
 		for (MagicCard c : where.findList()) {

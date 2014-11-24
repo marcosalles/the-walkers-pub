@@ -52,22 +52,26 @@ public class DeckController extends BaseController {
 	}
 
 	public static Result addCard() {
-		DynamicForm form = Form.form().bindFromRequest();
-		Long deckId = Long.parseLong(form.field("deckId").value());
-		String cardId = form.field("cardId").value();
-		int quantity = Integer.parseInt(form.field("quantity").value());
-		boolean side = Boolean.parseBoolean(form.field("side").value());
+		try {
+			DynamicForm form = Form.form().bindFromRequest();
+			Long deckId = Long.parseLong(form.field("deckId").value());
+			String cardId = form.field("cardId").value();
+			int quantity = Integer.parseInt(form.field("quantity").value());
+			boolean side = Boolean.parseBoolean(form.field("side").value());
 
-		Deck deck = DeckDao.deckById(deckId);
-		MagicCard card = CardDao.cardByMultiverseId(cardId);
+			Deck deck = DeckDao.deckById(deckId);
+			MagicCard card = CardDao.cardByMultiverseId(cardId);
 
-		DeckCard deckCard = new DeckCard(card).setSide(side)
-				.setQuantity(quantity)
-				.setDeck(deck);
-		deck.addCard(deckCard);
-		deck.update();
+			DeckCard deckCard = new DeckCard(card).setSide(side)
+					.setQuantity(quantity)
+					.setDeck(deck);
+			deck.addCard(deckCard);
+			deck.update();
 
-		return ok("Card added successfully!!!");
+			return ok("card added successfully");
+		} catch (Exception e) {
+			return badRequest("failed to add card");
+		}
 	}
 
 	public static Result createDeckForm() {

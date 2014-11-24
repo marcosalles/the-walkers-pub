@@ -4,13 +4,10 @@ import java.util.List;
 
 import models.User;
 import models.magic.MagicCard;
-import models.magic.MagicColorEnum;
-import play.api.templates.Html;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
-import views.html.cards.card;
-import views.html.cards.searchCards;
+import views.html.cards.*;
 import views.html.user.signUp;
 import daos.CardDao;
 
@@ -35,8 +32,7 @@ public class CardController extends BaseController {
 		if (form.field("q").valueOr("").equals("1")) {
 			list = CardDao.cardsByFilledFields(form);
 		}
-		Html render = searchCards.render(loggedUser(), list, form, MagicColorEnum.MAP());
-		return wrapOk(render);
+		return wrapOk(search.render(loggedUser(),list,form));
 	}
 
 	public static Result searchAutoComplete(){

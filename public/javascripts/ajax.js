@@ -1,3 +1,10 @@
+function flash(key, message) {
+	var alert = $("#alert-template").clone();
+	alert.attr("id", "");
+	alert.addClass("alert-"+key);
+	alert.html(message);
+	$("#alert-template").after(alert);
+};
 function ajax(url, method, data) {
 	return $.ajax(
 	{

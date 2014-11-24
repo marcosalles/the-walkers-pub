@@ -1,0 +1,123 @@
+@(loggedUser:User,list:List[magic.MagicCard],searchForm:Form[magic.MagicCard])
+<section class="container pure-g">
+	<article class="content pure-u-1">
+		<div class="block pure-u-11-12">
+			<h2 class="content-title">search cards</h2>
+			<form id="card-search" class="pure-form pure-form-aligned" action="@routes.CardController.search" method="@routes.CardController.search.method">
+				<fieldset>
+					<input type="hidden" name="q" value="1">
+					<div class="pure-control-group">
+						<label for="suggestText">name</label>
+						<input class="field pure-u-1-1 pure-u-s1-1-2 pure-u-l1-3-4" type="text" name="suggestText" value="@searchForm("suggestText").value" placeholder="name" autofocus="true">
+					</div>
+					<div class="pure-control-group">
+						<label for="type">type</label>
+						<input class="field pure-u-1-1 pure-u-s1-1-2 pure-u-l1-3-4" type="text" name="type" value="@searchForm("type").value" placeholder="type">
+					</div>
+					<div class="pure-control-group">
+						<label for="text">text</label>
+						<textarea class="field pure-u-1-1 pure-u-s1-1-2 pure-u-l1-3-4" name="text" placeholder="text">@searchForm("text").valueOr("")</textarea>
+					</div>
+					<div class="pure-control-group">
+						<label></label>
+						<button class="pure-button btn btn-call" title="search cards" type="submit">search cards</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</article>
+	@if(list != null){
+	<article class="content pure-u-1">
+		<div class="block pure-u-11-12">
+			@if(!loggedUser.isGhost) {
+			<h2 class="content-title">add to</h2>
+			<form id="add-card" class="pure-form pure-form-aligned">
+				<fieldset>
+					<div class="pure-control-group">
+						<label for="deck-select">deck</label>
+						<select id="deck-select" class="field pure-u-1-1 pure-u-s1-1-2 pure-u-l1-3-4">
+							@for(deck <- loggedUser.getDecks) {
+								<option value="@deck.getId">@deck.getName</option>
+							}
+							<option value="0">create a new deck</option>
+						</select>
+					</div>
+				</fieldset>
+			</form>
+			<form id="deck-create" class="pure-form pure-form-aligned hidden" action="@routes.DeckController.createDeck" method="@routes.DeckController.createDeck.method">
+				<fieldset>
+					<div class="pure-control-group">
+						<label for="name">name</label>
+						<input class="field pure-u-1-1 pure-u-s1-1-2 pure-u-l1-3-4" type="text" name="name" placeholder="name">
+					</div>
+					<div class="pure-control-group">
+						<label for="description">description</label>
+						<textarea class="field pure-u-1-1 pure-u-s1-1-2 pure-u-l1-3-4" name="description" placeholder="description"></textarea>
+					</div>
+					<div class="pure-control-group">
+						<label></label>
+						<button class="pure-button btn btn-call" title="create deck" type="submit">create deck</button>
+					</div>
+				</fieldset>
+			</form>
+			}
+			<h2 class="content-title">cards</h2>
+			@if(list.size < 1) {
+			<h2>no cards found</h2>
+			}else{
+			<ul>
+				@for(card <- list) {
+				<li class="card" id="card-@card.getMultiverseId">
+					@card.getSuggestText
+				</li>
+				}
+			</ul>
+			}
+		</div>
+	</article>
+	}
+</section>
+<script type="text/javascript">
+$("#card-search").on("keypress", ".field", function(key) {
+	if (key.which == 13) {
+		var form = 	$("#search")[0];
+		form.submit();
+	}
+});
+$("#deck-select").on("change", function() {
+	var deckForm = $("#deck-create");
+	if($("option:selected").val() == 0) {
+		deckForm.removeClass("hidden");
+	} else {
+		if (!deckForm.hasClass("hidden")) {
+			deckForm.addClass("hidden");
+		}
+	}
+});
+$(".card").on("click", function() {
+	var card = $(this);
+	var url = "@routes.DeckController.addCard()";
+	var deckId = $("#deck-select option:selected").val();
+	var cardId = card.attr("id").split("-")[1];
+	var quantity = prompt("How many of that card would you like to add?");
+	var isSide = prompt("Is it a side card? (y/n)");
+	isSide = (isSide=="y"?true:false);
+
+	var result = $.ajax({
+		url: url,
+		type: "post",
+		data: {
+			deckId: deckId,
+			cardId: cardId,
+			quantity: quantity,
+			side: isSide
+		}
+	});
+	result.done(function(data) {
+		flash("success", data);
+	});
+	result.fail(function(jqXHR, textStatus, errorThrown) {
+		flash("danger", jqXHR.responseText);
+	});
+});
+</script>
