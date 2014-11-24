@@ -1,0 +1,9 @@
+@(loggedUser:User)
+<!-- Place to search for cards --!>
+<!-- list cards--!>
+@if(!User.getCollection.isEmpty){
+	<ul>
+		@for( card <- User.getCollection))
+		<li>@{card.getQuantity)}x @card.getName</li>
+	</ul>
+}
