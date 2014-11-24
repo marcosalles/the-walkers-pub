@@ -33,7 +33,7 @@ public class Global extends GlobalSettings {
 				String currentUrl = actionRequest.path();
 				if (!currentUrl.startsWith(CONTENT)) {
 					Session session = context.session();
-					if (!EXCEPTIONS.contains(currentUrl)) {
+					if (!EXCEPTIONS.contains(currentUrl) && actionRequest.method().equalsIgnoreCase("get")) {
 						String previousUrl = previousUrl(session);
 						session.put("previousUrl", previousUrl);
 						session.put("currentUrl", currentUrl);
