@@ -1,8 +1,15 @@
 @CHARSET "UTF-8";
 
-.card-image {
-	height:100px;
+.card {
+	padding: .5em 0
 }
 .card:hover {
-	background: rgba(0,0,0,0.1);
+	background: rgba(0,0,0,0.25)
+}
+.card-image {
+	border: 1px solid #000
+}
+.card-title {
+	margin-top: .6em;
+	text-align: center
 }

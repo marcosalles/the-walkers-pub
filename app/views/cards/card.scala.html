@@ -1,6 +1,7 @@
 @(card:magic.MagicCard)
 @if(card != null){
-<img alt="" src="@cardImageSource(card)">
-}else{
-<p style="color: white;">Invalid card!</p>
+<div class="container">
+	<img class="card-image pure-u-1" alt="@card.getText" src="@cardImageSource(card)">
+	<h3 class="card-title pure-u-1">@card.getSuggestText</h3>
+</div>
 }
