@@ -1,5 +1,5 @@
 @(loggedUser:User)
-<a class="menu-link pure-button btn btn-call dropdown-toggle" href="#">@loggedUser.getLogin</a>
+<a class="menu-link pure-button btn btn-main dropdown-toggle" href="#">@loggedUser.getLogin</a>
 <ul class="dropdown-content dropdown-hidden">
 	<li class="menu-item pure-u-1-2 pure-u-s1-1-4">
 		<a class="menu-link pure-button btn btn-secondary" href="@routes.UserController.profileForm(loggedUser.getId)">profile</a>
@@ -11,7 +11,7 @@
 		<a class="menu-link pure-button btn btn-secondary" href="@routes.UserController.decks(loggedUser.getId)">decks</a>
 	</li><!-- 
 	 --><li class="menu-item pure-u-1-2 pure-u-s1-1-4">
-		<a class="menu-link pure-button btn btn-secondary" href="@routes.UserController.logout">logout</a>
+		<a class="menu-link pure-button btn btn-destructive" href="@routes.UserController.logout">logout</a>
 	</li>
 </ul>
 <script type="text/javascript">

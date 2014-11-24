@@ -13,7 +13,7 @@ insert into users (id,login,password,email) values (100006,'fff','4fbef4a6a4e000
 insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100001,100001,'deck1-1','desc','htp',true);
 insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100002,100001,'deck1-2','desc','htp',false);
 insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100003,100002,'deck2-1','desc','htp',true);
-insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100004,100002,'deck2-2','desc','htp',false);
+insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100004,100002,'deck2-2','desc','htp',true);
 insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100005,100003,'deck3-1','desc','htp',true);
 insert into deck (id,owner_id,name,description,how_to_play,available_to_public) values (100006,100003,'deck3-2','desc','htp',true);
 

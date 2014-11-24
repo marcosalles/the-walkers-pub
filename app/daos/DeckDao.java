@@ -5,7 +5,10 @@ import java.util.Random;
 
 import models.Deck;
 import models.User;
+import play.data.Form;
 import play.db.ebean.Model.Finder;
+
+import com.avaje.ebean.ExpressionList;
 
 public class DeckDao {
 
@@ -58,5 +61,28 @@ public class DeckDao {
 				.desc("id")
 				.findList()
 				.subList(0, 5);
+	}
+
+	public static List<Deck> decksByFilledFields(Form<Deck> form) {
+		ExpressionList<Deck> where = find.where();
+		Deck deck = form.get();
+		if (deck == null) {
+			return null;
+		}
+		String name = deck.getName();
+		String description = deck.getDescription();
+		String htp = deck.getHowToPlay();
+
+		if (name != null && (name = name.trim()).length() > 0) {
+			where = where.ilike("name", "%"+name+"%");
+		}
+		if (description != null && (description = description.trim()).length() > 0) {
+			where = where.ilike("description", "%"+description+"%");
+		}
+		if (htp != null && (htp = htp.trim()).length() > 0) {
+			where = where.ilike("howToPlay", "%"+htp+"%");
+		}
+		
+		return where.findList();
 	}
 }

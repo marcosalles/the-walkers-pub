@@ -14,7 +14,7 @@ import play.mvc.Result;
 import views.html.decks.createForm;
 import views.html.decks.deck;
 import views.html.decks.list;
-import views.html.decks.searchDecks;
+import views.html.decks.search;
 import views.html.shared.modular;
 import daos.CardDao;
 import daos.DeckDao;
@@ -43,12 +43,11 @@ public class DeckController extends BaseController {
 
 	public static Result search() {
 		Form<Deck> form = Form.form(Deck.class).bindFromRequest();
-		String name = form.field("name").valueOr("");
 		List<Deck> list = null;
 		if (form.field("q").valueOr("").equals("1")) {
-			list = DeckDao.decksByName(name);
+			list = DeckDao.decksByFilledFields(form);
 		}
-		return wrapOk(searchDecks.render(form, list));
+		return wrapOk(search.render(form, list));
 	}
 
 	public static Result addCard() {
@@ -85,7 +84,7 @@ public class DeckController extends BaseController {
 		deck.setName(form.field("name").value());
 		deck.setDescription(form.field("description").valueOr(""));
 		loggedUser().addDeck(deck).update();
-		flash().put("success", "Deck created successfully!!");
+		flash().put("success", "deck created successfully!!");
 		return redirect(routes.CardController.search());
 	}
 

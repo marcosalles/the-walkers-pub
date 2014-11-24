@@ -1,33 +1,48 @@
 @(deckForm:Form[Deck], list:List[Deck])
-@import formfields._
-
 <section class="container pure-g">
 	@if(deckForm != null) {
-	<article class="content pure-u-1 pure-u-l1-1-2 pure-u-x1-1-3">
+	<article class="content pure-u-1">
 		<div class="block pure-u-11-12">
-			@form(routes.DeckController.search) {
-				@hidden(deckForm("q"), value="1")
-				@text(deckForm("name"), placeholder="name")
-				@text(deckForm("description"), placeholder="description")
-				@text(deckForm("howToPlay"), placeholder="how to play")
-				@submit("search decks")
-			}
+			<h2 class="content-title">search decks</h2>
+			<form class="pure-form pure-form-aligned"action="@routes.DeckController.search()" method="@routes.DeckController.search().method">
+				<fieldset>
+					<input type="hidden" name="q" value="1">
+					<div class="pure-control-group">
+						<label for="name">name</label>
+						<input class="pure-u-1 pure-u-s1-1-2 pure-u-l1-3-4" type="text" name="name" placeholder="name">
+					</div>
+					<div class="pure-control-group">
+						<label for="description">description</label>
+						<textarea class="pure-u-1 pure-u-s1-1-2 pure-u-l1-3-4" name="description" placeholder="description"></textarea>
+					</div>
+					<div class="pure-control-group">
+						<label for="howToPlay">how to play</label>
+						<textarea class="pure-u-1 pure-u-s1-1-2 pure-u-l1-3-4" name="howToPlay" placeholder="how to play"></textarea>
+					</div>
+					<div class="pure-control-group">
+						<label></label>
+						<button class="pure-button btn btn-action" title="search deck" type="submit">search deck</button>
+					</div>
+				</fieldset>
+			</form>
 		</div>
 	</article>
 	}
 	@if(list != null) {
-	<article class="content pure-u-1 pure-u-l1-1-2 pure-u-x1-1-3">
-		@if(list.size > 0) {
-		<ul>
-			@for(deck <- list) {
-			<li>
-				@decks.deck(deck)
-			</li>
+	<article class="content pure-u-1">
+		<div class="block pure-u-11-12">
+			@if(list.size > 0) {
+			<ul>
+				@for(deck <- list) {
+				<li>
+					@decks.deck(deck)
+				</li>
+				}
+			</ul>
+			}else{
+			<h2>no decks found</h2>
 			}
-		</ul>
-		}else{
-		<h2>no decks found</h2>
-		}
+		</div>
 	</article>
 	}
 </section>

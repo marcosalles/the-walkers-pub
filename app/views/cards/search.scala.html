@@ -1,4 +1,7 @@
 @(loggedUser:User,list:List[magic.MagicCard],searchForm:Form[magic.MagicCard])
+@hidden()=@{
+	if(loggedUser.getDecks.size > 0){"hidden"}
+}
 <section class="container pure-g">
 	<article class="content pure-u-1">
 		<div class="block pure-u-11-12">
@@ -20,7 +23,7 @@
 					</div>
 					<div class="pure-control-group">
 						<label></label>
-						<button class="pure-button btn btn-call" title="search cards" type="submit">search cards</button>
+						<button class="pure-button btn btn-action" title="search cards" type="submit">search cards</button>
 					</div>
 				</fieldset>
 			</form>
@@ -44,7 +47,7 @@
 					</div>
 				</fieldset>
 			</form>
-			<form id="deck-create" class="pure-form pure-form-aligned hidden" action="@routes.DeckController.createDeck" method="@routes.DeckController.createDeck.method">
+			<form id="deck-create" class="pure-form pure-form-aligned @hidden()" action="@routes.DeckController.createDeck" method="@routes.DeckController.createDeck.method">
 				<fieldset>
 					<div class="pure-control-group">
 						<label for="name">name</label>
@@ -56,7 +59,7 @@
 					</div>
 					<div class="pure-control-group">
 						<label></label>
-						<button class="pure-button btn btn-call" title="create deck" type="submit">create deck</button>
+						<button class="pure-button btn btn-action" title="create deck" type="submit">create deck</button>
 					</div>
 				</fieldset>
 			</form>
