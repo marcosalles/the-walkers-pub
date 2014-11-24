@@ -9,8 +9,11 @@ import infra.Validator;
 import java.util.Arrays;
 import java.util.List;
 
+import models.CollectionCard;
 import models.Deck;
 import models.User;
+import models.magic.MagicCard;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
@@ -21,6 +24,7 @@ import views.html.user.login;
 import views.html.user.menu;
 import views.html.user.profileForm;
 import views.html.user.signUp;
+import daos.CardDao;
 import daos.UserDao;
 
 public class UserController extends BaseController {
@@ -148,6 +152,25 @@ public class UserController extends BaseController {
 		User user = UserDao.userById(id);
 		List<Deck> decks = user.getDecks();
 		return wrapOk(list.render(decks));
+	}
+	
+	public static Result addToCollection(){
+		DynamicForm form = Form.form().bindFromRequest();
+		int quantity = Integer.parseInt(form.field("quantity").value());
+		boolean tradable = Boolean.parseBoolean(form.field("tradable").value());
+		double acquiredPrice = Double.parseDouble(form.field("acquiredePrice").value());
+		String tradeSuggestion = form.field("tradeSuggestion").value();
+		String cardId = form.field("cardId").value();
+		
+		MagicCard card = CardDao.cardByMultiverseId(cardId);
+		CollectionCard collectionCard = new CollectionCard(card);
+		collectionCard.setAcquiredPrice(acquiredPrice);
+		collectionCard.setQuantity(quantity);
+		collectionCard.setTradable(tradable);
+		collectionCard.setTradeSuggestion(tradeSuggestion);
+		loggedUser().getCollection().add(collectionCard);
+		loggedUser().update();
+		return ok();
 	}
 
 	private static void doLogin(User user) {

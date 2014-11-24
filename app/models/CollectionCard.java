@@ -24,6 +24,21 @@ public class CollectionCard extends Model implements Card {
 	private Double acquiredPrice;
 	private String tradeSuggestion;
 	private Boolean tradable;
+	
+	public CollectionCard(){
+	}
+	
+	public CollectionCard(MagicCard card){
+		setCard(card);
+	}
+	
+	public void setCard(MagicCard card) {
+		this.card = new BaseCard(card);
+	}
+
+	public CollectionCard(BaseCard card) {
+		this.card = card;
+	}
 	public Long getId() {
 		return id;
 	}

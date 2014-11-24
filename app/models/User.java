@@ -100,6 +100,14 @@ public class User extends Model {
 		return (this instanceof Ghost);
 	}
 
+	public List<CollectionCard> getCollection() {
+		return collection;
+	}
+
+	public void setCollection(List<CollectionCard> collection) {
+		this.collection = collection;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
