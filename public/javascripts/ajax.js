@@ -1,3 +1,13 @@
+$("body").on("click", ".toggle", function(e) {
+	var info = $(this).parent().find(".info");
+	if (info.hasClass("hidden")) {
+		info.removeClass("hidden");
+	} else {
+		info.addClass("hidden");
+	}
+	e.preventDefault();
+});
+
 function flash(key, message) {
 	var alert = $("#alert-template").clone();
 	alert.attr("id", "");

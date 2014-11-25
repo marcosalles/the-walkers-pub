@@ -31,17 +31,7 @@
 	@if(list != null) {
 	<article class="content pure-u-1">
 		<div class="block pure-u-11-12">
-			@if(list.size > 0) {
-			<ul>
-				@for(deck <- list) {
-				<li>
-					@decks.deck(deck)
-				</li>
-				}
-			</ul>
-			}else{
-			<h2>no decks found</h2>
-			}
+			@decks.list(list)
 		</div>
 	</article>
 	}
