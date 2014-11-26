@@ -2,6 +2,7 @@ package daos;
 
 import java.util.List;
 
+import models.CollectionCard;
 import models.User;
 
 import com.avaje.ebean.Ebean;
@@ -24,6 +25,16 @@ public class CollectionDao {
 						com.avaje.ebean.Expr.eq("collection.tradable", "true"))
 				.findList();
 		return owners;			
+	}
+	
+	/**
+	 * @param String userId
+	 * Recebe o userId e pega a coleção dele
+	 * @return List<CollectionCard>
+	 */
+	
+	public static List<CollectionCard> userCollecion(long userId){
+		return UserDao.userById(userId).getCollection();
 	}
 
 }

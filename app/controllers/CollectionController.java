@@ -56,4 +56,11 @@ public class CollectionController extends BaseController {
 		return ok();
 	}
 	
+	public static Result userCollection(){
+		Form<User> form = Form.form(User.class).bindFromRequest();
+		Long userId = Long.parseLong(form.field("userId").value());
+		List<CollectionCard> collection = CollectionDao.userCollecion(userId);
+		//TODO não sei o que fazer aqui tambem
+		return ok();
+	}
 }
