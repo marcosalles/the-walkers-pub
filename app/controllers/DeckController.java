@@ -67,9 +67,9 @@ public class DeckController extends BaseController {
 			deck.addCard(deckCard);
 			deck.update();
 
-			return ok("card added successfully");
+			return ok("card successfully added to deck ");
 		} catch (Exception e) {
-			return badRequest("failed to add card");
+			return badRequest("failed to add card on deck");
 		}
 	}
 

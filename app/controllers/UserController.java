@@ -154,24 +154,6 @@ public class UserController extends BaseController {
 		return wrapOk(list.render(decks));
 	}
 	
-	public static Result addToCollection(){
-		DynamicForm form = Form.form().bindFromRequest();
-		int quantity = Integer.parseInt(form.field("quantity").value());
-		boolean tradable = Boolean.parseBoolean(form.field("tradable").value());
-		double acquiredPrice = Double.parseDouble(form.field("acquiredePrice").value());
-		String tradeSuggestion = form.field("tradeSuggestion").value();
-		String cardId = form.field("cardId").value();
-		
-		MagicCard card = CardDao.cardByMultiverseId(cardId);
-		CollectionCard collectionCard = new CollectionCard(card);
-		collectionCard.setAcquiredPrice(acquiredPrice);
-		collectionCard.setQuantity(quantity);
-		collectionCard.setTradable(tradable);
-		collectionCard.setTradeSuggestion(tradeSuggestion);
-		loggedUser().getCollection().add(collectionCard);
-		loggedUser().update();
-		return ok();
-	}
 
 	private static void doLogin(User user) {
 		session().put("login", Crypto.encryptAES(user.getLogin()));

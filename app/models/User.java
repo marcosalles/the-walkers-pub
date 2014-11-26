@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,7 +26,7 @@ public class User extends Model {
 	private String password;
 	@Column(unique = true)
 	private String email;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<CollectionCard> collection;
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
 	private List<Deck> decks;
@@ -106,6 +105,12 @@ public class User extends Model {
 
 	public void setCollection(List<CollectionCard> collection) {
 		this.collection = collection;
+	}
+	
+	
+	public void addCardToCollection(CollectionCard card){
+		this.collection.add(card);
+		this.update();
 	}
 
 	@Override
