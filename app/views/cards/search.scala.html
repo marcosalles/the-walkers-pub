@@ -1,4 +1,6 @@
 @(loggedUser:User,list:List[magic.MagicCard],searchForm:Form[magic.MagicCard])
+@import shared.modal
+
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/custom/cards.css")">
 @hidden()=@{
 	if(loggedUser.getDecks.size > 0){"hidden"}
@@ -99,22 +101,46 @@ $("#deck-select").on("change", function() {
 });
 $(".card").on("click", function() {
 	var card = $(this);
-	var url = "@routes.DeckController.addCard()";
 	var deckId = $("#deck-select option:selected").val();
 	var cardId = card.attr("id").split("-")[1];
+	var where = prompt("Where are you adding this card?\n  1 - Deck\n  2 - Collection");
 	var quantity = prompt("How many of that card would you like to add?");
-	var isSide = prompt("Is it a side card? (y/n)");
-	isSide = (isSide=="y"?true:false);
+	var data = {};
+	var url = "@routes.DeckController.addCard";
+	var method = "@routes.DeckController.addCard.method"
+	if (where == 1) {
+		var isSide = prompt("Is it a side card? (y/N)");
+		isSide = (isSide == "y" ? true : false);
+		data = {
+				deckId: deckId,
+				cardId: cardId,
+				quantity: quantity,
+				isSide: isSide
+		};
+	}
+	else {
+		url = "@routes.CollectionController.addToCollection";
+		method = "@routes.CollectionController.addToCollection.method";
+		var tradable = prompt("Are you willing to trade this card? (Y/n)");
+		tradable = (tradable == "n" ? false : true);
+		var acquiredPrice = prompt("At what price did you get it? (1234.56)");
+		var tradeSuggestion = "";
+		if (tradable) {
+			tradeSuggestion = prompt("What are you willing to trade it for?");
+		}
+		data = {
+			cardId: cardId,
+			quantity: quantity,
+			tradable: tradable,
+			acquiredPrice: acquiredPrice,
+			tradeSuggestion: tradeSuggestion
+		};
+	}
 
 	var result = $.ajax({
 		url: url,
-		type: "post",
-		data: {
-			deckId: deckId,
-			cardId: cardId,
-			quantity: quantity,
-			side: isSide
-		}
+		method: method,
+		data: data
 	});
 	result.done(function(data) {
 		flash("success", data);

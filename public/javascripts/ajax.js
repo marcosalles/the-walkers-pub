@@ -13,7 +13,7 @@ function flash(key, message) {
 	alert.attr("id", "");
 	alert.addClass("alert-"+key);
 	alert.html(message);
-	$("#alert-template").after(alert);
+	$(".flash-sink").html(alert);
 };
 function ajax(url, method, data) {
 	return $.ajax(

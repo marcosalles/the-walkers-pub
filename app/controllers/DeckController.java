@@ -67,7 +67,7 @@ public class DeckController extends BaseController {
 			deck.addCard(deckCard);
 			deck.update();
 
-			return ok("card successfully added to deck ");
+			return ok("card successfully added to deck");
 		} catch (Exception e) {
 			return badRequest("failed to add card on deck");
 		}
@@ -84,7 +84,7 @@ public class DeckController extends BaseController {
 		deck.setName(form.field("name").value());
 		deck.setDescription(form.field("description").valueOr(""));
 		loggedUser().addDeck(deck).update();
-		flash().put("success", "deck created successfully!!");
+		flash("success", "deck created successfully!!");
 		return redirect(routes.CardController.search());
 	}
 

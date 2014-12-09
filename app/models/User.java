@@ -50,44 +50,49 @@ public class User extends Model {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public User setId(Long id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getLogin() {
 		return login;
 	}
 
-	public void setLogin(String login) {
+	public User setLogin(String login) {
 		if (login == null)
 			login = "";
 		this.login = login;
+		return this;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public User setPassword(String password) {
 		if (password == null)
 			password = "";
 		this.password = password;
+		return this;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public User setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 
 	public List<Deck> getDecks() {
 		return decks;
 	}
 
-	public void setDecks(List<Deck> decks) {
+	public User setDecks(List<Deck> decks) {
 		this.decks = decks;
+		return this;
 	}
 
 	public User addDeck(Deck deck) {
@@ -103,14 +108,19 @@ public class User extends Model {
 		return collection;
 	}
 
-	public void setCollection(List<CollectionCard> collection) {
+	public User setCollection(List<CollectionCard> collection) {
 		this.collection = collection;
+		return this;
 	}
 	
 	
-	public void addCardToCollection(CollectionCard card){
+	public User addToCollection(CollectionCard card){
 		this.collection.add(card);
-		this.update();
+		return this;
+	}
+
+	public boolean removeFromCollection(CollectionCard card){
+		return this.collection.remove(card);
 	}
 
 	@Override
@@ -137,8 +147,9 @@ public class User extends Model {
 		return location;
 	}
 
-	public void setLocation(String location) {
+	public User setLocation(String location) {
 		this.location = location;
+		return this;
 	}
 
 }

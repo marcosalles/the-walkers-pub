@@ -19,42 +19,52 @@ public class Ghost extends User {
 		return 0l;
 	}
 	@Override
-	public void setId(Long id) {
+	public User setId(Long id) {
+		return this;
 	}
 	@Override
 	public String getLogin() {
 		return "Ghost";
 	}
 	@Override
-	public void setLogin(String login) {
+	public User setLogin(String login) {
+		return this;
 	}
 	@Override
 	public String getPassword() {
 		return "";
 	}
 	@Override
-	public void setPassword(String password) {
+	public User setPassword(String password) {
+		return this;
 	}
 	@Override
 	public String getEmail() {
 		return "ghost@thewalkerspub.com";
 	}
 	@Override
-	public void setEmail(String email) {
+	public User setEmail(String email) {
+		return this;
 	}
 	@Override
-	public List<Deck> getDecks() {
-		return super.getDecks();
-	}
-	@Override
-	public void setDecks(List<Deck> decks) {
+	public User setDecks(List<Deck> decks) {
+		return this;
 	}
 	@Override
 	public User addDeck(Deck deck) {
 		return this;
 	}
 	@Override
-	public boolean equals(Object obj) {
-		return (obj instanceof Ghost);
+	public User setCollection(List<CollectionCard> collection) {
+		return this;
 	}
+	@Override
+	public User addToCollection(CollectionCard card) {
+		return this;
+	}
+	@Override
+	public User setLocation(String location) {
+		return this;
+	}
+	
 }

@@ -1,8 +1,12 @@
-<section class="container pure-g">
+<section class="container flash-sink pure-g">
 	<h3 id="alert-template" class="alert pure-u-1"></h3>
-@for(key <- flash.keySet) {
-	<h3 class="alert alert-@key pure-u-1">
-		@flash.get(key)
-	</h3>
-}
+	@for(keyType <- scala.List("danger", "success", "warning", "info")) {
+		@for(key <- flash.keySet) {
+			@if(key.startsWith(keyType)) {
+			<h3 class="alert alert-@keyType pure-u-1">
+				@flash.get(key)
+			</h3>
+			}
+		}
+	}@flash().clear()
 </section>

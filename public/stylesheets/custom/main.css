@@ -33,10 +33,10 @@ body {
 	background-color: rgba(107, 103, 255, 0.95);
 }
 .btn-secondary {
-	background-color: rgba(58, 224, 231, 0.95);/* #e7bf7e; */
+	background-color: rgba(58, 224, 231, 0.95);
 }
 .btn-action {
-	background-color: rgba(18, 159, 234, 0.95);/* #e7bf7e; */
+	background-color: rgba(18, 159, 234, 0.95);
 }
 .btn-destructive {
 	background-color: rgba(213, 121, 146, 0.95);
@@ -65,12 +65,21 @@ body {
 .dropdown-hidden {
 	display: none;
 }
-.padded {
-	padding: 0.5em;
-}
 .hide-block,
 .hide-inline {
 	display: none;
+}
+.padded {
+	padding: 0.5em;
+}
+.user-logged {
+	background-color: rgba(245, 255, 103, 0.95);
+}
+.user-logged.dropdown-mix {
+	background-color: rgba(215, 225, 73, 0.95);
+}
+.user-logged ~ .dropdown-content {
+	background-color: rgba(245, 255, 103, 0.95);
 }
 @media only screen and (min-width: 90em) { /* 1440 */
 }

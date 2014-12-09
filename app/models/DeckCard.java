@@ -1,7 +1,5 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +17,7 @@ public class DeckCard extends Model implements Card {
 	@GeneratedValue
 	private Long id;
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private BaseCard card;
+	private MagicCard card;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Deck deck;
 	private Integer quantity;
@@ -27,11 +25,8 @@ public class DeckCard extends Model implements Card {
 
 	public DeckCard() {
 	}
-	public DeckCard(BaseCard card) {
-		setCard(card);
-	}
 	public DeckCard(MagicCard card) {
-		setCard(card);
+		this.card = card;
 	}
 
 	public Long getId() {
@@ -41,15 +36,11 @@ public class DeckCard extends Model implements Card {
 		this.id = id;
 		return this;
 	}
-	public BaseCard getCard() {
+	public MagicCard getCard() {
 		return card;
 	}
-	public DeckCard setCard(BaseCard card) {
-		this.card = card;
-		return this;
-	}
 	public DeckCard setCard(MagicCard card) {
-		this.card = new BaseCard(card);
+		this.card = card;
 		return this;
 	}
 	public Deck getDeck() {
@@ -75,11 +66,7 @@ public class DeckCard extends Model implements Card {
 	}
 	@Override
 	public String getName() {
-		return card.getName();
-	}
-	@Override
-	public MagicCard getMagicCard() {
-		return card.getCard();
+		return card.getSuggestText();
 	}
 	@Override
 	public Long getMultiverseId() {
@@ -88,10 +75,6 @@ public class DeckCard extends Model implements Card {
 	@Override
 	public String getManaCost() {
 		return card.getManaCost();
-	}
-	@Override
-	public List<Deck> getDecks() {
-		return card.getDecks();
 	}
 	@Override
 	public String getText() {

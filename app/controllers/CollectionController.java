@@ -12,9 +12,34 @@ import daos.CardDao;
 import daos.CollectionDao;
 
 public class CollectionController extends BaseController {
-	
-	public static Result addToCollection(){
+
+	public static Result removeCard() {
 		DynamicForm form = Form.form().bindFromRequest();
+		String id = form.field("id").value();
+		CollectionCard card = CardDao.collectionCardById(id);
+		if (loggedUser().removeFromCollection(card)) {
+			loggedUser().update();
+			return ok("removed card from your collection");
+		}
+		return badRequest("card removal from collection failed");
+	}
+
+	public static Result tradeCard() {
+		DynamicForm form = Form.form().bindFromRequest();
+		form.field("userId");
+		return TODO;
+	}
+
+	public static Result addToCollection(){
+		Form<CollectionCard> form = Form.form(CollectionCard.class).bindFromRequest();
+		if (form.hasErrors()) {
+			return badRequest("failed to add card to collection");
+		}
+		String multiverseId = form.field("cardId").value();
+		MagicCard card = CardDao.cardByMultiverseId(multiverseId);
+		CollectionCard collectionCard = form.get();
+		collectionCard.setCard(card);
+		/*
 		int quantity = 0;
 		boolean tradable= false;
 		double acquiredPrice= 0;
@@ -27,21 +52,18 @@ public class CollectionController extends BaseController {
 			tradeSuggestion = form.field("tradeSuggestion").value();
 			cardId = form.field("cardId").value();
 		} catch (NumberFormatException e) {
-			flash().put("info","Something went wrong!!!!!");
+			flash("info","Something went wrong!!!!!");
 			return badRequest("failed to add card to collection");
 		}
 		
-		MagicCard card = CardDao.cardByMultiverseId(cardId);
 		CollectionCard collectionCard = new CollectionCard(card);
 		collectionCard.setAcquiredPrice(acquiredPrice);
 		collectionCard.setQuantity(quantity);
 		collectionCard.setTradable(tradable);
-		collectionCard.setTradeSuggestion(tradeSuggestion);
+		collectionCard.setTradeSuggestion(tradeSuggestion);*/
 		//TODO maybe put this in a DAO
-		loggedUser().addCardToCollection(collectionCard);
-		//TODO end
-		flash().put("info","Card successfully added to collection!");
-		return ok();
+		loggedUser().addToCollection(collectionCard).update();
+		return ok("card successfully added to collection");
 	}
 	/**
 	 * Esse método recebe uma carta e procura 
@@ -51,16 +73,14 @@ public class CollectionController extends BaseController {
 	 */
 	public static Result ownersForTrade(){
 		Form<MagicCard> form = Form.form(MagicCard.class).bindFromRequest();
-		List<User> owner = CollectionDao.owners(form.field("multiverseId").value());
+		List<User> owners = CollectionDao.owners(form.field("multiverseId").value());
 		//TODO have no idea how to return the users
 		return ok();
 	}
 	
-	public static Result userCollection(){
+	public static Result userCollection(Long id){
 		Form<User> form = Form.form(User.class).bindFromRequest();
-		Long userId = Long.parseLong(form.field("userId").value());
-		List<CollectionCard> collection = CollectionDao.userCollecion(userId);
-		//TODO não sei o que fazer aqui tambem
+		List<CollectionCard> collection = CollectionDao.userCollecion(id);
 		return ok();
 	}
 }

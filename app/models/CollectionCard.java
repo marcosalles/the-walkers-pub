@@ -1,7 +1,5 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +17,7 @@ public class CollectionCard extends Model implements Card {
 	@GeneratedValue
 	private Long id;
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private BaseCard card;
+	private MagicCard card;
 	private Integer quantity;
 	private Double acquiredPrice;
 	private String tradeSuggestion;
@@ -29,26 +27,19 @@ public class CollectionCard extends Model implements Card {
 	}
 	
 	public CollectionCard(MagicCard card){
-		setCard(card);
-	}
-	
-	public void setCard(MagicCard card) {
-		this.card = new BaseCard(card);
-	}
-
-	public CollectionCard(BaseCard card) {
 		this.card = card;
 	}
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public BaseCard getCard() {
+	public MagicCard getCard() {
 		return card;
 	}
-	public void setCard(BaseCard card) {
+	public void setCard(MagicCard card) {
 		this.card = card;
 	}
 	public Integer getQuantity() {
@@ -77,11 +68,7 @@ public class CollectionCard extends Model implements Card {
 	}
 	@Override
 	public String getName() {
-		return card.getName();
-	}
-	@Override
-	public MagicCard getMagicCard() {
-		return card.getCard();
+		return card.getSuggestText();
 	}
 	@Override
 	public Long getMultiverseId() {
@@ -90,10 +77,6 @@ public class CollectionCard extends Model implements Card {
 	@Override
 	public String getManaCost() {
 		return card.getManaCost();
-	}
-	@Override
-	public List<Deck> getDecks() {
-		return card.getDecks();
 	}
 	@Override
 	public String getText() {

@@ -9,22 +9,19 @@ import infra.Validator;
 import java.util.Arrays;
 import java.util.List;
 
-import models.CollectionCard;
 import models.Deck;
 import models.User;
-import models.magic.MagicCard;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.libs.Crypto;
 import play.mvc.Result;
 import views.html.decks.list;
 import views.html.shared.modular;
+import views.html.user.collection;
 import views.html.user.login;
 import views.html.user.menu;
 import views.html.user.profileForm;
 import views.html.user.signUp;
-import daos.CardDao;
 import daos.UserDao;
 
 public class UserController extends BaseController {
@@ -32,6 +29,7 @@ public class UserController extends BaseController {
 	public static final String LOGIN = "login";
 	public static final String MENU = "menu";
 	public static final String SIGN_UP = "sign-up";
+	public static final String COLLECTION = "collection";
 
 	public static Result content(String content) {
 		if (content.equalsIgnoreCase(LOGIN)) {
@@ -41,6 +39,8 @@ public class UserController extends BaseController {
 		} else if (content.equalsIgnoreCase(SIGN_UP)) {
 			Form<User> form = Form.form(User.class);
 			return ok(signUp.render(form));
+		} else if (content.equalsIgnoreCase(COLLECTION)) {
+			return ok(collection.render(loggedUser()));
 		}
 		return badRequest("content not found");
 	}
@@ -55,7 +55,7 @@ public class UserController extends BaseController {
 		Form<User> form = Form.form(User.class).bindFromRequest();
 		String fromLogin = form.field("fromLogin").value();
 		if (fromLogin != null) {
-			flash().put("info", "Fill the form to complete your registration!");
+			flash("info", "Fill the form to complete your registration!");
 			return wrapOk(signUp.render(form));
 		}
 		User user = form.get();
@@ -65,7 +65,7 @@ public class UserController extends BaseController {
 			user.setPassword(Crypto.encryptAES(password));
 			user = User.fromUser(user);
 			user.save();
-			flash().put("success", String.format("Account '%s' created", user.getLogin()));
+			flash("success", String.format("Account '%s' created", user.getLogin()));
 			doLogin(user);
 			return redirect(routes.UserController.profileForm(user.getId()));
 		}
@@ -75,7 +75,7 @@ public class UserController extends BaseController {
 			if (!error.key().equals("global")) {
 				invalidForm.reject(error);
 			} else {
-				flash().put("danger", error.message());
+				flash("danger", error.message());
 			}
 		}
 		return wrapBadRequest(signUp.render(invalidForm));
@@ -100,14 +100,14 @@ public class UserController extends BaseController {
 		}
 
 		for (ValidationError error : validator.getErrors()) {
-			flash().put("danger", error.message());
+			flash("danger", error.message());
 		}
 		return toPreviousUrl();
 	}
 
 	public static Result logout() {
 		session().clear();
-		flash().put("warning", "Logged out successfully!!");
+		flash("warning", "Logged out successfully!!");
 		return redirect(routes.MainController.home());
 	}
 
@@ -132,7 +132,7 @@ public class UserController extends BaseController {
 			String password = form.field("password").value();
 			user.setPassword(Crypto.encryptAES(password));
 			user.update();
-			flash().put("success", String.format("Account '%s' updated", user.getLogin()));
+			flash("success", String.format("Account '%s' updated", user.getLogin()));
 			doLogin(user);
 			return redirect(routes.UserController.profileForm(user.getId()));
 		}
@@ -142,7 +142,7 @@ public class UserController extends BaseController {
 			if (!error.key().equals("global")) {
 				invalidForm.reject(error);
 			} else {
-				flash().put("danger", error.message());
+				flash("danger", error.message());
 			}
 		}
 		return wrapBadRequest(profileForm.render(invalidForm));
@@ -153,10 +153,15 @@ public class UserController extends BaseController {
 		List<Deck> decks = user.getDecks();
 		return wrapOk(list.render(decks));
 	}
-	
+
+	public static Result collection(Long id) {
+		Module signUp = new Module(routes.UserController.content(COLLECTION), SIGN_UP, 5);
+		List<Module> modules = Arrays.asList(signUp);
+		return wrapOk(modular.render(modules));
+	}
 
 	private static void doLogin(User user) {
 		session().put("login", Crypto.encryptAES(user.getLogin()));
-		flash().put("info", "Logged in successfully!!");
+		flash("info", "Logged in successfully!!");
 	}
 }

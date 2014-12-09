@@ -1,0 +1,11 @@
+@()(content:Html)
+<div class="modal-background">
+	<a id="close" href="#">FECHAR</a>
+	@content
+</div>
+<script type="text/javascript">
+$("#close").on("click", function (event) {
+	$("body").removeClass("modal-showing");
+	$(".modal-background").remove();
+});
+</script>

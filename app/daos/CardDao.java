@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import models.CollectionCard;
 import models.magic.MagicCard;
 import play.data.Form;
 import play.db.ebean.Model.Finder;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 
 public class CardDao {
@@ -56,6 +58,14 @@ public class CardDao {
 
 	public static List<MagicCard> list() {
 		return find.all();
+	}
+
+	public static CollectionCard collectionCardById(String id) {
+		Long cardId = Long.parseLong(id);
+		return Ebean.createQuery(CollectionCard.class)
+				.where()
+				.eq("", cardId)
+				.findUnique();
 	}
 
 //	r: 66 terreno

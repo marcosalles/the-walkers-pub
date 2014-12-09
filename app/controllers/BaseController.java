@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Random;
+
 import infra.Module;
 import models.User;
 import play.api.libs.Crypto;
@@ -12,6 +14,8 @@ import views.html.shared.template;
 import daos.UserDao;
 
 public class BaseController extends Controller {
+
+	private static Random rng = new Random();
 
 	protected static Result toPreviousUrl() {
 		String url = session().get("currentUrl");
@@ -61,5 +65,12 @@ public class BaseController extends Controller {
 		}
 		User user = UserDao.userByLogin(login);
 		return user;
+	}
+
+	public static void flash(String key, String message) {
+		if (flash().get(key) != null) {
+			key += rng.nextFloat();
+		}
+		flash().put(key, message);
 	}
 }

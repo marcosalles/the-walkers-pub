@@ -16,6 +16,7 @@ GET		/user/logout							controllers.UserController.logout()
 GET		/user/:id/settings						controllers.UserController.settingsForm(id: Long)
 GET		/user/:id/profile						controllers.UserController.profileForm(id: Long)
 GET		/user/:id/decks							controllers.UserController.decks(id: Long)
+GET		/user/:id/collection					controllers.UserController.collection(id: Long)
 
 # Deck
 GET		/content/decks/:content					controllers.DeckController.content(content:String)
@@ -28,6 +29,11 @@ GET		/deck/random							controllers.DeckController.randomDeck()
 # Card
 GET		/card/search							controllers.CardController.search()
 GET		/card/:id								controllers.CardController.card(id:String)
+
+# Collection
+GET		/collection/owners						controllers.CollectionController.ownersForTrade()
+GET		/collection/user/:id					controllers.CollectionController.userCollection(id:Long)
+POST	/collection/add							controllers.CollectionController.addToCollection()
 
 # Map static resources from the /public folder to the /assets URL path
 GET		/assets/*file							controllers.Assets.at(path="/public", file)
