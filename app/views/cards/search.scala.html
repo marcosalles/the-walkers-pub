@@ -137,11 +137,7 @@ $(".card").on("click", function() {
 		};
 	}
 
-	var result = $.ajax({
-		url: url,
-		method: method,
-		data: data
-	});
+	var result = ajax(url,method,data);
 	result.done(function(data) {
 		flash("success", data);
 	});

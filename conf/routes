@@ -34,6 +34,7 @@ GET		/card/:id								controllers.CardController.card(id:String)
 GET		/collection/owners						controllers.CollectionController.ownersForTrade()
 GET		/collection/user/:id					controllers.CollectionController.userCollection(id:Long)
 POST	/collection/add							controllers.CollectionController.addToCollection()
+POST	/collection/remove						controllers.CollectionController.removeCard()
 
 # Map static resources from the /public folder to the /assets URL path
 GET		/assets/*file							controllers.Assets.at(path="/public", file)

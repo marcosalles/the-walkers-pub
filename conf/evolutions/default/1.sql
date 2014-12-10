@@ -3,12 +3,6 @@
 
 # --- !Ups
 
-create table base_card (
-  id                        bigint not null,
-  card_id                   bigint,
-  constraint pk_base_card primary key (id))
-;
-
 create table collection_card (
   id                        bigint not null,
   user_id                   bigint not null,
@@ -80,8 +74,6 @@ create table users (
   constraint pk_users primary key (id))
 ;
 
-create sequence base_card_seq;
-
 create sequence collection_card_seq;
 
 create sequence deck_seq;
@@ -94,26 +86,22 @@ create sequence color_seq;
 
 create sequence users_seq;
 
-alter table base_card add constraint fk_base_card_card_1 foreign key (card_id) references card (id) on delete restrict on update restrict;
-create index ix_base_card_card_1 on base_card (card_id);
-alter table collection_card add constraint fk_collection_card_users_2 foreign key (user_id) references users (id) on delete restrict on update restrict;
-create index ix_collection_card_users_2 on collection_card (user_id);
-alter table collection_card add constraint fk_collection_card_card_3 foreign key (card_id) references card (id) on delete restrict on update restrict;
-create index ix_collection_card_card_3 on collection_card (card_id);
-alter table deck add constraint fk_deck_owner_4 foreign key (owner_id) references users (id) on delete restrict on update restrict;
-create index ix_deck_owner_4 on deck (owner_id);
-alter table deck_card add constraint fk_deck_card_card_5 foreign key (card_id) references card (id) on delete restrict on update restrict;
-create index ix_deck_card_card_5 on deck_card (card_id);
-alter table deck_card add constraint fk_deck_card_deck_6 foreign key (deck_id) references deck (id) on delete restrict on update restrict;
-create index ix_deck_card_deck_6 on deck_card (deck_id);
+alter table collection_card add constraint fk_collection_card_users_1 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_collection_card_users_1 on collection_card (user_id);
+alter table collection_card add constraint fk_collection_card_card_2 foreign key (card_id) references card (id) on delete restrict on update restrict;
+create index ix_collection_card_card_2 on collection_card (card_id);
+alter table deck add constraint fk_deck_owner_3 foreign key (owner_id) references users (id) on delete restrict on update restrict;
+create index ix_deck_owner_3 on deck (owner_id);
+alter table deck_card add constraint fk_deck_card_card_4 foreign key (card_id) references card (id) on delete restrict on update restrict;
+create index ix_deck_card_card_4 on deck_card (card_id);
+alter table deck_card add constraint fk_deck_card_deck_5 foreign key (deck_id) references deck (id) on delete restrict on update restrict;
+create index ix_deck_card_deck_5 on deck_card (deck_id);
 
 
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
-
-drop table if exists base_card;
 
 drop table if exists collection_card;
 
@@ -128,8 +116,6 @@ drop table if exists color;
 drop table if exists users;
 
 SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists base_card_seq;
 
 drop sequence if exists collection_card_seq;
 

@@ -16,10 +16,19 @@ public class CollectionController extends BaseController {
 	public static Result removeCard() {
 		DynamicForm form = Form.form().bindFromRequest();
 		String id = form.field("id").value();
+		int quantity = Integer.parseInt(form.field("quantity").value());
 		CollectionCard card = CardDao.collectionCardById(id);
-		if (loggedUser().removeFromCollection(card)) {
-			loggedUser().update();
-			return ok("removed card from your collection");
+		if (quantity >= card.getQuantity()) {
+			if (loggedUser().removeFromCollection(card)) {
+				loggedUser().update();
+				String name = card.getName();
+				card.delete();
+				return ok("removed all "+name+"'s from your collection");
+			}
+		} else {
+			card.setQuantity(card.getQuantity()-quantity);
+			card.update();
+			return ok("removed "+quantity+" x "+card.getName()+" from your collection");
 		}
 		return badRequest("card removal from collection failed");
 	}

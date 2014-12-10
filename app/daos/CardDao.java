@@ -64,7 +64,7 @@ public class CardDao {
 		Long cardId = Long.parseLong(id);
 		return Ebean.createQuery(CollectionCard.class)
 				.where()
-				.eq("", cardId)
+				.eq("id", cardId)
 				.findUnique();
 	}
 

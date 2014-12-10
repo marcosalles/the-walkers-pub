@@ -16,11 +16,10 @@ function flash(key, message) {
 	$(".flash-sink").html(alert);
 };
 function ajax(url, method, data) {
-	return $.ajax(
-	{
+	return $.ajax({
 		url: url,
-		data: data,
-		type: method
+		method: method,
+		data: data
 	});	
 };
 $(function(){

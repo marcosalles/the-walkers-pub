@@ -2,9 +2,46 @@
 @if(!loggedUser.getCollection.isEmpty){
 	<ul>
 		@for( card <- loggedUser.getCollection) {
-		<li>@{card.getQuantity}x @card.getName</li>
+		<li class="card" id="collectioncard-@card.getId">@card.getQuantity x @card.getName</li>
 		}
 	</ul>
 } else {
 <h2>No cards here. Come back later.. =(</h2>
 }
+<script type="text/javascript">
+$(".card").on("click", function() {
+	var card = $(this);
+	var cardId = card.attr("id").split("-")[1];
+	var remove = prompt("Do you want to remove this card from your collection? (y/N)");
+	remove = (remove == "y" ? true : false);
+	if (remove) {
+		var quantity = prompt("How many would you like to remove?");
+		var url = "@routes.CollectionController.removeCard";
+		var method = "@routes.CollectionController.removeCard.method";
+		var data = {
+			id: cardId,
+			quantity: quantity
+		};
+		var result = $.ajax({
+			url:url,
+			method:method,
+			data:data
+		});
+		result.done(function(data) {
+			flash("success", data);
+			if (data.indexOf("all") > -1) {
+				card.remove();
+			} else {
+				console.log(data);
+				var oq = card.html().split(" ")[0];
+				var q = data.split(" ")[1];
+				var n = data.split(" ")[3];
+				card.html((oq-q)+" x "+n);
+			}
+		});
+		result.fail(function(jqXHR, textStatus, errorThrown) {
+			flash("danger", jqXHR.responseText);
+		});
+	}
+});
+</script>
