@@ -25,7 +25,7 @@ public class TradeController extends BaseController {
 		}
 		return (b ? badRequest("Something went wrong!!") : ok("trade started"));
 	}
-
+	
 	public static Result tradeConclude() {
 		Form<Trade> form = Form.form(Trade.class).bindFromRequest();
 		boolean b = true;
@@ -35,9 +35,12 @@ public class TradeController extends BaseController {
 			User interested = trade.getInterested();
 			interested.getCollection().add(trade.getCard());
 			interested.save();
+			trade.getCard().setTradable(false);
+			trade.getCard().setTradeSuggestion("was traded by" + trade.getProposoal()+ "user " + trade.getCardOwner().getLogin());
 			User owner =trade.getCardOwner();
 			owner.getCollection().remove(trade.getCard());
 			owner.save();
+			trade.delete();
 		}
 		return (b ? ok("Something went wrong") : ok("todo"));
 	}
