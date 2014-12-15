@@ -63,6 +63,14 @@ create table color (
   constraint pk_color primary key (id))
 ;
 
+create table trade (
+  id                        bigint not null,
+  interested_id             bigint,
+  owner_id                  bigint,
+  proposoal                 varchar(255),
+  constraint pk_trade primary key (id))
+;
+
 create table users (
   id                        bigint not null,
   login                     varchar(255),
@@ -84,6 +92,8 @@ create sequence card_seq;
 
 create sequence color_seq;
 
+create sequence trade_seq;
+
 create sequence users_seq;
 
 alter table collection_card add constraint fk_collection_card_users_1 foreign key (user_id) references users (id) on delete restrict on update restrict;
@@ -96,6 +106,10 @@ alter table deck_card add constraint fk_deck_card_card_4 foreign key (card_id) r
 create index ix_deck_card_card_4 on deck_card (card_id);
 alter table deck_card add constraint fk_deck_card_deck_5 foreign key (deck_id) references deck (id) on delete restrict on update restrict;
 create index ix_deck_card_deck_5 on deck_card (deck_id);
+alter table trade add constraint fk_trade_interested_6 foreign key (interested_id) references users (id) on delete restrict on update restrict;
+create index ix_trade_interested_6 on trade (interested_id);
+alter table trade add constraint fk_trade_owner_7 foreign key (owner_id) references users (id) on delete restrict on update restrict;
+create index ix_trade_owner_7 on trade (owner_id);
 
 
 
@@ -113,6 +127,8 @@ drop table if exists card;
 
 drop table if exists color;
 
+drop table if exists trade;
+
 drop table if exists users;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -126,6 +142,8 @@ drop sequence if exists deck_card_seq;
 drop sequence if exists card_seq;
 
 drop sequence if exists color_seq;
+
+drop sequence if exists trade_seq;
 
 drop sequence if exists users_seq;
 

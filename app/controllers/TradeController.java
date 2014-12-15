@@ -12,7 +12,7 @@ public class TradeController extends BaseController {
 	 //TODO melhorar
 	public static Result listTrades() {
 		List<Trade> trades = TradeDao.tradesByUser(loggedUser());
-		return (trades.isEmpty() ? ok("No trades") : ok("todo"));
+		return (trades.isEmpty() ? ok("No trades") : ok(trades+""));
 	}
 
 	public static Result addTrades() {
@@ -36,8 +36,8 @@ public class TradeController extends BaseController {
 			interested.getCollection().add(trade.getCard());
 			interested.save();
 			trade.getCard().setTradable(false);
-			trade.getCard().setTradeSuggestion("was traded by" + trade.getProposoal()+ "user " + trade.getCardOwner().getLogin());
-			User owner =trade.getCardOwner();
+			trade.getCard().setTradeSuggestion("was traded by" + trade.getProposoal()+ "user " + trade.getOwner().getLogin());
+			User owner =trade.getOwner();
 			owner.getCollection().remove(trade.getCard());
 			owner.save();
 			trade.delete();

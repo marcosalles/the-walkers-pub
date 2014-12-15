@@ -14,7 +14,7 @@ public class TradeDao {
 	public static List<Trade> tradesByUser(User user) {
 		List<Trade> trades = find
 				.where()
-				.or(com.avaje.ebean.Expr.eq("cardOwner", user),
+				.or(com.avaje.ebean.Expr.eq("owner", user),
 						com.avaje.ebean.Expr.eq("interested", user)).findList();
 		return trades;
 	}
@@ -24,7 +24,7 @@ public class TradeDao {
 				.where()
 				.and(com.avaje.ebean.Expr.eq("card", card),
 						com.avaje.ebean.Expr.or(
-								com.avaje.ebean.Expr.eq("cardOwner", user),
+								com.avaje.ebean.Expr.eq("owner", user),
 								com.avaje.ebean.Expr.eq("interested", user)))
 				.findList();
 		return trades;

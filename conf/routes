@@ -17,6 +17,7 @@ GET		/user/:id/settings						controllers.UserController.settingsForm(id: Long)
 GET		/user/:id/profile						controllers.UserController.profileForm(id: Long)
 GET		/user/:id/decks							controllers.UserController.decks(id: Long)
 GET		/user/:id/collection					controllers.UserController.collection(id: Long)
+GET 	/user/trades							controllers.TradeController.listTrades()
 
 # Deck
 GET		/content/decks/:content					controllers.DeckController.content(content:String)

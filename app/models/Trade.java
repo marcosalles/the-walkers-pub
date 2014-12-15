@@ -1,11 +1,12 @@
 package models;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import play.db.ebean.Model;
-
+@Entity
 public class Trade extends Model {
 	@Id
 	@GeneratedValue
@@ -13,7 +14,7 @@ public class Trade extends Model {
 	@ManyToOne
 	private User interested;
 	@ManyToOne
-	private User cardOwner;
+	private User owner;
 	//Magic Card ou Collection card??TODO
 	private CollectionCard card;
 	private String proposoal;
@@ -30,8 +31,8 @@ public class Trade extends Model {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public User getCardOwner() {
-		return cardOwner;
+	public User getOwner() {
+		return owner;
 	}
 	public User getInterested() {
 		return interested;
@@ -39,8 +40,8 @@ public class Trade extends Model {
 	public void setInterested(User interested) {
 		this.interested = interested;
 	}
-	public void setCardOwner(User cardOwner) {
-		this.cardOwner = cardOwner;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 	public String getProposoal() {
 		return proposoal;
