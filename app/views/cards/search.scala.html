@@ -103,7 +103,8 @@ $(".card").on("click", function() {
 	var card = $(this);
 	var deckId = $("#deck-select option:selected").val();
 	var cardId = card.attr("id").split("-")[1];
-	var where = prompt("Where are you adding this card?\n  1 - Deck\n  2 - Collection");
+	var where = prompt("Where are you adding this card?\n  1 - Deck\n  2 - Collection\n 3 - Trade\n 0 - Cancel");
+	if(where == 0 ) return false;
 	var quantity = prompt("How many of that card would you like to add?");
 	var data = {};
 	var url = "@routes.DeckController.addCard";

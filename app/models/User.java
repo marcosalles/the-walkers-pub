@@ -124,6 +124,12 @@ public class User extends Model {
 		return this.collection.remove(card);
 	}
 
+	public CollectionCard cardByMultiverseId(long multiverseId){
+		for(CollectionCard c: this.collection){
+			if(c.getMultiverseId()==multiverseId) return c;
+		}
+		return null;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
