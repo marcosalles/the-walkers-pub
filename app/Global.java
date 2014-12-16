@@ -2,10 +2,14 @@
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import play.GlobalSettings;
+import play.Logger;
 import play.libs.F.Promise;
+import play.libs.Json;
 import play.mvc.Action;
 import play.mvc.Http.Context;
 import play.mvc.Http.Request;
@@ -29,11 +33,15 @@ public class Global extends GlobalSettings {
 		return new Action.Simple() {
 			@Override
 			public Promise<SimpleResult> call(Context context) throws Throwable {
-				Request actionRequest = context.request();
-				String currentUrl = actionRequest.path();
+				Request request = context.request();
+				String currentUrl = request.path();
 				if (!currentUrl.startsWith(CONTENT)) {
+					Map<String,String> map = new HashMap<String,String>();
+					map.put("remoteAddress", request.remoteAddress());
+					map.put("uri", String.format("%s - %s", request.method(), currentUrl));
+					Logger.info(Json.toJson(map).toString());
 					Session session = context.session();
-					if (!EXCEPTIONS.contains(currentUrl) && actionRequest.method().equalsIgnoreCase("get")) {
+					if (!EXCEPTIONS.contains(currentUrl) && request.method().equalsIgnoreCase("get")) {
 						String previousUrl = previousUrl(session);
 						session.put("previousUrl", previousUrl);
 						session.put("currentUrl", currentUrl);

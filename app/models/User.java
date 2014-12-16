@@ -44,6 +44,7 @@ public class User extends Model {
 
 	public User() {
 		decks = new ArrayList<Deck>();
+		collection = new ArrayList<CollectionCard>();
 	}
 
 	public Long getId() {
