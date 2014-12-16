@@ -26,5 +26,33 @@
 	@shared.flashmessages()
 	@content
 	@footer
+<script type="text/javascript">
+	$("body").on("click", ".toggle", function(event) {
+		event.preventDefault();
+		var info = $(this).parent().find(".toggle-content");
+		if (info.hasClass("hidden")) {
+			info.removeClass("hidden");
+		} else {
+			info.addClass("hidden");
+		}
+	});
+
+	$(function(){
+		var templates = $(".template").sort(asc_sort);
+		templates.each(function(){
+			var template = $(this);
+			var id = template.attr("id");
+			var url = template.attr("data-url");
+			var method = "get";
+			var result = ajax(url, method, {});
+			result.done(function(data) {
+				template.html(data);
+			});
+			result.fail(function(jqXHR, textStatus, errorThrown) {
+				template.html("error loading "+id+".. "+jqXHR.responseText);
+			});
+		});	
+	});
+</script>
 </body>
 </html>

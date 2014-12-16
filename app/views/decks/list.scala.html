@@ -1,8 +1,8 @@
 @(list:List[Deck])
 @if(list.size > 0){
 <ul>
-	@for(deck <- list) {
-	<li>
+	@for((deck, index) <- list.zipWithIndex) {
+	<li style="@if(index < list.size - 1){border-bottom: 1px solid #ddd;}padding: 3px 0;">
 		@decks.deck(deck)
 	</li>
 	}

@@ -1,7 +1,11 @@
 @()(content:Html)
 <div class="modal-background">
-	<a id="close" href="#">FECHAR</a>
-	@content
+	<section class="container modal-container pure-g">
+		<a id="close" href="#" class="btn btn-modal-close">X</a>
+		<article class="content pure-u-1 pure-u-l1-1 pure-u-x1-1">
+			<div id="myid" class="block modal-block pure-u-11-12">@content</div>
+		</article>
+	</section>
 </div>
 <script type="text/javascript">
 $("#close").on("click", function (event) {
