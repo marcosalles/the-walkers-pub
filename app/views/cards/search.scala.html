@@ -104,13 +104,20 @@ $(".card").on("click", function() {
 	var deckId = $("#deck-select option:selected").val();
 	var cardId = card.attr("id").split("-")[1];
 	var where = prompt("Where are you adding this card?\n  1 - Deck\n  2 - Collection\n 3 - Trade\n 0 - Cancel");
-	if(where == 0 ) return false;
+	if(where == 0 || where == null ) return false;
+	if(where ==3){
+		 $("<form action='/trade' method='get'><input name='multiverseId' value='"+cardId+"'></form>").submit();
+		return false;
+	}
 	var quantity = prompt("How many of that card would you like to add?");
+	if(quantity ==null) return false;
 	var data = {};
 	var url = "@routes.DeckController.addCard";
 	var method = "@routes.DeckController.addCard.method"
+	
 	if (where == 1) {
 		var isSide = prompt("Is it a side card? (y/N)");
+		if(isSide == null) return false;
 		isSide = (isSide == "y" ? true : false);
 		data = {
 				deckId: deckId,
@@ -123,8 +130,10 @@ $(".card").on("click", function() {
 		url = "@routes.CollectionController.addToCollection";
 		method = "@routes.CollectionController.addToCollection.method";
 		var tradable = prompt("Are you willing to trade this card? (Y/n)");
+		if(tradable == null) return false;
 		tradable = (tradable == "n" ? false : true);
 		var acquiredPrice = prompt("At what price did you get it? (1234.56)");
+		if(acquiredPrice == null) return false;
 		var tradeSuggestion = "";
 		if (tradable) {
 			tradeSuggestion = prompt("What are you willing to trade it for?");

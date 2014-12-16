@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,13 +12,14 @@ public class Trade extends Model {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User interested;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User owner;
 	//Magic Card ou Collection card??TODO
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private CollectionCard card;
-	private String proposoal;
+	private String proposal;
 	
 	public CollectionCard getCard() {
 		return card;
@@ -43,11 +45,11 @@ public class Trade extends Model {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-	public String getProposoal() {
-		return proposoal;
+	public String getProposal() {
+		return proposal;
 	}
-	public void setProposoal(String proposoal) {
-		this.proposoal = proposoal;
+	public void setProposal(String proposal) {
+		this.proposal = proposal;
 	}
 	
 }

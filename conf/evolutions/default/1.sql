@@ -67,7 +67,8 @@ create table trade (
   id                        bigint not null,
   interested_id             bigint,
   owner_id                  bigint,
-  proposoal                 varchar(255),
+  card_id                   bigint,
+  proposal                  varchar(255),
   constraint pk_trade primary key (id))
 ;
 
@@ -110,6 +111,8 @@ alter table trade add constraint fk_trade_interested_6 foreign key (interested_i
 create index ix_trade_interested_6 on trade (interested_id);
 alter table trade add constraint fk_trade_owner_7 foreign key (owner_id) references users (id) on delete restrict on update restrict;
 create index ix_trade_owner_7 on trade (owner_id);
+alter table trade add constraint fk_trade_card_8 foreign key (card_id) references collection_card (id) on delete restrict on update restrict;
+create index ix_trade_card_8 on trade (card_id);
 
 
 

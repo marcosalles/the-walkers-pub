@@ -1,30 +1,29 @@
 package daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.CollectionCard;
 import models.User;
+import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 
 public class CollectionDao {
 	
-	
-	/**
-	 * @param String multiverseId
-	 * Esse método recebe uma carta e procura 
-	 * pessoas que tenham a carta e está marcada
-	 * como possivel troca
-	 * @return List<User>
-	 */
-	public static  List<User> owners(String card){
-		List<User> owners = Ebean.find(User.class)
-				.select("*")
-				.fetch("collection")
-				.where().and(com.avaje.ebean.Expr.eq("collection.magicCard.multiverseId", card),
-						com.avaje.ebean.Expr.eq("collection.tradable", "true"))
-				.findList();
-		return owners;			
+	private static Finder<Long,User> find = new Finder<Long,User>(Long.class,User.class);
+
+	public static  List<User> owners(String multiverseId){
+		List<SqlRow> list = Ebean.createSqlQuery("select u.id from users as u join collection_card as cc on cc.user_id = u.id join card as c on c.id = cc.card_id where cc.tradable = true and c.multiverse_id = :id")
+		.setParameter("id", multiverseId)
+		.findList();
+		List<Long> ownerIds = new ArrayList<Long>();
+		for (SqlRow sqlRow : list) {
+			Long id = sqlRow.getLong("id");
+			ownerIds.add(id);
+		}
+		return UserDao.userByIds(ownerIds);	
 	}
 	
 	/**

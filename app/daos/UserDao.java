@@ -22,6 +22,11 @@ public class UserDao {
 		return user;
 	}
 
+	public static List<User> userByIds(List<Long> ids) {
+		List<User> users = find.where().in("id", ids).findList();
+		return users;
+	}
+
 	public static User userByLogin(String login) {
 		User user = find.where()
 				.ieq("login", login)

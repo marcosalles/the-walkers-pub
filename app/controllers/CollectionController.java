@@ -9,6 +9,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Result;
 import views.html.user.collection;
+import views.html.user.owners;
 import daos.CardDao;
 import daos.CollectionDao;
 import daos.UserDao;
@@ -57,8 +58,8 @@ public class CollectionController extends BaseController {
 	public static Result ownersForTrade(){
 		Form<MagicCard> form = Form.form(MagicCard.class).bindFromRequest();
 		String multiverseId = form.field("multiverseId").value();
-		List<User> owners = CollectionDao.owners(multiverseId);
-		return ok();//ok(owners.render(owners));
+		List<User> ownersList = CollectionDao.owners(multiverseId);
+		return wrapOk(owners.render(ownersList,Long.parseLong(multiverseId)));
 	}
 	
 	public static Result userCollection(Long id){

@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import play.Logger;
 import play.db.ebean.Model;
+import play.libs.Json;
 
 @Entity
 @Table(name = "users")
@@ -124,9 +126,11 @@ public class User extends Model {
 		return this.collection.remove(card);
 	}
 
-	public CollectionCard cardByMultiverseId(long multiverseId){
+	public CollectionCard cardByMultiverseId(Long multiverseId){
 		for(CollectionCard c: this.collection){
-			if(c.getMultiverseId()==multiverseId) return c;
+			if(c.getMultiverseId().equals(multiverseId)){
+				return c;
+			}
 		}
 		return null;
 	}

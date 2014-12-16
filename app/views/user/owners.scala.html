@@ -1,0 +1,21 @@
+@(owners: List[User],multiverseId: Long)
+@card(owner:User) = @{owner.cardByMultiverseId(multiverseId)}
+<ul id="tradeCards">
+@for(owner <- owners){
+	<li data-id="@card(owner).getId" data-owner="@owner.getId">@card(owner).getQuantity x @card(owner).getName - @owner.getLogin wants to trade for @card(owner).getTradeSuggestion<li>
+}
+</ul>
+<script type = "text/javascript">
+	$("#tradeCards").on("click","li",function(){
+		var cardId = $(this).attr("data-id");
+		var ownerId = $(this).attr("data-owner");
+		var proposal = prompt("Make your offer:");
+		if(proposal == null)return false;
+		var data = {
+			cardId : cardId,
+			ownerId : ownerId,
+			proposal : proposal
+		};
+		ajax("/createtrade","post",data);
+	})
+</script>

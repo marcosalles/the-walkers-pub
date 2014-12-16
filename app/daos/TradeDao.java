@@ -18,6 +18,9 @@ public class TradeDao {
 						com.avaje.ebean.Expr.eq("interested", user)).findList();
 		return trades;
 	}
+	public static Trade getById(Long id){
+		return find.byId(id);
+	}
 
 	public static List<Trade> tradeByCardUser(User user, Card card) {
 		List<Trade> trades = find

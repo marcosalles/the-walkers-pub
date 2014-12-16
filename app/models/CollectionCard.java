@@ -29,7 +29,11 @@ public class CollectionCard extends Model implements Card {
 	public CollectionCard(MagicCard card){
 		this.card = card;
 	}
-	
+	public CollectionCard(CollectionCard card) {
+		this.card = card.getCard();
+		this.quantity = card.getQuantity();
+		this.tradable = false;
+	}
 	public Long getId() {
 		return id;
 	}

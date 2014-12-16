@@ -1,0 +1,30 @@
+@(trades: List[Trade], loggedUser:User)
+<ul id="trades">
+@for(trade <- trades){
+		<li data-id="@trade.getId">@trade.getCard.getQuantity
+		 x	@trade.getCard.getName
+		  , 
+		   Owner: @trade.getOwner.getLogin
+		   , Interested: @trade.getInterested.getLogin
+		   , proposal : @trade.getProposal </li>
+}
+</ul>
+
+<script type = "text/javascript">
+	$("#trades").on("click","li",function(){
+		var tradeId = $(this).attr("data-id");
+		var confirmation = prompt("Did you really wanna trade? (Y/n)");
+		if(confirmation=="n" |confirmation== null) return false; 
+		var data = {
+			tradeId : tradeId,
+		};
+		var result = ajax("/concludetrade","post",data);
+		$("<a href='@routes.UserController.collection(loggedUser.getId)'>").click();
+		result.done(function(data) {
+			flash("success", data);
+		});
+		result.fail(function(jqXHR, textStatus, errorThrown) {
+			flash("danger", jqXHR.responseText);
+		});
+	})
+</script>
